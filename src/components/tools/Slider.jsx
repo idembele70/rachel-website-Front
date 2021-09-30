@@ -1,7 +1,6 @@
 import React from "react"
 import { styled } from "@mui/material"
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@mui/icons-material"
-import PropTypes from "prop-types"
 
 const Container = styled("div")({
   width: "100%",
@@ -11,25 +10,28 @@ const Container = styled("div")({
   backgroundColor: "coral",
   position: "relative"
 })
-const Arrow = styled("div")({
-  width: 50,
-  height: 50,
-  backgroundColor: "#fff7f7",
-  borderRadius: "50%",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  position: "absolute",
-  top: 0,
-  bottom: 0,
-  left: (props) => (props.direction === "left" && 10) || "",
-  margin: "auto"
-})
-Arrow.propTypes = {
-  direction: PropTypes.string.isRequired
-}
-
 function Slider() {
+  const Arrow = styled("div")`
+    width: 50px;
+    height: 50px;
+    background-color: #fff7f7;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: ${({
+    // @ts-ignore
+    direction
+  }) => direction === "left" && "10px"};
+    right: ${({
+    // @ts-ignore
+    direction
+  }) => direction === "right" && "10px"};
+    margin: auto;
+  `
   return (
     <Container>
       <Arrow direction="left">
@@ -43,3 +45,4 @@ function Slider() {
 }
 
 export default Slider
+
