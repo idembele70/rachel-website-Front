@@ -4,5 +4,31 @@
     "login":"Se\u00A0connecter",
     "signup":"S'incrire"
   },
-  "announcement" : "Super Deal! Free Shipping on Orders Over $50"
+  "announcement" : "Super Deal! Free Shipping on Orders Over $50",
+  "slider" : {
+    "info" :{
+      "button" : "ACHETEZ MAINTENANT",
+      "summer" : {
+        "description" : "NE RATEZ PAS LA DERNIERE REDUCTION DE 30% SUR LES NOUVEAUTÉS",
+        "title" : "Solde d'été"
+      },
+      "winter" : {
+        "description" : "NE RATEZ PAS LA DERNIERE REDUCTION DE 50% SUR LES NOUVEAUTÉS",
+        "title" : "Solde d'hiver"
+      },
+      "fall" : {
+        "description" : "NE RATEZ PAS LA DERNIERE REDUCTION DE 40% SUR LES NOUVEAUTÉS",
+        "title" : "Solde d'automne"
+      }
+      
+    }
+  },
+  "products" : {
+    "categories" : {
+      "tshirts": "T-shirts",
+      "loungewear" : "Vêtements de dentente",
+      "jackets": "Vestes",
+      "button": "ACHETEZ MAINTENANT"
+    }
+  }
 }

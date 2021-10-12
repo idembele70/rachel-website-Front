@@ -1,3 +1,4 @@
+import Categories from "components/tools/Cateogries"
 import Navbar from "components/tools/Navbar"
 import Slider from "components/tools/Slider"
 import React from "react"
@@ -7,6 +8,7 @@ function Home() {
     <div>
       <Navbar />
       <Slider />
+      <Categories />
     </div>
   )
 }

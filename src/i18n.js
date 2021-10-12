@@ -25,7 +25,7 @@ i18n
     supportedLngs: ["fr", "en"],
     resources,
     detection: {
-      order: ["cookie", "htmlTag", "localStorage", "path", "subdomain"],
+      order: ["htmlTag", "cookie", "localStorage", "path", "subdomain"],
       caches: ["cookie"]
     }
   })
