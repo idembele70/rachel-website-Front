@@ -3,7 +3,13 @@ import { createTheme } from "@mui/material"
 
 export default createTheme({
   palette: {
-    primary: amber
+    primary: amber,
+    grey : {
+      A100: "#fcf5f5"
+    },
+    action : {
+      disabled: "rgba(0,0,0,0.2)",
+    }
   },
   typography: {
     fontFamily: ["Urbanist", "sans-serif"].join(",")

@@ -30,5 +30,10 @@
       "jackets": "Vestes",
       "button": "ACHETEZ MAINTENANT"
     }
+  },
+  "newsletter": {
+    "title" : "Newsletter",
+    "description" : "Soyez les premiers a être informé sur les derniers changements.",
+    "placeholder": "Votre adresse email"
   }
 }

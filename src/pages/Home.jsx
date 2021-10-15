@@ -1,6 +1,8 @@
-import Categories from "components/tools/Cateogries"
+import Newsletter from "components/home/Newsletter"
+import Categories from "components/home/categories"
 import Navbar from "components/tools/Navbar"
-import Slider from "components/tools/Slider"
+import Products from "components/home/products"
+import Slider from "components/home/Slider"
 import React from "react"
 
 function Home() {
@@ -9,6 +11,8 @@ function Home() {
       <Navbar />
       <Slider />
       <Categories />
+      <Products />
+      <Newsletter />
     </div>
   )
 }

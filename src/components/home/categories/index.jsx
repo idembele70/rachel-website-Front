@@ -19,7 +19,7 @@ function Categories() {
   return (
     <Container>
       {categories.map((category) => (
-        <CategoryItem itemInfo={category} />
+        <CategoryItem itemInfo={category} key={category.id} />
       ))}
     </Container>
   )
