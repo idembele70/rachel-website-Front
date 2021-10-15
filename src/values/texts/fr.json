@@ -1,39 +1,65 @@
 {
-  "siteName" : "RachelDembele Couture",
-  "sign" : {
-    "login":"Se\u00A0connecter",
-    "signup":"S'incrire"
+  "siteName": "RachelDembele Couture",
+  "sign": {
+    "login": "Se\u00A0connecter",
+    "signup": "S'incrire"
   },
-  "announcement" : "Super Deal! Free Shipping on Orders Over $50",
-  "slider" : {
-    "info" :{
-      "button" : "ACHETEZ MAINTENANT",
-      "summer" : {
-        "description" : "NE RATEZ PAS LA DERNIERE REDUCTION DE 30% SUR LES NOUVEAUTÉS",
-        "title" : "Solde d'été"
+  "announcement": "Super Deal! Free Shipping on Orders Over $50",
+  "slider": {
+    "info": {
+      "button": "ACHETEZ MAINTENANT",
+      "summer": {
+        "description": "NE RATEZ PAS LA DERNIERE REDUCTION DE 30% SUR LES NOUVEAUTÉS",
+        "title": "Solde d'été"
       },
-      "winter" : {
-        "description" : "NE RATEZ PAS LA DERNIERE REDUCTION DE 50% SUR LES NOUVEAUTÉS",
-        "title" : "Solde d'hiver"
+      "winter": {
+        "description": "NE RATEZ PAS LA DERNIERE REDUCTION DE 50% SUR LES NOUVEAUTÉS",
+        "title": "Solde d'hiver"
       },
-      "fall" : {
-        "description" : "NE RATEZ PAS LA DERNIERE REDUCTION DE 40% SUR LES NOUVEAUTÉS",
-        "title" : "Solde d'automne"
+      "fall": {
+        "description": "NE RATEZ PAS LA DERNIERE REDUCTION DE 40% SUR LES NOUVEAUTÉS",
+        "title": "Solde d'automne"
       }
-      
     }
   },
-  "products" : {
-    "categories" : {
+  "products": {
+    "categories": {
       "tshirts": "T-shirts",
-      "loungewear" : "Vêtements de dentente",
+      "loungewear": "Vêtements de dentente",
       "jackets": "Vestes",
       "button": "ACHETEZ MAINTENANT"
     }
   },
   "newsletter": {
-    "title" : "Newsletter",
-    "description" : "Soyez les premiers a être informé sur les derniers changements.",
+    "title": "Newsletter",
+    "description": "Soyez les premiers a être informé sur les derniers changements.",
     "placeholder": "Votre adresse email"
+  },
+  "footer": {
+    "left": {
+      "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eveniet odit minus totam sint beatae quas est fuga ratione sed asperiores. Nostrum ut aut ab vel adipisci quisquam, fugit quibusdam ratione."
+    },
+    "center": {
+      "title": "Liens utiles",
+      "listItem": {
+        "home": "Page D'accueil",
+        "cart": "Panier",
+        "manFashion": "Style pour Homme",
+        "womamFashion": "Style pour Femme",
+        "accessories": "Accessoires",
+        "myAcount": "Mon compte",
+        "orderTracking": "Suivi de commande",
+        "wishlist": "Liste de souhait",
+        "terms": "termes"
+      }
+    },
+    "right": {
+      "title": "Contact",
+      "contanctItem": {
+        "address": "7 Rue de la republique",
+        "phoneNumber": "0631805723",
+        "email": "racheldembelecouture@gmail.com"
+      }
+    }
   }
 }

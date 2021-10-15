@@ -4,6 +4,7 @@ import Navbar from "components/tools/Navbar"
 import Products from "components/home/products"
 import Slider from "components/home/Slider"
 import React from "react"
+import Footer from "components/tools/Footer"
 
 function Home() {
   return (
@@ -13,6 +14,7 @@ function Home() {
       <Categories />
       <Products />
       <Newsletter />
+      <Footer />
     </div>
   )
 }
