@@ -69,7 +69,7 @@ const Navbar = () => {
   const classes = useStyles()
   const { t } = useTranslation()
   return (
-    <AppBar color="inherit">
+    <AppBar sx={{ gridRow: 1, maxHeight: 98 }} color="inherit">
       <Announcement />
       <Toolbar className={classes.wrapper}>
         <Left>
@@ -103,3 +103,4 @@ const Navbar = () => {
 }
 
 export default Navbar
+

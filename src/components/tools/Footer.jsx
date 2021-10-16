@@ -13,7 +13,8 @@ import theme from "theme"
 const Footer = () => {
   const { t } = useTranslation()
   const Container = styled("div")({
-    display: "flex"
+    display: "flex",
+    gridRow: 3
   })
   const Left = styled("div")({
     flex: 1,
