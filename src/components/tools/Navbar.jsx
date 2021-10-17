@@ -4,6 +4,7 @@ import { AppBar, Badge, Toolbar, Typography, styled } from "@mui/material"
 import { makeStyles } from "@mui/styles"
 import React from "react"
 import { useTranslation } from "react-i18next"
+import PropTypes from "prop-types"
 import Announcement from "./Announcement"
 
 const useStyles = makeStyles((theme) => ({
@@ -65,12 +66,12 @@ const MenuItem = styled("div")(({ theme }) => ({
   marginLeft: theme.spacing(5)
 }))
 
-const Navbar = () => {
+const Navbar = ({ announcePosition }) => {
   const classes = useStyles()
   const { t } = useTranslation()
   return (
-    <AppBar sx={{ gridRow: 1, maxHeight: 98 }} color="inherit">
-      <Announcement />
+    <AppBar color="inherit" sx={{ position: "relative" }}>
+      {announcePosition === "top" && <Announcement />}
       <Toolbar className={classes.wrapper}>
         <Left>
           <Typography
@@ -98,9 +99,15 @@ const Navbar = () => {
           </MenuItem>
         </Right>
       </Toolbar>
+      {announcePosition === "bottom" && <Announcement />}
     </AppBar>
   )
 }
 
 export default Navbar
-
+Navbar.propTypes = {
+  announcePosition: PropTypes.string
+}
+Navbar.defaultProps = {
+  announcePosition: "top"
+}
