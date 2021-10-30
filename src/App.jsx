@@ -1,10 +1,10 @@
-import ProductList from "pages/ProductList"
+import ProductPage from "pages/ProductPage"
 import React from "react"
 
 function App() {
   return (
     <div>
-      <ProductList />
+      <ProductPage />
     </div>
   )
 }

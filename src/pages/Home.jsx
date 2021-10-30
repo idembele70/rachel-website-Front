@@ -1,5 +1,5 @@
 import Categories from "components/home/categories"
-import Newsletter from "components/home/Newsletter"
+import Newsletter from "components/tools/Newsletter"
 import Products from "components/home/products"
 import Slider from "components/home/Slider"
 import Footer from "components/tools/Footer"

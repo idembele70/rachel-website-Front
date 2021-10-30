@@ -38,7 +38,7 @@ const CategoryItem = ({ itemInfo }) => {
     border: "none",
     color: "gray",
     cursor: "pointer",
-    fontWeight: 600,
+    fontWeight: theme.typography.fontWeightBold,
     padding: theme.spacing(2)
   })
   return (

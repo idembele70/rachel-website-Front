@@ -64,7 +64,7 @@ const Title = styled("h1")({
 const Description = styled("p")({
   margin: theme.spacing(10, 0),
   fontSize: 20,
-  fontWeight: 500,
+  fontWeight: theme.typography.fontWeightMedium,
   letterSpacing: 3
 })
 const Button = styled("button")({

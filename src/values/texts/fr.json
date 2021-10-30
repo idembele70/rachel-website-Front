@@ -38,42 +38,43 @@
     "placeholder": "Votre adresse email"
   },
   "products": {
+    "addToCard": "AJOUTEZ AU PANIER",
     "categories": {
       "tshirts": "T-shirts",
       "loungewear": "Vêtements de dentente",
       "jackets": "Vestes",
       "button": "ACHETEZ MAINTENANT"
-    }
-  },
-  "productList": {
+    },
     "filter": {
-      "selectOption": {
-        "colors": {
-          "black": "Noir",
-          "blue": "Bleu",
-          "color": "Couleur",
-          "red": "Rouge",
-          "green": "Vert",
-          "white": "Blanc",
-          "yellow": "Jaune"
-        },
-        "sizes": {
-          "size": "Taille",
-          "m": "M",
-          "l": "L",
-          "s": "S",
-          "xl": "XL",
-          "xs": "XS"
-        },
-        "sort": {
-          "newest": "Nouveautés",
-          "priceAsc": "Prix bas à élevé",
-          "priceDesc": "Prix élevé à bas"
-        }
+      "colors": {
+        "black": "Noir",
+        "blue": "Bleu",
+        "color": "Couleur",
+        "darkblue": "Bleu foncé",
+        "green": "Vert",
+        "red": "Rouge",
+        "white": "Blanc",
+        "yellow": "Jaune"
+      },
+      "sizes": {
+        "size": "Taille",
+        "m": "M",
+        "l": "L",
+        "s": "S",
+        "xl": "XL",
+        "xs": "XS"
+      },
+      "sort": {
+        "newest": "Nouveautés",
+        "priceAsc": "Prix bas à élevé",
+        "priceDesc": "Prix élevé à bas"
       },
       "text": {
         "filterProducts": "Filtrer les produits:",
         "sortProducts": "Ordonner les produits par prix:"
+      },
+      "title": {
+        "color": "Couleur"
       }
     },
     "title": {

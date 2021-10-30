@@ -1,5 +1,5 @@
 import { styled } from "@mui/material"
-import Newsletter from "components/home/Newsletter"
+import Newsletter from "components/tools/Newsletter"
 import Products from "components/home/products"
 import Footer from "components/tools/Footer"
 import Navbar from "components/tools/Navbar"
@@ -22,7 +22,7 @@ const ProductList = () => {
   })
   const FilterText = styled("span")({
     fontSize: 20,
-    fontWeight: 600,
+    fontWeight: theme.typography.fontWeightBold,
     marginRight: theme.spacing(4)
   })
   const Select = styled("select")({
@@ -34,46 +34,40 @@ const ProductList = () => {
   return (
     <Container>
       <Navbar announcePosition="bottom" />
-      <Title>{t("productList.title.dresses")}</Title>
+      <Title>{t("products.title.dresses")}</Title>
       <FilterContainer>
         <Filter>
-          <FilterText>{t("productList.filter.text.filterProducts")}</FilterText>
+          <FilterText>{t("products.filter.text.filterProducts")}</FilterText>
           <Select>
             <Option disabled selected>
-              {t("productList.filter.selectOption.colors.color")}
+              {t("products.filter.colors.color")}
             </Option>
-            <Option>{t("productList.filter.selectOption.colors.white")}</Option>
-            <Option>{t("productList.filter.selectOption.colors.black")}</Option>
-            <Option>{t("productList.filter.selectOption.colors.red")}</Option>
-            <Option>{t("productList.filter.selectOption.colors.blue")}</Option>
-            <Option>
-              {t("productList.filter.selectOption.colors.yellow")}
-            </Option>
-            <Option>{t("productList.filter.selectOption.colors.green")}</Option>
+            <Option>{t("products.filter.colors.white")}</Option>
+            <Option>{t("products.filter.colors.black")}</Option>
+            <Option>{t("products.filter.colors.red")}</Option>
+            <Option>{t("products.filter.colors.blue")}</Option>
+            <Option>{t("products.filter.colors.yellow")}</Option>
+            <Option>{t("products.filter.colors.green")}</Option>
           </Select>
           <Select>
             <Option disabled selected>
-              {t("productList.filter.selectOption.sizes.size")}
+              {t("products.filter.sizes.size")}
             </Option>
-            <Option>{t("productList.filter.selectOption.sizes.xs")}</Option>
-            <Option>{t("productList.filter.selectOption.sizes.s")}</Option>
-            <Option>{t("productList.filter.selectOption.sizes.m")}</Option>
-            <Option>{t("productList.filter.selectOption.sizes.l")}</Option>
-            <Option>{t("productList.filter.selectOption.sizes.xl")}</Option>
+            <Option>{t("products.filter.sizes.xs")}</Option>
+            <Option>{t("products.filter.sizes.s")}</Option>
+            <Option>{t("products.filter.sizes.m")}</Option>
+            <Option>{t("products.filter.sizes.l")}</Option>
+            <Option>{t("products.filter.sizes.xl")}</Option>
           </Select>
         </Filter>
         <Filter>
-          <FilterText>{t("productList.filter.text.sortProducts")}</FilterText>
+          <FilterText>{t("products.filter.text.sortProducts")}</FilterText>
           <Select>
             <Option disabled selected>
-              {t("productList.filter.selectOption.sort.newest")}
+              {t("products.filter.sort.newest")}
             </Option>
-            <Option>
-              {t("productList.filter.selectOption.sort.priceAsc")}
-            </Option>
-            <Option>
-              {t("productList.filter.selectOption.sort.priceDesc")}
-            </Option>
+            <Option>{t("products.filter.sort.priceAsc")}</Option>
+            <Option>{t("products.filter.sort.priceDesc")}</Option>
           </Select>
         </Filter>
       </FilterContainer>
@@ -85,4 +79,3 @@ const ProductList = () => {
 }
 
 export default ProductList
-
