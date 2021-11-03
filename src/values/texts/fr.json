@@ -1,10 +1,22 @@
 {
   "siteName": "RachelDembele Couture",
-  "sign": {
-    "login": "Se\u00A0connecter",
-    "signup": "S'incrire"
-  },
   "announcement": "Super Deal! Free Shipping on Orders Over $50",
+  "cart": {
+    "continueShop": "Continuez vos achats",
+    "checkout": "PAYER MAINTENANT",
+    "title": "VOTRE PANIER",
+    "topTexts": {
+      "bag": "Votre panier",
+      "whislist": "Vos Souhait"
+    },
+    "orderSummary": {
+      "shippingPrice": "Frais de port estimés",
+      "shippingDiscount": "Remise sur les frais de port",
+      "subtotal": "Sous total",
+      "title": "Récapitulatif de la commande",
+      "total": "Total"
+    }
+  },
   "footer": {
     "left": {
       "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eveniet odit minus totam sint beatae quas est fuga ratione sed asperiores. Nostrum ut aut ab vel adipisci quisquam, fugit quibusdam ratione."
@@ -39,12 +51,18 @@
   },
   "products": {
     "addToCard": "AJOUTEZ AU PANIER",
+    "cart": {
+      "product": "produit",
+      "productId": "ID",
+      "productSize": "Taille"
+    },
     "categories": {
       "tshirts": "T-shirts",
       "loungewear": "Vêtements de dentente",
       "jackets": "Vestes",
       "button": "ACHETEZ MAINTENANT"
     },
+    "currency": "€",
     "filter": {
       "colors": {
         "black": "Noir",
@@ -77,8 +95,12 @@
         "color": "Couleur"
       }
     },
-    "title": {
-      "dresses": "Robes"
+    "name": {
+      "dresses": "Robes",
+      "hakuraTees": "T-Shirt hakura",
+      "overalls": "Salopette en jean",
+      "nikeRuning": "Nike run",
+      "size": "Taille"
     }
   },
   "signin": {
@@ -86,6 +108,10 @@
     "login": "CONNEXION",
     "forgotPassword": "MOT\u00A0DE\u00A0PASSE\u00A0OUBLIÉ\u00A0?",
     "newUser": "CRÉER UN NOUVEAU COMPTE"
+  },
+  "sign": {
+    "login": "Se\u00A0connecter",
+    "signup": "S'incrire"
   },
   "signup": {
     "title": "CRÉEZ\u00A0UN\u00A0COMPTE",

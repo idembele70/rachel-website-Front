@@ -111,7 +111,7 @@ export default function ProductPage() {
           <Image src="https://i.ibb.co/S6qMxwr/jean.jpg" alt="salopette" />
         </ImageContainer>
         <InfoContainer>
-          <Title>Salopette en jean</Title>
+          <Title>{t("products.name.overalls")}</Title>
           <Description>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
             venenatis, dolor in finibus malesuada, lectus ipsum porta nunc, at
