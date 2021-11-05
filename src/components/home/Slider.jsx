@@ -1,76 +1,76 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useEffect, useState } from "react"
-import { styled } from "@mui/material"
+import styled from "styled-components"
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@mui/icons-material"
 import { useTranslation } from "react-i18next"
-import theme from "theme"
+font - weight
 
-const Container = styled("div")({
+const Container = styled.div`
   width: "100%",
   height: "100vh",
-  display: "flex",
+  display: flex;
   marginTop: 98,
-  position: "relative",
+  position: relative;,
   overflow: "hidden"
 })
 
 const Wrapper = styled(({ ...otherProps }) => <div {...otherProps} />)`
-  height: 100%;
-  display: flex;
-  transition: all 1.5s ease;
-  transform: translateX(${(prop) => prop.slideindex * -100}vw);
+height: 100 %;
+display: flex;
+transition: all 1.5s ease;
+transform: translateX(${(props) => props.slideindex * -100}vw);
 `
 
 const Arrow = styled(({ ...otherProps }) => <div {...otherProps} />)`
-  width: 50px;
-  height: 50px;
-  background-color: #fff7f7;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: ${(prop) => prop.direction === "left" && "10px"};
-  right: ${(prop) => prop.direction === "right" && "10px"};
-  margin: auto;
-  cursor: pointer;
-  opacity: 0.5;
-  z-index: 20;
+width: 50px;
+height: 50px;
+background - color: #fff7f7;
+border - radius: 50 %;
+display: flex;
+align - items: center;
+justify - content: center;
+position: absolute;
+top: 0;
+bottom: 0;
+left: ${ (props) => props.direction === "left" && "10px" };
+right: ${ (props) => props.direction === "right" && "10px" };
+margin: auto;
+cursor: pointer;
+opacity: 0.5;
+z - index: 20;
 `
 const Slide = styled(({ ...otherProps }) => <div {...otherProps} />)`
-  align-items: center;
-  display: flex;
-  height: 100vh;
-  width: 100vw;
-  background-color: #${(prop) => prop.bg};
+align - items: center;
+display: flex;
+height: 100vh;
+width: 100vw;
+background - color: #${ (props) => props.bg };
 `
 
-const ImgContainer = styled("div")({
-  flex: 1,
+const ImgContainer = styled.div`
+flex: 1,
   height: "100%"
 })
-const Image = styled("img")({
+const Image = styled.img({
   height: "80%"
 })
-const InfoContainer = styled("div")({
+const InfoContainer = styled.div`
   flex: 1,
   padding: theme.spacing(10)
 })
 const Title = styled("h1")({
-  fontSize: 70
+  font- size: 70
 })
 const Description = styled("p")({
   margin: theme.spacing(10, 0),
-  fontSize: 20,
-  fontWeight: theme.typography.fontWeightMedium,
+  font- size: 20,
+  font - weight: theme.typography.font - weightMedium,
   letterSpacing: 3
 })
 const Button = styled("button")({
-  padding: theme.spacing(2),
-  fontSize: 20,
-  backgroundColor: "transparent",
+  padding: 10px,
+  font- size: 20,
+  background - color: "transparent",
   cursor: "pointer"
 })
 function Slider() {
@@ -102,9 +102,9 @@ function Slider() {
                 <Image src={item.img} alt="girl" />
               </ImgContainer>
               <InfoContainer>
-                <Title>{t(`slider.info.${item.name}.title`)} </Title>
+                <Title>{t(`slider.info.${ item.name }.title`)} </Title>
                 <Description>
-                  {t(`slider.info.${item.name}.description`)}
+                  {t(`slider.info.${ item.name }.description`)}
                 </Description>
                 <Button>{t("slider.info.button")}</Button>
               </InfoContainer>

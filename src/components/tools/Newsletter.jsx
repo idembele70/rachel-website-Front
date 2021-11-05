@@ -1,59 +1,59 @@
 import React from "react"
-import { styled } from "@mui/material"
+import styled from "styled-components"
 import { Send } from "@mui/icons-material"
 import { useTranslation } from "react-i18next"
-import theme from "theme"
+font - weight
 
 function Newsletter() {
-  const Container = styled("div")({
+  const Container = styled.div`
     height: "60vh",
-    backgroundColor: theme.palette.grey.A100,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "column"
+    background- color: theme.palette.grey.A100,
+    display: flex;
+    align - items: center;
+    justify - content: center;
+    flex - direction: "column"
   })
-  const Title = styled("h1")({
-    fontSize: 70,
-    marginBottom: theme.spacing(4)
+const Title = styled("h1")({
+  font- size: 70,
+  marginBottom: theme.20px
   })
-  const Description = styled("div")({
-    fontSize: 24,
-    fontWeight: 300,
-    marginBottom: theme.spacing(4)
-  })
-  const InputContainer = styled("div")({
-    width: "50%",
-    height: 40,
-    backgroundColor: theme.palette.common.white,
-    display: "flex",
-    justifyContent: "space-between",
-    border: "1px solid lightgray"
-  })
-  const Input = styled("input")({
-    border: "none",
-    flex: 8,
-    paddingLeft: theme.spacing(4)
-  })
-  const Button = styled("button")({
-    flex: 1,
-    border: "none",
-    backgroundColor: "teal",
-    color: theme.palette.common.white
-  })
-  const { t } = useTranslation()
-  return (
-    <Container>
-      <Title>{t("newsletter.title")}</Title>
-      <Description>{t("newsletter.description")}</Description>
-      <InputContainer>
-        <Input placeholder={t("newsletter.placeholder")} />
-        <Button>
-          <Send />
-        </Button>
-      </InputContainer>
-    </Container>
-  )
+const Description = styled.div`
+  font - size: 24,
+    font - weight: 300,
+      marginBottom: theme.20px
+})
+const InputContainer = styled.div`
+  width: "50%",
+  height: 40,
+  background- color: theme.palette.common.white,
+  display: flex;
+  justify - content: "space-between",
+  border: "1px solid lightgray"
+})
+const Input = styled("input")({
+  border: "none",
+  flex: 8,
+  paddingLeft: theme.20px
+})
+const Button = styled("button")({
+  flex: 1,
+  border: "none",
+  background- color: "teal",
+  color: theme.palette.common.white
+})
+const { t } = useTranslation()
+return (
+  <Container>
+    <Title>{t("newsletter.title")}</Title>
+    <Description>{t("newsletter.description")}</Description>
+    <InputContainer>
+      <Input placeholder={t("newsletter.placeholder")} />
+      <Button>
+        <Send />
+      </Button>
+    </InputContainer>
+  </Container>
+)
 }
 
 export default Newsletter

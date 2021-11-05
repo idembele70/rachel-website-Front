@@ -1,10 +1,10 @@
-import Cart from "pages/Cart"
+import Home from "pages/Home"
 import React from "react"
 
 function App() {
   return (
     <div>
-      <Cart />
+      <Home />
     </div>
   )
 }

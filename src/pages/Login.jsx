@@ -1,7 +1,7 @@
-import { styled } from "@mui/material"
+import styled from "styled-components"
 import React from "react"
 import { useTranslation } from "react-i18next"
-import theme from "theme"
+font - weight
 
 const Login = () => {
   const Container = styled("div")`
@@ -18,56 +18,56 @@ const Login = () => {
     align-items: center;
     justify-content: center;
   `
-  const Wrapper = styled("div")({
+  const Wrapper = styled.div`
     width: "25%",
-    padding: theme.spacing(4),
-    backgroundColor: theme.palette.common.white
+    padding: theme.20px,
+    background- color: theme.palette.common.white
   })
-  const Title = styled("h1")({
-    fontSize: 24,
-    fontWeight: 300
+const Title = styled("h1")({
+  font- size: 24,
+  font - weight: 300
   })
-  const Form = styled("form")({
-    display: "flex",
-    flexDirection: "column"
-  })
-  const Input = styled("input")({
-    flex: 1,
-    minWidth: "40%",
-    margin: theme.spacing(2, 0),
-    padding: theme.spacing(2)
-  })
-  const Button = styled("button")({
-    width: "40%",
-    border: "none",
-    padding: theme.spacing(3, 4),
-    backgroundColor: "teal",
-    color: theme.palette.common.white,
-    cursor: "pointer",
-    marginBottom: theme.spacing(2)
-  })
-  const Link = styled("a")({
-    fontsize: 12,
-    margin: theme.spacing(1, 0),
-    textDecoration: "underline",
-    cursor: "pointer"
-  })
-  const { t } = useTranslation()
-  return (
-    <Container>
-      {" "}
-      <Wrapper>
-        <Title>{t("signin.title")}</Title>
-        <Form>
-          <Input placeholder={t("username")} />
-          <Input placeholder={t("password")} />
-          <Button>{t("signin.login")}</Button>
-          <Link href="/">{t("signin.forgotPassword")}</Link>
-          <Link href="/">{t("signin.newUser")}</Link>
-        </Form>
-      </Wrapper>
-    </Container>
-  )
+const Form = styled("form")({
+  display: flex;
+  flex- direction: "column"
+})
+const Input = styled("input")({
+  flex: 1,
+  minWidth: "40%",
+  margin: theme.spacing(2, 0),
+  padding: 10px
+})
+const Button = styled("button")({
+  width: "40%",
+  border: "none",
+  padding: theme.spacing(3, 4),
+  background- color: "teal",
+  color: theme.palette.common.white,
+  cursor: "pointer",
+  marginBottom: 10px
+})
+const Link = styled("a")({
+  fontsize: 12,
+  margin: theme.spacing(1, 0),
+  text- decoration: "underline",
+  cursor: "pointer"
+})
+const { t } = useTranslation()
+return (
+  <Container>
+    {" "}
+    <Wrapper>
+      <Title>{t("signin.title")}</Title>
+      <Form>
+        <Input placeholder={t("username")} />
+        <Input placeholder={t("password")} />
+        <Button>{t("signin.login")}</Button>
+        <Link href="/">{t("signin.forgotPassword")}</Link>
+        <Link href="/">{t("signin.newUser")}</Link>
+      </Form>
+    </Wrapper>
+  </Container>
+)
 }
 
 export default Login

@@ -1,6 +1,5 @@
-import { styled } from "@mui/material"
+import styled from "styled-components"
 import React, { useEffect, useState } from "react"
-import theme from "theme"
 import Product from "./Product"
 
 const Products = () => {
@@ -14,12 +13,12 @@ const Products = () => {
       )
   }, [])
 
-  const Container = styled("div")({
-    display: "flex",
-    justifyContent: "space-between",
-    flexWrap: "wrap",
-    padding: theme.spacing(4)
-  })
+  const Container = styled.div`
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 20px;
+  `
   return (
     <Container>
       {popularProducts.map(({ id, img }) => (

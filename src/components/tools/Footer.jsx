@@ -5,75 +5,74 @@ import {
   Phone,
   Room
 } from "@mui/icons-material"
-import { styled } from "@mui/material"
 import React from "react"
 import { useTranslation } from "react-i18next"
-import theme from "theme"
+import styled from "styled-components"
 
 const Footer = () => {
   const { t } = useTranslation()
-  const Container = styled("div")({
-    display: "flex",
-  })
-  const Left = styled("div")({
-    flex: 1,
-    display: "flex",
-    flexDirection: "column",
-    padding: theme.spacing(4)
-  })
-  const Logo = styled("h1")({})
-  const Description = styled("p")({
-    margin: theme.spacing(4, 0)
-  })
-  const SocialContainer = styled("div")({
-    display: "flex"
-  })
+  const Container = styled.div`
+    display: flex;
+  `
+  const Left = styled.div`
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+  `
+  const Logo = styled.h1``
+  const Description = styled.p`
+    margin: 20px 0;
+  `
+  const SocialContainer = styled.div`
+    display: flex;
+  `
   // eslint-disable-next-line react/jsx-props-no-spreading
-  const SocialIcon = styled(({ ...otherProps }) => <div {...otherProps} />)`
-  width: 40px;
+  const SocialIcon = styled.div`
+    width: 40px;
     height: 40px;
     border-radius: 50%;
-    color: ${theme.palette.common.white};
-    background-color: #${(prop) => prop.color};
+    color: white;
+    background-color: #${(props) => props.color};
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: ${theme.spacing(4)}
-  })`
+    margin-right: 20px;
+  `
 
-  const Center = styled("div")({
-    flex: 1,
-    padding: theme.spacing(4)
-  })
-  const Title = styled("h3")({
-    marginBottom: theme.spacing(6)
-  })
-  const List = styled("ul")({
-    margin: theme.spacing(0),
-    padding: theme.spacing(0),
-    listStyle: "none",
-    display: "flex",
-    flexWrap: "wrap"
-  })
-  const ListItem = styled("li")({
-    width: "50%",
-    marginBottom: theme.spacing(2)
-  })
-  const Right = styled("div")({
-    flex: 1,
-    padding: theme.spacing(4)
-  })
-  const ContactItem = styled("div")({
-    marginBottom: theme.spacing(4),
-    display: "flex",
-    alignItems: "center",
-    "& svg": {
-      marginRight: theme.spacing(2)
+  const Center = styled.div`
+    flex: 1;
+    padding: 20px;
+  `
+  const Title = styled.h3`
+    margin-bottom: 30px;
+  `
+  const List = styled.ul`
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+  `
+  const ListItem = styled.li`
+    width: 50%;
+    margin-bottom: 10px;
+  `
+  const Right = styled.div`
+    flex: 1;
+    padding: 20px:
+  `
+  const ContactItem = styled.div`
+    marginbottom: 20px;
+    display: flex;
+    align-items: center;
+    & svg: {
+      margin-right: 10px;
     }
-  })
-  const Payment = styled("img")({
-    width: "50%"
-  })
+  `
+  const Payment = styled.img`
+    width: 50%";
+  `
   return (
     <Container>
       <Left>

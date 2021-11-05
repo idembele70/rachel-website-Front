@@ -1,7 +1,7 @@
-import { styled } from "@mui/material"
+import styled from "styled-components"
 import React from "react"
 import { useTranslation } from "react-i18next"
-import theme from "theme"
+font - weight
 
 function Register() {
   const Container = styled("div")`
@@ -18,58 +18,58 @@ function Register() {
     align-items: center;
     justify-content: center;
   `
-  const Wrapper = styled("div")({
+  const Wrapper = styled.div`
     width: "40%",
-    padding: theme.spacing(4),
-    backgroundColor: theme.palette.common.white
+    padding: theme.20px,
+    background- color: theme.palette.common.white
   })
-  const Title = styled("h1")({
-    fontSize: 24,
-    fontWeight: 300
+const Title = styled("h1")({
+  font- size: 24,
+  font - weight: 300
   })
-  const Form = styled("form")({
-    display: "flex",
-    flexWrap: "wrap"
-  })
-  const Input = styled("input")({
-    flex: 1,
-    minWidth: "40%",
-    margin: theme.spacing(4, 2, 0, 0),
-    padding: theme.spacing(2)
-  })
-  const Agreement = styled("span")({
-    fontSize: 12,
-    margin: theme.spacing(4, 0)
-  })
-  const Button = styled("button")({
-    width: "40%",
-    border: "none",
-    padding: theme.spacing(3, 4),
-    backgroundColor: "teal",
-    color: theme.palette.common.white,
-    cursor: "pointer"
-  })
-  const { t } = useTranslation()
-  return (
-    <Container>
-      <Wrapper>
-        <Title>{t("signup.title")}</Title>
-        <Form>
-          <Input placeholder={t("name")} />
-          <Input placeholder={t("lastname")} />
-          <Input placeholder={t("username")} />
-          <Input placeholder={t("email")} />
-          <Input placeholder={t("password")} />
-          <Input placeholder={t("confirmPassword")} />
-          <Agreement>
-            {t("signup.agreement")}
-            <b>{t("signup.privacyPolicy")}</b>
-          </Agreement>
-          <Button>{t("signup.create")}</Button>
-        </Form>
-      </Wrapper>
-    </Container>
-  )
+const Form = styled("form")({
+  display: flex;
+  flexWrap: "wrap"
+})
+const Input = styled("input")({
+  flex: 1,
+  minWidth: "40%",
+  margin: theme.spacing(4, 2, 0, 0),
+  padding: 10px
+})
+const Agreement = styled("span")({
+  font- size: 12,
+  margin: theme.spacing(4, 0)
+})
+const Button = styled("button")({
+  width: "40%",
+  border: "none",
+  padding: theme.spacing(3, 4),
+  background- color: "teal",
+  color: theme.palette.common.white,
+  cursor: "pointer"
+})
+const { t } = useTranslation()
+return (
+  <Container>
+    <Wrapper>
+      <Title>{t("signup.title")}</Title>
+      <Form>
+        <Input placeholder={t("name")} />
+        <Input placeholder={t("lastname")} />
+        <Input placeholder={t("username")} />
+        <Input placeholder={t("email")} />
+        <Input placeholder={t("password")} />
+        <Input placeholder={t("confirmPassword")} />
+        <Agreement>
+          {t("signup.agreement")}
+          <b>{t("signup.privacyPolicy")}</b>
+        </Agreement>
+        <Button>{t("signup.create")}</Button>
+      </Form>
+    </Wrapper>
+  </Container>
+)
 }
 
 export default Register

@@ -1,128 +1,121 @@
-import React from "react"
-import { styled } from "@mui/material"
-import Navbar from "components/tools/Navbar"
-import Footer from "components/tools/Footer"
-import { useTranslation } from "react-i18next"
-import theme from "theme"
+/* eslint-disable react/prop-types */
+// @ts-nocheck
 import { Add, Remove } from "@mui/icons-material"
+import Footer from "components/tools/Footer"
+import Navbar from "components/tools/Navbar"
+import React from "react"
+import { useTranslation } from "react-i18next"
+import styled from "styled-components"
 
 export default function Cart() {
-  const { spacing, typography, palette } = theme
-  const Container = styled("div")({})
-  const Wrapper = styled("div")({
-    padding: spacing(4)
-  })
-  const Title = styled("h1")({
-    fontWeight: 300,
-    textAlign: "center"
-  })
-  const Top = styled("div")({
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    padding: spacing(4)
-  })
-  const TopButton = styled(({ ...otherProps }) => (
-    // eslint-disable-next-line react/jsx-props-no-spreading
-    <button type="submit" {...otherProps} />
-  ))`
-    padding: ${spacing(2)};
-    font-weight: ${typography.fontWeightBold};
-    cursor: pointer;
-    border: ${(prop) => prop.type === "filled" && "none"};
-    background-color: ${(prop) =>
-      prop.type === "filled" ? palette.common.black : "transparent"};
-    color: ${(prop) => prop.type === "filled" && "white"};
+  const Container = styled.div``
+  const Wrapper = styled.div`
+    padding: 20px;
   `
-  const TopTexts = styled("div")({})
-  const TopText = styled("span")({
-    textDecoration: "underline",
-    cursor: "pointer",
-    margin: spacing(0, 2)
-  })
-  const Bottom = styled("div")({
-    display: "flex",
-    justifyContent: "space-between"
-  })
-  const Info = styled("div")({
-    flex: 3
-  })
-  const Product = styled("div")({
-    display: "flex",
-    justifyContent: "space-between"
-  })
-  const ProductDetail = styled("div")({
-    flex: 2,
-    display: "flex"
-  })
-  const Image = styled("img")({
-    width: 200
-  })
-  const Details = styled("div")({
-    padding: 20,
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-around"
-  })
-  const ProductName = styled("span")({})
-  const ProductId = styled("span")({})
-  // eslint-disable-next-line react/jsx-props-no-spreading
-  const ProductColor = styled(({ ...otherProps }) => <div {...otherProps} />)`
+  const Title = styled.h1`
+    font-weight: 300;
+    text-align: center;
+  `
+  const Top = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+  `
+  const TopButton = styled.div`
+    padding: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    border: ${(props) => props.type === "filled" && "none"};
+    background-color: ${(props) =>
+      props.type === "filled" ? "black" : "transparent"};
+    color: ${(props) => props.type === "filled" && "white"};
+  `
+  const TopTexts = styled.div``
+  const TopText = styled.span`
+    text-decoration: underline;
+    cursor: pointer;
+    margin: 0 10px;
+  `
+  const Bottom = styled.div`
+    display: flex;
+    justify-content: space-between;
+  `
+  const Info = styled.div`
+    flex: 3;
+  `
+  const Product = styled.div`
+    display: flex;
+    justify-content: space-between;
+  `
+  const ProductDetail = styled.div`
+    flex: 2;
+    display: flex;
+  `
+  const Image = styled.img`
+    width: 200px;
+  `
+  const Details = styled.div`
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  `
+  const ProductName = styled.span``
+  const ProductId = styled.span``
+  const ProductColor = styled.div`
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background-color: ${(prop) => prop.color};
+    background-color: ${(props) => props.color};
   `
-  const ProductSize = styled("span")({})
-  const PriceDetail = styled("div")({
-    flex: 1,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center"
-  })
-  const ProductAmountContainer = styled("div")({
-    display: "flex",
-    alignItems: "center",
-    marginBotto: spacing()
-  })
-  const ProductAmount = styled("div")({
-    fontSize: 24,
-    margin: spacing(1)
-  })
-  const ProductPrice = styled("div")({
-    fontSize: 30,
-    fontWeight: typography.fontWeightRegular
-  })
-  const Summary = styled("div")({
-    flex: 1,
-    border: "0.5px solid ligthgray",
-    borderRadius: 10,
-    padding: spacing(4),
-    height: "50vh"
-  })
-  const SummaryTitle = styled("h1")({
-    fontWeight: typography.fontWeightRegular
-  })
-
-  // eslint-disable-next-line react/jsx-props-no-spreading
-  const SummaryItem = styled(({ ...otherProps }) => <div {...otherProps} />)`
-    margin: ${spacing(6, 0)};
+  const ProductSize = styled.span``
+  const PriceDetail = styled.div`
+    flex: 1;
     display: flex;
-    justify-content: space-between;
-    font-weight: ${(prop) =>
-      prop.type === "total" && typography.fontWeightMedium};
-    fontsize: ${(prop) => prop.type === "total" && 24};
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   `
-  const SummaryItemText = styled("span")({})
-  const SummaryItemPrice = styled("span")({})
-  const Button = styled("button")({
-    width: "100%",
-    padding: spacing(2),
-    backgroundColor: palette.common.black,
-    color: palette.common.white,
-    fontWeight: typography.fontWeightBold
-  })
+  const ProductAmountContainer = styled.div`
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  `
+  const ProductAmount = styled.div`
+    font-size: 24px;
+    margin: 5px;
+  `
+  const ProductPrice = styled.div`
+  font - size: 30;
+  font - weight: 200`
+  const Summary = styled.div`
+    flex: 1;
+    border: 0.5px solid ligthgray;
+    borderradius: 10;
+    padding: 20px;
+    height: 50vh;
+  `
+  const SummaryTitle = styled.div`
+  font - weight: 200`
+
+  const SummaryItem = styled.div`
+  margin: 30px 0;
+  display: flex;
+  justify-content: space-between;
+  font-weight: ${(props) => props.type === "total" && 500};
+  };
+  font-size: ${(props) => props.type === "total" && "24px"};
+  `
+  const SummaryItemText = styled.div``
+  const SummaryItemPrice = styled.div``
+  const Button = styled.div`
+    width: 100%;
+    padding: 10px;
+    background-color: black;
+    color: white;
+    font-weight: 600;
+  `
 
   const { t } = useTranslation()
   return (
@@ -143,7 +136,7 @@ export default function Cart() {
             <Product>
               <ProductDetail>
                 <Image
-                  src="https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1614188818-TD1MTHU_SHOE_ANGLE_GLOBAL_MENS_TREE_DASHERS_THUNDER_b01b1013-cd8d-48e7-bed9-52db26515dc4.png?crop=1xw:1.00xh;center,top&resize=480%3A%2A"
+                  src="https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1614188818-TD1MTHU_SHOE_ANGLE_GLOBAL_MENS_TREE_DASHERS_THUNDER_b01b1013-cd8d-48e7-bed9-52db26515dc4.png?crop=1xw:1.00xh;center;top&resize=480%3A%2A"
                   alt="shoes"
                 />
                 <Details>

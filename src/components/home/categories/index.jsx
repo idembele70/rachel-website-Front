@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { styled } from "@mui/material"
-import theme from "theme"
+import styled from "styled-components"
 import CategoryItem from "./CategoryItem"
 
 function Categories() {
@@ -11,11 +10,11 @@ function Categories() {
       .then(setCategories)
       .catch((e) => console.error("Error while fetching categories", e))
   }, [])
-  const Container = styled("div")({
-    display: "flex",
-    padding: theme.spacing(4),
-    justifyContent: "space-between"
-  })
+  const Container = styled.div`
+    display: flex;
+    padding: 20px;
+    justify-content: space-between;
+  `
   return (
     <Container>
       {categories.map((category) => (

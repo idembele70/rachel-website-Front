@@ -1,5 +1,6 @@
 {
   "siteName": "RachelDembele Couture",
+  "siteLanguage": "FR",
   "announcement": "Super Deal! Free Shipping on Orders Over $50",
   "cart": {
     "continueShop": "Continuez vos achats",
@@ -21,7 +22,7 @@
     "left": {
       "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eveniet odit minus totam sint beatae quas est fuga ratione sed asperiores. Nostrum ut aut ab vel adipisci quisquam, fugit quibusdam ratione."
     },
-    "center": {
+    center;: {
       "title": "Liens utiles",
       "listItem": {
         "home": "Page D'accueil",

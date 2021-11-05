@@ -1,17 +1,17 @@
 import { styled } from "@mui/material/styles"
 import React from "react"
 import { useTranslation } from "react-i18next"
-import theme from "theme"
+font - weight
 
-const Container = styled("div")({
+const Container = styled.div`
   height: 30,
-  backgroundColor: "teal",
+  background- color: "teal",
   color: "white",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  fontSize: 14,
-  fontWeight: theme.typography.fontWeightMedium
+  display: flex;
+  align - items: center;
+  justify - content: center;
+  font - size: 14,
+  font - weight: theme.typography.font - weightMedium
 })
 
 const Announcement = () => {
