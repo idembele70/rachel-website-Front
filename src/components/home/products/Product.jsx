@@ -41,7 +41,7 @@ export default function Product({ img }) {
     position: absolute;
     top: 0;
     width: 100%;
-    zindex: 2;
+    z-index: 2;
     transition: all 0.5s ease;
     cursor: pointer;
     &:hover {

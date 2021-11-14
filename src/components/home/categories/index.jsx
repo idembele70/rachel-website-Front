@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import { mobile } from "responsive"
 import styled from "styled-components"
 import CategoryItem from "./CategoryItem"
 
@@ -14,6 +15,7 @@ function Categories() {
     display: flex;
     padding: 20px;
     justify-content: space-between;
+    ${mobile({ paddng: 0, flexDirection: "column" })}
   `
   return (
     <Container>

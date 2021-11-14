@@ -1,16 +1,19 @@
 /* eslint-disable react/prop-types */
 // @ts-nocheck
 import { Add, Remove } from "@mui/icons-material"
+import Announcement from "components/tools/Announcement"
 import Footer from "components/tools/Footer"
 import Navbar from "components/tools/Navbar"
 import React from "react"
 import { useTranslation } from "react-i18next"
+import { mobile } from "responsive"
 import styled from "styled-components"
 
 export default function Cart() {
   const Container = styled.div``
   const Wrapper = styled.div`
     padding: 20px;
+    ${mobile({ padding: 10 })};
   `
   const Title = styled.h1`
     font-weight: 300;
@@ -30,8 +33,11 @@ export default function Cart() {
     background-color: ${(props) =>
       props.type === "filled" ? "black" : "transparent"};
     color: ${(props) => props.type === "filled" && "white"};
+    ${mobile({ textAlign: "center" })};
   `
-  const TopTexts = styled.div``
+  const TopTexts = styled.div`
+    ${mobile({ display: "none" })};
+  `
   const TopText = styled.span`
     text-decoration: underline;
     cursor: pointer;
@@ -40,6 +46,7 @@ export default function Cart() {
   const Bottom = styled.div`
     display: flex;
     justify-content: space-between;
+    ${mobile({ flexDirection: "column" })};
   `
   const Info = styled.div`
     flex: 3;
@@ -47,6 +54,7 @@ export default function Cart() {
   const Product = styled.div`
     display: flex;
     justify-content: space-between;
+    ${mobile({ flexDirection: "column" })};
   `
   const ProductDetail = styled.div`
     flex: 2;
@@ -85,19 +93,29 @@ export default function Cart() {
   const ProductAmount = styled.div`
     font-size: 24px;
     margin: 5px;
+    ${mobile({ margin: "5px 15px" })};
   `
   const ProductPrice = styled.div`
-  font - size: 30;
-  font - weight: 200`
+    ${mobile({ marginBottom: 20 })};
+    font-size: 30px;
+    font-weight: 200;
+  `
+  const Hr = styled.hr`
+    background-color: #eee;
+    border: none;
+    height: 1px;
+  `
   const Summary = styled.div`
     flex: 1;
-    border: 0.5px solid ligthgray;
-    borderradius: 10;
+    border: 0.5px solid lightgray;
+    border-radius: 10px;
     padding: 20px;
     height: 50vh;
   `
-  const SummaryTitle = styled.div`
-  font - weight: 200`
+  const SummaryTitle = styled.h1`
+    font-weight: 200;
+    ${mobile({ textAlign: "center" })};
+  `
 
   const SummaryItem = styled.div`
   margin: 30px 0;
@@ -107,9 +125,9 @@ export default function Cart() {
   };
   font-size: ${(props) => props.type === "total" && "24px"};
   `
-  const SummaryItemText = styled.div``
-  const SummaryItemPrice = styled.div``
-  const Button = styled.div`
+  const SummaryItemText = styled.span``
+  const SummaryItemPrice = styled.span``
+  const Button = styled.button`
     width: 100%;
     padding: 10px;
     background-color: black;
@@ -120,7 +138,8 @@ export default function Cart() {
   const { t } = useTranslation()
   return (
     <Container>
-      <Navbar announcePosition="bottom" />
+      <Navbar />
+      <Announcement />
       <Wrapper>
         <Title>{t("cart.title")}</Title>
         <Top>
@@ -163,6 +182,7 @@ export default function Cart() {
                 <ProductPrice>20{t("products.currency")}</ProductPrice>
               </PriceDetail>
             </Product>
+            <Hr />
             <Product>
               <ProductDetail>
                 <Image
@@ -227,3 +247,4 @@ export default function Cart() {
     </Container>
   )
 }
+

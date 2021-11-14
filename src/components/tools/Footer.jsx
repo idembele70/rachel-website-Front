@@ -7,12 +7,14 @@ import {
 } from "@mui/icons-material"
 import React from "react"
 import { useTranslation } from "react-i18next"
+import { mobile } from "responsive"
 import styled from "styled-components"
 
 const Footer = () => {
   const { t } = useTranslation()
   const Container = styled.div`
     display: flex;
+    ${mobile({ flexDirection: "column" })};
   `
   const Left = styled.div`
     flex: 1;
@@ -27,13 +29,15 @@ const Footer = () => {
   const SocialContainer = styled.div`
     display: flex;
   `
-  // eslint-disable-next-line react/jsx-props-no-spreading
+
   const SocialIcon = styled.div`
     width: 40px;
     height: 40px;
     border-radius: 50%;
     color: white;
-    background-color: #${(props) => props.color};
+    background-color: #${(props) =>
+      // eslint-disable-next-line react/prop-types
+      props.color};
     display: flex;
     align-items: center;
     justify-content: center;
@@ -43,6 +47,7 @@ const Footer = () => {
   const Center = styled.div`
     flex: 1;
     padding: 20px;
+    ${mobile({ display: "none" })};
   `
   const Title = styled.h3`
     margin-bottom: 30px;
@@ -60,18 +65,16 @@ const Footer = () => {
   `
   const Right = styled.div`
     flex: 1;
-    padding: 20px:
+    padding: 20px;
+    ${mobile({ backgroundColor: "#fff8f8" })};
   `
   const ContactItem = styled.div`
-    marginbottom: 20px;
+    margin-bottom: 20px;
     display: flex;
     align-items: center;
-    & svg: {
-      margin-right: 10px;
-    }
   `
   const Payment = styled.img`
-    width: 50%";
+    width: 50%;
   `
   return (
     <Container>

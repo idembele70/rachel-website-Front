@@ -1,5 +1,5 @@
 {
-  "siteName": "RachelDembele Couture",
+  "siteName": "RDBLC",
   "siteLanguage": "FR",
   "announcement": "Super Deal! Free Shipping on Orders Over $50",
   "cart": {
@@ -22,7 +22,7 @@
     "left": {
       "description": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eveniet odit minus totam sint beatae quas est fuga ratione sed asperiores. Nostrum ut aut ab vel adipisci quisquam, fugit quibusdam ratione."
     },
-    center;: {
+    "center": {
       "title": "Liens utiles",
       "listItem": {
         "home": "Page D'accueil",
@@ -45,6 +45,9 @@
       }
     }
   },
+  "navbar": {
+    "search": "recherche"
+  },
   "newsletter": {
     "title": "Newsletter",
     "description": "Soyez les premiers a être informé sur les derniers changements.",
@@ -58,7 +61,7 @@
       "productSize": "Taille"
     },
     "categories": {
-      "tshirts": "T-shirts",
+      "tShirts": "T-shirts",
       "loungewear": "Vêtements de dentente",
       "jackets": "Vestes",
       "button": "ACHETEZ MAINTENANT"

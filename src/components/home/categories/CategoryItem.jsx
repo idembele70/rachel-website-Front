@@ -2,6 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import PropTypes from "prop-types"
 import { useTranslation } from "react-i18next"
+import { mobile } from "responsive"
 
 const CategoryItem = ({ itemInfo }) => {
   const { t } = useTranslation()
@@ -9,13 +10,14 @@ const CategoryItem = ({ itemInfo }) => {
   const Container = styled.div`
     flex: 1;
     height: 70vh;
-    margin: 5px;
+    margin: 3px;
     position: relative;
   `
   const Image = styled.img`
     height: 100%;
     object-fit: cover;
     width: 100%;
+    ${mobile({ height: "20vh" })};
   `
   const Info = styled.div`
     align-items: center;
@@ -31,6 +33,7 @@ const CategoryItem = ({ itemInfo }) => {
   const Title = styled.h1`
     color: white;
     margin-bottom: 20px;
+    ${mobile({ textAlign: "center" })};
   `
   const Button = styled.button`
     background-color: white;
@@ -44,7 +47,7 @@ const CategoryItem = ({ itemInfo }) => {
     <Container>
       <Image src={img} alt={t(`products.categories.${name} `)} />
       <Info>
-        <Title>{t(`products.categories.${name} `).toUpperCase()}</Title>
+        <Title>{t(`products.categories.${name}`).toUpperCase()}</Title>
         <Button>{t(`products.categories.button`)} </Button>
       </Info>
     </Container>

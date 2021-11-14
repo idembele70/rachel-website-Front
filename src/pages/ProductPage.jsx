@@ -3,164 +3,172 @@ import styled from "styled-components"
 import Navbar from "components/tools/Navbar"
 import Footer from "components/tools/Footer"
 import Newsletter from "components/tools/Newsletter"
-font - weight
 import { useTranslation } from "react-i18next"
 import { Add, Remove } from "@mui/icons-material"
+import Announcement from "components/tools/Announcement"
+import { mobile } from "responsive"
 
 export default function ProductPage() {
   const { t } = useTranslation()
 
-  const Container = styled.div`})
+  const Container = styled.div``
   const Wrapper = styled.div`
-  padding: theme.spacing(10),
-    display: "flex"
-})
+    padding: 50px;
+    display: flex;
+    ${mobile({ padding: 10, flexDirection: "column" })};
+  `
 
-const ImageContainer = styled.div`
-    flex: 1
-  })
+  const ImageContainer = styled.div`
+    flex: 1;
+  `
 
-  const Image = styled.img({
-    width: "100%",
-    height: "90vh",
-    objectFit: "cover"
-  })
+  const Image = styled.img`
+    width: 100%;
+    height: 90vh;
+    object-fit: cover;
+    ${mobile({ height: "40vh" })};
+  `
 
   const InfoContainer = styled.div`
-flex: 1,
-  padding: theme.spacing(0, 10)
-  })
+    flex: 1;
+    padding: 0 50px;
+    ${mobile({ padding: 10 })};
+  `
 
-const Title = styled("h1")({
-  font- weight: theme.typography.font - weightRegular
-  })
+  const Title = styled.h1`
+  font- weight: 200;
+  `
 
-const Description = styled("p")({
-  margin: theme.spacing(4, 0)
-})
+  const Description = styled.p`
+    margin: 20px 0;
+  `
 
-const Price = styled("span")({
-  font- weight: theme.typography.font - weightLight,
-  font - size: 40
-  })
-const FilterContainer = styled.div`
-  display: flex;
-  justify- content: "space-between",
-  width: "50%",
-  margin: theme.spacing(6, 0)
-})
-const Filter = styled.div`
-display: flex;
-align - items: center;
-})
-const FilterTitle = styled("span")({
-  font- size: 20,
-  font - weight: theme.typography.font - weightRegular
-  })
-// eslint-disable-next-line react/jsx-props-no-spreading
-const FilterColor = styled(({ ...otherProps }) => <option {...otherProps} />)`
+  const Price = styled.span`
+    font-weight: 100;
+    font-size: 40px;
+  `
+  const FilterContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+    margin: 30px 0;
+    ${mobile({ width: "100%" })};
+  `
+  const Filter = styled.div`
+    display: flex;
+    align-items: center;
+  `
+  const FilterTitle = styled.span`
+  font-size: 20px
+  font-weight:200;
+  `
+
+  const FilterColor = styled.div`
     width: 20px;
-    height: 20;
+    height: 20px;
     border-radius: 50%;
-    background-color: ${(props) => props.color};
-    margin: ${theme.spacing(0, 1)};
+    background-color: ${(props) =>
+      // eslint-disable-next-line react/prop-types
+      props.color};
+    margin: 0 5px;
     cursor: pointer;
   `
-const FilterSize = styled("select")({
-  marginLeft: 10px,
-  padding: theme.5px
-})
-const FilterSizeOption = styled("option")({})
-const AddContainer = styled.div`
-  width: "50%",
-  display: flex;
-  align- items: center;
-  justify - content: "space-between"
-})
-const AmountContainer = styled.div`
-display: flex;
-align - items: center;
-font - weight: 700
-  })
-const Amount = styled("span")({
-  width: 30,
-  height: 30,
-  borderRadius: 10,
-  border: "1px solid teal",
-  display: flex;
-  align- items: center;
-justify - content: center;
-margin: theme.spacing(0, 1)
-})
-const Button = styled("button")({
-  padding: 15px,
-  border: "2px solid teal",
-  background- color: theme.palette.common.white,
-  cursor: "pointer",
-  font - weight: theme.typography.font - weightMedium,
-  "&:hover": {
-    background- color: theme.palette.grey.A100
-}
-  })
+  const FilterSize = styled.select`
+    margin-left: 10px;
+    padding: 5px;
+  `
+  const FilterSizeOption = styled.option``
+  const AddContainer = styled.div`
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    ${mobile({ width: "100%" })};
+  `
+  const AmountContainer = styled.div`
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+  `
+  const Amount = styled.span`
+    width: 30px;
+    height: 30px;
+    border-radius: 10px;
+    border: 1px solid teal;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 5px;
+  `
+  const Button = styled.button`
+    padding: 15px;
+    border: 2px solid teal;
+    background-color: white;
+    cursor: pointer;
+    font-weight: 500;
+    &:hover: {
+      background-color: #f8f4f4;
+    }
+  `
 
-return (
-  <Container>
-    <Navbar announcePosition="bottom" />
-    <Wrapper>
-      <ImageContainer>
-        <Image src="https://i.ibb.co/S6qMxwr/jean.jpg" alt="salopette" />
-      </ImageContainer>
-      <InfoContainer>
-        <Title>{t("products.name.overalls")}</Title>
-        <Description>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-          venenatis, dolor in finibus malesuada, lectus ipsum porta nunc, at
-          iaculis arcu nisi sed mauris. Nulla fermentum vestibulum ex, eget
-          tristique tortor pretium ut. Curabitur elit justo, consequat id
-          condimentum ac, volutpat ornare.
-        </Description>
-        <Price>20€</Price>
-        <FilterContainer>
-          <Filter>
-            <FilterTitle>{t("products.filter.title.color")}</FilterTitle>
-            <FilterColor color="black" />
-            <FilterColor color="darkblue" />
-            <FilterColor color="gray" />
-          </Filter>
-          <Filter>
-            <FilterTitle>{t("products.filter.sizes.size")}</FilterTitle>
-            <FilterSize>
-              <FilterSizeOption>
-                {t("products.filter.sizes.xs")}
-              </FilterSizeOption>
-              <FilterSizeOption>
-                {t("products.filter.sizes.s")}
-              </FilterSizeOption>
-              <FilterSizeOption>
-                {t("products.filter.sizes.m")}
-              </FilterSizeOption>
-              <FilterSizeOption>
-                {t("products.filter.sizes.l")}
-              </FilterSizeOption>
-              <FilterSizeOption>
-                {t("products.filter.sizes.xl")}
-              </FilterSizeOption>
-            </FilterSize>
-          </Filter>
-        </FilterContainer>
-        <AddContainer>
-          <AmountContainer>
-            <Remove />
-            <Amount>1</Amount>
-            <Add />
-          </AmountContainer>
-          <Button>{t("products.addToCard")} </Button>
-        </AddContainer>
-      </InfoContainer>
-    </Wrapper>
-    <Newsletter />
-    <Footer />
-  </Container>
-)
+  return (
+    <Container>
+      <Navbar />
+      <Announcement />
+      <Wrapper>
+        <ImageContainer>
+          <Image src="https://i.ibb.co/S6qMxwr/jean.jpg" alt="salopette" />
+        </ImageContainer>
+        <InfoContainer>
+          <Title>{t("products.name.overalls")}</Title>
+          <Description>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+            venenatis, dolor in finibus malesuada, lectus ipsum porta nunc, at
+            iaculis arcu nisi sed mauris. Nulla fermentum vestibulum ex, eget
+            tristique tortor pretium ut. Curabitur elit justo, consequat id
+            condimentum ac, volutpat ornare.
+          </Description>
+          <Price>20€</Price>
+          <FilterContainer>
+            <Filter>
+              <FilterTitle>{t("products.filter.title.color")}</FilterTitle>
+              <FilterColor color="black" />
+              <FilterColor color="darkblue" />
+              <FilterColor color="gray" />
+            </Filter>
+            <Filter>
+              <FilterTitle>{t("products.filter.sizes.size")}</FilterTitle>
+              <FilterSize>
+                <FilterSizeOption>
+                  {t("products.filter.sizes.xs")}
+                </FilterSizeOption>
+                <FilterSizeOption>
+                  {t("products.filter.sizes.s")}
+                </FilterSizeOption>
+                <FilterSizeOption>
+                  {t("products.filter.sizes.m")}
+                </FilterSizeOption>
+                <FilterSizeOption>
+                  {t("products.filter.sizes.l")}
+                </FilterSizeOption>
+                <FilterSizeOption>
+                  {t("products.filter.sizes.xl")}
+                </FilterSizeOption>
+              </FilterSize>
+            </Filter>
+          </FilterContainer>
+          <AddContainer>
+            <AmountContainer>
+              <Remove />
+              <Amount>1</Amount>
+              <Add />
+            </AmountContainer>
+            <Button>{t("products.addToCard")} </Button>
+          </AddContainer>
+        </InfoContainer>
+      </Wrapper>
+      <Newsletter />
+      <Footer />
+    </Container>
+  )
 }
-

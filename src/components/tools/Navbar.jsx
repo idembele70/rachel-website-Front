@@ -1,30 +1,34 @@
 import { ShoppingCartOutlined } from "@mui/icons-material"
 import SearchIcon from "@mui/icons-material/Search"
 import { Badge } from "@mui/material"
-import Styled from "Styled-components"
 import React from "react"
 import { useTranslation } from "react-i18next"
+import Styled from "styled-components"
+import { mobile } from "../../responsive"
 
 const Container = Styled.div`
-height: 60px
+height: 60px;
+${mobile({ height: 50 })};
 `
 const Wrapper = Styled.div`
 padding: 10px 20px;
 display: flex;
 align-items: center;
 justify-content: space-between;
+${mobile({ padding: "10px 0px" })};
 `
 const Left = Styled.div`
   display: flex;
   align-items: center;
   flex: 1;
 `
-const Language = Styled.div`
-font-size:14px
+const Language = Styled.span`
+font-size:14px;
 cursor: pointer;
+${mobile({ display: "none" })};
 `
 const SearchContainer = Styled.div`
-  border: 1px solid lightgray;
+  border: 0.5px solid lightgray;
   display: flex;
   align-items: center;
   margin-left: 25px;
@@ -33,31 +37,37 @@ const SearchContainer = Styled.div`
 
 const Input = Styled.input`
   border: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  ${mobile({ width: 50 })};
 `
 
 const Center = Styled.div`
-  flex: 1;
+  flex: 0.8;
   display: flex;
   justify-content: center;
   align-items: center;
 `
 
 const Logo = Styled.h1`
-  font- weight: bold;
+  font-weight: bold;
   margin: 0;
+  ${mobile({ fontSize: 18 })};
+
 `
 const Right = Styled.div`
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-`
+  ${mobile({ flex: 2, justifyContent: "center" })};
+  `
 
 const MenuItem = Styled.div`
-  font- size: 14;
+  font-size: 14;
   cursor: pointer;
-  // @ts-ignore
-  marginLeft: 25px
+  margin-left: 25px;
+  ${mobile({ fontSize: 12, marginLeft: 8 })};
 `
 
 const Navbar = () => {
