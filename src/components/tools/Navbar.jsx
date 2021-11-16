@@ -4,7 +4,7 @@ import { Badge } from "@mui/material"
 import React from "react"
 import { useTranslation } from "react-i18next"
 import Styled from "styled-components"
-import { mobile } from "../../responsive"
+import { mobile, tablet } from "../../responsive"
 
 const Container = Styled.div`
 height: 60px;
@@ -15,17 +15,18 @@ padding: 10px 20px;
 display: flex;
 align-items: center;
 justify-content: space-between;
-${mobile({ padding: "10px 0px" })};
+${tablet({ padding: "10px 0px" })};
 `
 const Left = Styled.div`
   display: flex;
   align-items: center;
   flex: 1;
+  ${mobile({ display: "none" })}
 `
 const Language = Styled.span`
 font-size:14px;
 cursor: pointer;
-${mobile({ display: "none" })};
+${tablet({ display: "none" })};
 `
 const SearchContainer = Styled.div`
   border: 0.5px solid lightgray;
@@ -39,7 +40,7 @@ const Input = Styled.input`
   border: none;
   overflow: hidden;
   text-overflow: ellipsis;
-  ${mobile({ width: 50 })};
+  ${mobile({ width: "70%" })};
 `
 
 const Center = Styled.div`
@@ -52,7 +53,7 @@ const Center = Styled.div`
 const Logo = Styled.h1`
   font-weight: bold;
   margin: 0;
-  ${mobile({ fontSize: 18 })};
+  ${mobile({ fontSize: 24 })};
 
 `
 const Right = Styled.div`
@@ -67,7 +68,7 @@ const MenuItem = Styled.div`
   font-size: 14;
   cursor: pointer;
   margin-left: 25px;
-  ${mobile({ fontSize: 12, marginLeft: 8 })};
+  ${mobile({ fontSize: 18, marginLeft: 8 })};
 `
 
 const Navbar = () => {
@@ -101,3 +102,4 @@ const Navbar = () => {
 }
 
 export default Navbar
+

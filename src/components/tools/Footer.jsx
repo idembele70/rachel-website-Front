@@ -14,10 +14,12 @@ const Footer = () => {
   const { t } = useTranslation()
   const Container = styled.div`
     display: flex;
-    ${mobile({ flexDirection: "column" })};
+    flex-wrap: wrap;
+    justify-content: center;
   `
   const Left = styled.div`
     flex: 1;
+    min-width: 300px;
     display: flex;
     flex-direction: column;
     padding: 20px;
@@ -46,6 +48,7 @@ const Footer = () => {
 
   const Center = styled.div`
     flex: 1;
+    min-width: 300px;
     padding: 20px;
     ${mobile({ display: "none" })};
   `
@@ -65,6 +68,7 @@ const Footer = () => {
   `
   const Right = styled.div`
     flex: 1;
+    min-width: 300px;
     padding: 20px;
     ${mobile({ backgroundColor: "#fff8f8" })};
   `

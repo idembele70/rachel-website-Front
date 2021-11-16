@@ -6,7 +6,7 @@ import Footer from "components/tools/Footer"
 import Navbar from "components/tools/Navbar"
 import React from "react"
 import { useTranslation } from "react-i18next"
-import { mobile } from "responsive"
+import { mobile, tablet } from "responsive"
 import styled from "styled-components"
 
 export default function Cart() {
@@ -36,7 +36,7 @@ export default function Cart() {
     ${mobile({ textAlign: "center" })};
   `
   const TopTexts = styled.div`
-    ${mobile({ display: "none" })};
+    ${tablet({ display: "none" })};
   `
   const TopText = styled.span`
     text-decoration: underline;
@@ -46,7 +46,7 @@ export default function Cart() {
   const Bottom = styled.div`
     display: flex;
     justify-content: space-between;
-    ${mobile({ flexDirection: "column" })};
+    ${tablet({ flexDirection: "column", alignItems: "center" })};
   `
   const Info = styled.div`
     flex: 3;
@@ -54,6 +54,7 @@ export default function Cart() {
   const Product = styled.div`
     display: flex;
     justify-content: space-between;
+    ${tablet({ width: "90vw" })};
     ${mobile({ flexDirection: "column" })};
   `
   const ProductDetail = styled.div`
@@ -62,6 +63,7 @@ export default function Cart() {
   `
   const Image = styled.img`
     width: 200px;
+    min-height: 200px;
   `
   const Details = styled.div`
     padding: 20px;
@@ -111,6 +113,7 @@ export default function Cart() {
     border-radius: 10px;
     padding: 20px;
     height: 50vh;
+    ${tablet({ width: 375 })};
   `
   const SummaryTitle = styled.h1`
     font-weight: 200;
@@ -247,4 +250,3 @@ export default function Cart() {
     </Container>
   )
 }
-
