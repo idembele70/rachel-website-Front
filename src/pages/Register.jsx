@@ -20,7 +20,7 @@ function Register() {
   `
   const Wrapper = styled.div`
     width: 40%;
-    padding: theme.20px;
+    padding: 20px;
     background-color: white;
     ${mobile({ width: "75%" })};
   `
@@ -40,10 +40,11 @@ function Register() {
   `
   const Agreement = styled.span`
     font-size: 12px;
+    width: 100%;
     margin: 20px 0;
   `
   const Button = styled.button`
-    width: 40%;
+    width: 115px;
     border: none;
     padding: 15px 20px;
     background-color: teal;
@@ -74,3 +75,4 @@ function Register() {
 }
 
 export default Register
+

@@ -8,6 +8,8 @@ import { mobile, tablet } from "../../responsive"
 
 const Container = Styled.div`
 height: 60px;
+max-width: 1440px;
+margin: 0 auto;
 ${mobile({ height: 50 })};
 `
 const Wrapper = Styled.div`
@@ -15,24 +17,26 @@ padding: 10px 20px;
 display: flex;
 align-items: center;
 justify-content: space-between;
-${tablet({ padding: "10px 0px" })};
+${tablet({ padding: "10px 0" })};
+${mobile({ padding: "10px 0" })};
 `
 const Left = Styled.div`
   display: flex;
   align-items: center;
   flex: 1;
-  ${mobile({ display: "none" })}
+  ${tablet({ flex: 0.7 })};
 `
 const Language = Styled.span`
 font-size:14px;
 cursor: pointer;
-${tablet({ display: "none" })};
+${mobile({ display: "none" })};
 `
 const SearchContainer = Styled.div`
   border: 0.5px solid lightgray;
   display: flex;
   align-items: center;
   margin-left: 25px;
+  ${mobile({ marginLeft: 5 })}
   padding: 5px
 `
 
@@ -40,7 +44,9 @@ const Input = Styled.input`
   border: none;
   overflow: hidden;
   text-overflow: ellipsis;
-  ${mobile({ width: "70%" })};
+  font-size: 20px;
+  ${tablet({ fontSize: "14px" })};
+  ${mobile({ fontSize: "10px", width: "100%" })};
 `
 
 const Center = Styled.div`
@@ -52,6 +58,7 @@ const Center = Styled.div`
 
 const Logo = Styled.h1`
   font-weight: bold;
+  font-size: 32px;
   margin: 0;
   ${mobile({ fontSize: 24 })};
 
@@ -61,14 +68,19 @@ const Right = Styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  ${mobile({ flex: 2, justifyContent: "center" })};
+  ${tablet({ maxWidth: 310 })};
+  ${mobile({ flex: 1.5 })};
   `
 
 const MenuItem = Styled.div`
-  font-size: 14;
+  font-size: 32px;
   cursor: pointer;
   margin-left: 25px;
-  ${mobile({ fontSize: 18, marginLeft: 8 })};
+  ${tablet({ fontSize: 24, marginLeft: 16 })};
+  margin-right : ${(props) =>
+    // @ts-ignore
+    props.last && "14px"};
+  ${mobile({ fontSize: 14, marginLeft: 6 })};
 `
 
 const Navbar = () => {
@@ -90,7 +102,10 @@ const Navbar = () => {
         <Right>
           <MenuItem>{t("sign.signup")}</MenuItem>
           <MenuItem>{t("sign.login")}</MenuItem>
-          <MenuItem>
+          <MenuItem
+            // @ts-ignore
+            last
+          >
             <Badge badgeContent={4} color="primary">
               <ShoppingCartOutlined />
             </Badge>
@@ -102,4 +117,3 @@ const Navbar = () => {
 }
 
 export default Navbar
-

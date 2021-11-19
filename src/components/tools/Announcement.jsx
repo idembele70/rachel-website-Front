@@ -11,6 +11,8 @@ const Container = styled.div`
   justify-content: center;
   font-size: 14px;
   font-weight: 500;
+  max-width: 1440px;
+  margin: 0 auto;
 `
 
 const Announcement = () => {

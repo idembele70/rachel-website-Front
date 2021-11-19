@@ -7,15 +7,18 @@ import { mobile } from "responsive"
 function Newsletter() {
   const Container = styled.div`
     height: 60vh;
+    max-width: 1440px
     background-color: #fcf5f5;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    margin: 0 auto;
   `
   const Title = styled.h1`
     font-size: 70px;
     margin-bottom: 20px;
+    ${mobile({ fontSize: 50 })};
   `
   const Description = styled.div`
     font-size: 24px;

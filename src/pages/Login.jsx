@@ -19,10 +19,10 @@ const Login = () => {
     justify-content: center;
   `
   const Wrapper = styled.div`
-    width: 25%;
+    width: 75%;
+    max-width: 455px;
     padding: 20px;
     background-color: white;
-    ${mobile({ width: "75%" })};
   `
   const Title = styled.h1`
     font-size: 24px;
@@ -34,12 +34,13 @@ const Login = () => {
   `
   const Input = styled.input`
     flex: 1;
-    min-width: 40%;
+    width: 80%;
+    max-width: 320px;
     margin: 10px 0;
     padding: 10px;
   `
   const Button = styled.button`
-    width: 40%;
+    width: 110px;
     border: none;
     padding: 15px 20px;
     background-color: teal;

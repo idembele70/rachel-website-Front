@@ -3,21 +3,23 @@ import React, { useEffect, useState } from "react"
 import styled from "styled-components"
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@mui/icons-material"
 import { useTranslation } from "react-i18next"
-import { mobile } from "responsive"
+import { tablet } from "responsive"
 
 const Container = styled.div`
   width: 100%;
   height: 100vh;
+  max-width: 1440px;
+  margin: 0 auto;
   display: flex;
   position: relative;
   overflow: hidden;
-  ${mobile({ display: "none" })};
+  ${tablet({ display: "none" })};
 `
 const Wrapper = styled.div`
   height: 100%;
   display: flex;
   transition: all 1.5s ease;
-  transform: translateX(${(props) => props.slideIndex * -100}vw);
+  transform: translateX(${(props) => (props.slideIndex * -100) / 3}%);
 `
 
 const Arrow = styled.div`
@@ -39,11 +41,13 @@ const Arrow = styled.div`
   z-index: 20;
 `
 const Slide = styled.div`
-align-items: center;
-display: flex;
-height: 100vh;
-width: 100vw;
-background - color: #${(props) => props.bg};
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  height: 100vh;
+  width: 100vw;
+  max-width: 1440px;
+  background-color: #${(props) => props.bg};
 `
 
 const ImgContainer = styled.div`
@@ -51,20 +55,23 @@ const ImgContainer = styled.div`
   height: 100%;
 `
 const Image = styled.img`
-  height: 80%;
+  height: 68%;
 `
 const InfoContainer = styled.div`
   flex: 1;
-  padding: 50px;
+  padding: 10px;
+  min-width: 200px;
 `
 const Title = styled.h1`
-  font-size: 70px;
+  font-size: 50px;
 `
 const Description = styled.p`
   margin: 50px 0;
   font-size: 20;
   font-weight: 500;
   letter-spacing: 3px;
+  width: 85%;
+  max-width: 400px;
 `
 const Button = styled.button`
   padding: 10px;

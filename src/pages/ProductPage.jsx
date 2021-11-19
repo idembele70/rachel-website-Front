@@ -11,15 +11,22 @@ import { mobile } from "responsive"
 export default function ProductPage() {
   const { t } = useTranslation()
 
-  const Container = styled.div``
+  const Container = styled.div`
+    max-width: 1440px;
+    margin: 0 auto;
+  `
   const Wrapper = styled.div`
     padding: 50px;
     display: flex;
+    flex-wrap: wrap;
     ${mobile({ padding: 10, flexDirection: "column" })};
   `
 
   const ImageContainer = styled.div`
     flex: 1;
+    margin: 10px 25px;
+    min-width: 530px;
+    ${mobile({ minWidth: "auto", margin: 10 })};
   `
 
   const Image = styled.img`
@@ -31,7 +38,7 @@ export default function ProductPage() {
 
   const InfoContainer = styled.div`
     flex: 1;
-    padding: 0 50px;
+    padding: 10px 25px;
     ${mobile({ padding: 10 })};
   `
 

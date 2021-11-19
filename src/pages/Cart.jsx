@@ -10,7 +10,10 @@ import { mobile, tablet } from "responsive"
 import styled from "styled-components"
 
 export default function Cart() {
-  const Container = styled.div``
+  const Container = styled.div`
+    max-width: 1440px;
+    margin: 0 auto;
+  `
   const Wrapper = styled.div`
     padding: 20px;
     ${mobile({ padding: 10 })};
@@ -24,6 +27,8 @@ export default function Cart() {
     align-items: center;
     justify-content: space-between;
     padding: 20px;
+    ${tablet({ padding: "20px 10px" })}
+    ${mobile({})}
   `
   const TopButton = styled.div`
     padding: 10px;
@@ -36,12 +41,13 @@ export default function Cart() {
     ${mobile({ textAlign: "center" })};
   `
   const TopTexts = styled.div`
-    ${tablet({ display: "none" })};
+    ${mobile({ display: "none" })};
   `
   const TopText = styled.span`
     text-decoration: underline;
     cursor: pointer;
     margin: 0 10px;
+    ${tablet({ margin: "0 5px" })};
   `
   const Bottom = styled.div`
     display: flex;
@@ -60,6 +66,8 @@ export default function Cart() {
   const ProductDetail = styled.div`
     flex: 2;
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
   `
   const Image = styled.img`
     width: 200px;
@@ -67,6 +75,8 @@ export default function Cart() {
   `
   const Details = styled.div`
     padding: 20px;
+    max-width: 311px;
+    width: 90vw;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -113,7 +123,10 @@ export default function Cart() {
     border-radius: 10px;
     padding: 20px;
     height: 50vh;
-    ${tablet({ width: 375 })};
+    min-width: 275px;
+    max-width: 365px;
+    ${tablet({ width: "100%" })};
+    ${mobile({ padding: 5, minWidth: "95vw" })};
   `
   const SummaryTitle = styled.h1`
     font-weight: 200;

@@ -16,10 +16,16 @@ const Footer = () => {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    max-width: 1440px;
+    margin: 0 auto;
+    & > div {
+      min-width: 300px;
+      padding: 20px;
+      flex: 1;
+      ${mobile({ padding: 10 })};
+    }
   `
   const Left = styled.div`
-    flex: 1;
-    min-width: 300px;
     display: flex;
     flex-direction: column;
     padding: 20px;
@@ -47,9 +53,6 @@ const Footer = () => {
   `
 
   const Center = styled.div`
-    flex: 1;
-    min-width: 300px;
-    padding: 20px;
     ${mobile({ display: "none" })};
   `
   const Title = styled.h3`
@@ -67,9 +70,6 @@ const Footer = () => {
     margin-bottom: 10px;
   `
   const Right = styled.div`
-    flex: 1;
-    min-width: 300px;
-    padding: 20px;
     ${mobile({ backgroundColor: "#fff8f8" })};
   `
   const ContactItem = styled.div`

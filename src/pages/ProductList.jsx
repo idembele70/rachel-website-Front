@@ -10,7 +10,10 @@ import { mobile } from "responsive"
 
 const ProductList = () => {
   const { t } = useTranslation()
-  const Container = styled.div``
+  const Container = styled.div`
+    max-width: 1440px;
+    margin: 0 auto;
+  `
   const Title = styled.h1`
     margin: 20px;
   `

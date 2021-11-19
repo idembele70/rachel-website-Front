@@ -13,9 +13,17 @@ function Categories() {
   }, [])
   const Container = styled.div`
     display: flex;
+    flex-wrap: wrap;
     padding: 20px;
     justify-content: space-between;
-    ${mobile({ paddng: 0, flexDirection: "column" })}
+    max-width: 1440px;
+    margin: auto;
+    & > div {
+      min-width: 480px;
+      min-height: 756px;
+      ${mobile({ minWidth: "auto", minHeight: "unset" })};
+    }
+    ${mobile({ padding: 0, flexDirection: "column" })};
   `
   return (
     <Container>

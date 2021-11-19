@@ -1,10 +1,10 @@
-import Cart from "pages/Cart"
+import Register from "pages/Register"
 import React from "react"
 
 function App() {
   return (
     <div>
-      <Cart />
+      <Register />
     </div>
   )
 }
