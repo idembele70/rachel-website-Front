@@ -1,12 +1,15 @@
-import React from "react"
-import styled from "styled-components"
-import Navbar from "components/tools/Navbar"
-import Footer from "components/tools/Footer"
-import Newsletter from "components/tools/Newsletter"
-import { useTranslation } from "react-i18next"
 import { Add, Remove } from "@mui/icons-material"
+import axios from "axios"
 import Announcement from "components/tools/Announcement"
+import Footer from "components/tools/Footer"
+import Navbar from "components/tools/Navbar"
+import Newsletter from "components/tools/Newsletter"
+import React, { useEffect, useState } from "react"
+import { useTranslation } from "react-i18next"
+import { useLocation } from "react-router-dom"
+import { publicRequest } from "requestMethods"
 import { mobile } from "responsive"
+import styled from "styled-components"
 
 export default function ProductPage() {
   const { t } = useTranslation()
@@ -74,6 +77,7 @@ export default function ProductPage() {
     width: 20px;
     height: 20px;
     border-radius: 50%;
+    border: 1px solid rgba(59, 75, 147, 0.8);
     background-color: ${(props) =>
       // eslint-disable-next-line react/prop-types
       props.color};
@@ -118,62 +122,91 @@ export default function ProductPage() {
     }
   `
 
+  const [product, setProduct] = useState({
+    price: Number(),
+    title: String(),
+    description: String(),
+    img: String(),
+    sizes: [],
+    colors: []
+  })
+  const [loading, setLoading] = useState(true)
+  const id = useLocation().pathname.split("/")[2]
+  const [quantity, setQuantity] = useState(1)
+  const [color, setColor] = useState(null)
+  const [size, setSize] = useState(null)
+  useEffect(() => {
+    publicRequest
+      .get(`/products/find/${id}`)
+      .then((res) => {
+        setProduct(res.data)
+        setSize(res.data.sizes[0])
+      })
+      .finally(() => setLoading(false))
+      .catch(console.error)
+  }, [id])
+  const { price, title, description, img, sizes, colors } = product
+  const handleQuantity = (direction = String()) => {
+    if (direction === "dec") {
+      if (quantity > 1) setQuantity((qte) => qte - 1)
+    } else setQuantity((qte) => qte + 1)
+  }
+
+  const handleAddToCart = () => {
+
+  }
+
+
   return (
     <Container>
       <Navbar />
       <Announcement />
-      <Wrapper>
-        <ImageContainer>
-          <Image src="https://i.ibb.co/S6qMxwr/jean.jpg" alt="salopette" />
-        </ImageContainer>
-        <InfoContainer>
-          <Title>{t("products.name.overalls")}</Title>
-          <Description>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-            venenatis, dolor in finibus malesuada, lectus ipsum porta nunc, at
-            iaculis arcu nisi sed mauris. Nulla fermentum vestibulum ex, eget
-            tristique tortor pretium ut. Curabitur elit justo, consequat id
-            condimentum ac, volutpat ornare.
-          </Description>
-          <Price>20€</Price>
-          <FilterContainer>
-            <Filter>
-              <FilterTitle>{t("products.filter.title.color")}</FilterTitle>
-              <FilterColor color="black" />
-              <FilterColor color="darkblue" />
-              <FilterColor color="gray" />
-            </Filter>
-            <Filter>
-              <FilterTitle>{t("products.filter.sizes.size")}</FilterTitle>
-              <FilterSize>
-                <FilterSizeOption>
-                  {t("products.filter.sizes.xs")}
-                </FilterSizeOption>
-                <FilterSizeOption>
-                  {t("products.filter.sizes.s")}
-                </FilterSizeOption>
-                <FilterSizeOption>
-                  {t("products.filter.sizes.m")}
-                </FilterSizeOption>
-                <FilterSizeOption>
-                  {t("products.filter.sizes.l")}
-                </FilterSizeOption>
-                <FilterSizeOption>
-                  {t("products.filter.sizes.xl")}
-                </FilterSizeOption>
-              </FilterSize>
-            </Filter>
-          </FilterContainer>
-          <AddContainer>
-            <AmountContainer>
-              <Remove />
-              <Amount>1</Amount>
-              <Add />
-            </AmountContainer>
-            <Button>{t("products.addToCard")} </Button>
-          </AddContainer>
-        </InfoContainer>
-      </Wrapper>
+      {loading ? (
+        "Loading..."
+      ) : (
+        <Wrapper>
+          <ImageContainer>
+            <Image src={`https://lh3.google.com/u/0/d/${img}`} alt={title} />
+          </ImageContainer>
+          <InfoContainer>
+            <Title>{t(`products.name.${title}`)}</Title>
+            <Description>
+              {t(`products.description.${description}`)}
+            </Description>
+            <Price>
+              {price}
+              {t(`products.currency`)}
+            </Price>
+            <FilterContainer>
+              <Filter>
+                <FilterTitle>{t("products.filter.title.color")}</FilterTitle>
+                {colors?.map((c) => (
+                  <FilterColor onClick={() => setColor(c)} color={c} key={c} />
+                ))}
+              </Filter>
+              <Filter>
+                <FilterTitle>{t("products.filter.sizes.size")}</FilterTitle>
+                <FilterSize
+                  value={size}
+                  onChange={(e) => setSize(e.target.value)}
+                >
+                  {sizes?.map((s) => (
+                    <FilterSizeOption key={s}>{s}</FilterSizeOption>
+                  ))}
+                </FilterSize>
+              </Filter>
+            </FilterContainer>
+            <AddContainer>
+              <AmountContainer>
+                <Remove onClick={() => handleQuantity("dec")} />
+                <Amount>{quantity}</Amount>
+                <Add onClick={() => handleQuantity("inc")} />
+              </AmountContainer>
+              <Button onClick={handleAddToCart}>{t("products.addToCard")} </Button>
+            </AddContainer>
+          </InfoContainer>
+        </Wrapper>
+      )}
       <Newsletter />
       <Footer />
     </Container>

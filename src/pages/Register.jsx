@@ -65,7 +65,7 @@ function Register() {
           <Input placeholder={t("confirmPassword")} />
           <Agreement>
             {t("signup.agreement")}
-            <b>{t("signup.privacyPolicy")}</b>
+            <b> {t("signup.privacyPolicy")}.</b>
           </Agreement>
           <Button>{t("signup.create")}</Button>
         </Form>
@@ -75,4 +75,3 @@ function Register() {
 }
 
 export default Register
-

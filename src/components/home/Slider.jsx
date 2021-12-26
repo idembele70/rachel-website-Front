@@ -80,12 +80,28 @@ const Button = styled.button`
   cursor: pointer;
 `
 function Slider() {
-  const [sliderItems, setsliderItems] = useState([])
+  const [sliderItems, setSliderItems] = useState([])
   useEffect(() => {
-    fetch("database/sliderItems.json")
-      .then((res) => res.json())
-      .then(setsliderItems)
-      .catch((e) => console.error("Error while fetching items", e))
+    setSliderItems([
+      {
+        id: "9aa5d26d-e9a9-4e01-9278-6bb08fc142fd",
+        img: "img01.jpeg",
+        name: "dress",
+        bg: "f6fafd"
+      },
+      {
+        id: "2e7d1659-1bb6-4f60-af80-979f747a7f68",
+        img: "img02.peg",
+        name: "sweatshirt",
+        bg: "fcf1ed"
+      },
+      {
+        id: "a3cd9164-75bc-4196-a80f-e549150a1977",
+        img: "img03.jpg",
+        name: "jackets",
+        bg: "fbf0f4"
+      }
+    ])
   }, [])
   const { t } = useTranslation()
   const [slideIndex, setSlideIndex] = useState(0)
@@ -105,7 +121,7 @@ function Slider() {
           sliderItems.map((item) => (
             <Slide key={item.id} bg={item.bg}>
               <ImgContainer>
-                <Image src={item.img} alt="girl" />
+                <Image src={`assets/img/slider/${item.img}`} alt={item.name} />
               </ImgContainer>
               <InfoContainer>
                 <Title>{t(`slider.info.${item.name}.title`)} </Title>

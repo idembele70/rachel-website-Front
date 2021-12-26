@@ -3,10 +3,11 @@ import styled from "styled-components"
 import PropTypes from "prop-types"
 import { useTranslation } from "react-i18next"
 import { mobile } from "responsive"
+import { Link } from "react-router-dom"
 
 const CategoryItem = ({ itemInfo }) => {
   const { t } = useTranslation()
-  const { img, name } = itemInfo
+  const { img, name, category } = itemInfo
   const Container = styled.div`
     flex: 1;
     height: 70vh;
@@ -45,11 +46,13 @@ const CategoryItem = ({ itemInfo }) => {
   `
   return (
     <Container>
-      <Image src={img} alt={t(`products.categories.${name} `)} />
-      <Info>
-        <Title>{t(`products.categories.${name}`).toUpperCase()}</Title>
-        <Button>{t(`products.categories.button`)} </Button>
-      </Info>
+      <Link to={`/products/${category}`}>
+        <Image src={img} alt={t(`products.categories.${name} `)} />
+        <Info>
+          <Title>{t(`products.categories.${name}`).toUpperCase()}</Title>
+          <Button>{t(`products.categories.button`)} </Button>
+        </Info>
+      </Link>
     </Container>
   )
 }
@@ -57,7 +60,8 @@ const CategoryItem = ({ itemInfo }) => {
 CategoryItem.propTypes = {
   itemInfo: PropTypes.shape({
     img: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired
+    name: PropTypes.string.isRequired,
+    category: PropTypes.string.isRequired
   }).isRequired
 }
 export default CategoryItem

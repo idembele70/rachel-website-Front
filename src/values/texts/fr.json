@@ -67,7 +67,27 @@
       "button": "ACHETEZ MAINTENANT"
     },
     "currency": "€",
+    "description": {
+      "cloth251220212202": "Wax jaune avec des motifs d'escaliers",
+      "cloth251220212203": "Wax orange avec des motifs d'angles",
+      "earing251220212148": "Boucle d'oreille avec la carte d'afrique",
+      "earing251220212149": "Boucle d'oreille avec une femme et une enfants habille avec des tissus africains",
+      "fan251220211853": "Eventail avec un wax degrade bleu jaune et blanc",
+      "fan251220212154": "Eventail avec un wax degrade bleu, jaune, verts, marons ...",
+      "sweatshirt251220212156": "Pull en wax jaune avec la carte d'afrique",
+      "sweatshirt251220212159": "pull en wax rouge avec capuche et la carte d'afrique"
+    },
     "filter": {
+      "category": {
+        "accessories": "Accessoires",
+        "cloth": "Tissu",
+        "earring": "Boucle d'oreilles",
+        "fan": "Eventails",
+        "man": "Hommes",
+        "sweatshirt": "Pull",
+        "wax": "Wax",
+        "woman": "Femmes"
+      },
       "colors": {
         "black": "Noir",
         "blue": "Bleu",
@@ -84,7 +104,8 @@
         "l": "L",
         "s": "S",
         "xl": "XL",
-        "xs": "XS"
+        "xs": "XS",
+        "5-metter": "5 mètre"
       },
       "sort": {
         "newest": "Nouveautés",
@@ -100,11 +121,19 @@
       }
     },
     "name": {
+      "cloth251220212202": "Wax jaune",
+      "cloth251220212203": "Wax orange",
       "dresses": "Robes",
+      "earing251220212148": "Boucle d'oreille carte d'afrique",
+      "earing251220212149": "Boucle d'oreille femme avec enfants",
+      "fan251220211853": "Eventails en wax bleu",
+      "fan251220212154": "Eventail en wax jaune",
       "hakuraTees": "T-Shirt hakura",
       "overalls": "Salopette en jean",
       "nikeRuning": "Nike run",
-      "size": "Taille"
+      "size": "Taille",
+      "sweatshirt251220212156": "Pull en wax jaune",
+      "sweatshirt251220212159": "Pull en wax rouge"
     }
   },
   "signin": {
@@ -119,8 +148,8 @@
   },
   "signup": {
     "title": "CRÉEZ\u00A0UN\u00A0COMPTE",
-    "agreement": "En créant un compte, je consens au traitement de mes personelles conformément à la",
-    "privacyPolicy": "POLItique de con",
+    "agreement": "En créant un compte, je consens au traitement de mes données personelles conformément à la",
+    "privacyPolicy": "POLITIQUE DE CONFIDENTIALITÉ",
     "create": "CRÉER"
   },
   "slider": {

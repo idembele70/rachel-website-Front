@@ -6,8 +6,10 @@ import {
   SearchOutlined,
   ShoppingCartOutlined
 } from "@mui/icons-material"
+import { Link } from "react-router-dom"
+import { useTranslation } from "react-i18next"
 
-export default function Product({ img }) {
+export default function Product(props) {
   const Container = styled.div`
     align-items: center;
     background-color: #f5fbfd;
@@ -28,7 +30,9 @@ export default function Product({ img }) {
   `
   const Image = styled.img`
     height: 75%;
+    max-width: 90%;
     z-index: 1;
+    object-fit: cover;
   `
   const Info = styled.div`
     opacity: 0;
@@ -63,16 +67,28 @@ export default function Product({ img }) {
       transform: scale(1.1);
     }
   `
+  const { t } = useTranslation()
+  const {
+    product: { img, _id: id, title }
+  } = props
   return (
     <Container>
       <Circle />
-      <Image src={img} alt="alt " />
+      <Image
+        src={`https://lh3.google.com/u/0/d/${img}`}
+        alt={t(`products.name.${title}`)}
+      />
       <Info>
         <Icon>
           <ShoppingCartOutlined />
         </Icon>
         <Icon>
-          <SearchOutlined />
+          <Link
+            style={{ color: "inherit", textDecoration: "inherit" }}
+            to={`/product/${id}`}
+          >
+            <SearchOutlined />
+          </Link>
         </Icon>
         <Icon>
           <FavoriteBorderOutlined />
@@ -83,5 +99,5 @@ export default function Product({ img }) {
 }
 
 Product.propTypes = {
-  img: PropTypes.string.isRequired
+  product: PropTypes.instanceOf(Object).isRequired
 }
