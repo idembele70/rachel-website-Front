@@ -5,6 +5,7 @@
   "cart": {
     "continueShop": "Continuez vos achats",
     "checkout": "PAYER MAINTENANT",
+    "description": "Le prix total est",
     "title": "VOTRE PANIER",
     "topTexts": {
       "bag": "Votre panier",
@@ -137,6 +138,7 @@
     }
   },
   "signin": {
+    "errorMessage": "Oups vos identifiants semble comporte une erreur",
     "title": "SE\u00A0CONNECTER",
     "login": "CONNEXION",
     "forgotPassword": "MOT\u00A0DE\u00A0PASSE\u00A0OUBLIÉ\u00A0?",

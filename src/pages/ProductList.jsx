@@ -9,41 +9,44 @@ import Announcement from "components/tools/Announcement"
 import { mobile } from "responsive"
 import { useLocation } from "react-router-dom"
 
+const Container = styled.div`
+  max-width: 1440px;
+  margin: 0 auto;
+`
+const Title = styled.h1`
+  margin: 20px;
+`
+const FilterContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
+const Filter = styled.div`
+  margin: 20px;
+  ${mobile({ margin: "0 20px", display: "flex", flexDirection: "column" })};
+`
+const FilterText = styled.span`
+  font-size: 20px;
+  font-weight: 600;
+  margin-right: 20px;
+  ${mobile({ marginRight: 0 })};
+`
+const Select = styled.select`
+  padding: 10px;
+  margin-right: 20px;
+  ${mobile({ margin: "10px 0" })};
+`
+const Option = styled.option``
+
 const ProductList = () => {
   const { t } = useTranslation()
-  const Container = styled.div`
-    max-width: 1440px;
-    margin: 0 auto;
-  `
-  const Title = styled.h1`
-    margin: 20px;
-  `
-  const FilterContainer = styled.div`
-    display: flex;
-    justify-content: space-between;
-  `
-  const Filter = styled.div`
-    margin: 20px;
-    ${mobile({ margin: "0 20px", display: "flex", flexDirection: "column" })};
-  `
-  const FilterText = styled.span`
-    font-size: 20px;
-    font-weight: 600;
-    margin-right: 20px;
-    ${mobile({ marginRight: 0 })};
-  `
-  const Select = styled.select`
-    padding: 10px;
-    margin-right: 20px;
-    ${mobile({ margin: "10px 0" })};
-  `
-  const Option = styled.option``
+
   const location = useLocation()
   const category = location.pathname.split("/")[2]
-  const [filters, setfilters] = useState({ color: "none", size: "size" })
+  const [filters, setfilters] = useState({ colors: "none", sizes: "size" })
 
   const handleFilters = (e) => {
-    setfilters({ ...filters, [e.target.name]: e.target.value })
+    const { name, value } = e.target
+    setfilters({ ...filters, [name]: value })
   }
 
   const [sort, setSort] = useState("newest")
@@ -55,7 +58,7 @@ const ProductList = () => {
       <FilterContainer>
         <Filter>
           <FilterText>{t("products.filter.text.filterProducts")}</FilterText>
-          <Select name="color" value={filters.color} onChange={handleFilters}>
+          <Select name="color" value={filters.colors} onChange={handleFilters}>
             <Option value="none">{t("products.filter.colors.color")}</Option>
             <Option value="white">{t("products.filter.colors.white")}</Option>
             <Option value="black">{t("products.filter.colors.black")}</Option>
@@ -64,7 +67,7 @@ const ProductList = () => {
             <Option value="yellow">{t("products.filter.colors.yellow")}</Option>
             <Option value="green">{t("products.filter.colors.green")}</Option>
           </Select>
-          <Select name="size" value={filters.size} onChange={handleFilters}>
+          <Select name="size" value={filters.sizes} onChange={handleFilters}>
             <Option value="size">{t("products.filter.sizes.size")}</Option>
             <Option value="XS">{t("products.filter.sizes.xs")}</Option>
             <Option value="S">{t("products.filter.sizes.s")}</Option>

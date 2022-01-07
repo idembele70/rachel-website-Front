@@ -4,7 +4,9 @@ import Login from "pages/Login"
 import ProductList from "pages/ProductList"
 import ProductPage from "pages/ProductPage"
 import Register from "pages/Register"
+import Success from "pages/Success"
 import React from "react"
+import { useSelector } from "react-redux"
 import {
   BrowserRouter as Router,
   Switch,
@@ -13,26 +15,30 @@ import {
 } from "react-router-dom"
 
 function App() {
-  const user = true
+  // @ts-ignore
+  const { currentUser: user } = useSelector((state) => state.user)
   return (
     <Router>
       <Switch>
         <Route path="/" exact>
           <Home />
         </Route>
-        <Route path="/cart">
+        <Route path="/cart" exact>
           <Cart />
         </Route>
-        <Route path="/products/:category">
+        <Route path="/products/:category" exact>
           <ProductList />
         </Route>
-        <Route path="/product/:id">
+        <Route path="/product/:id" exact>
           <ProductPage />
         </Route>
-        <Route path="/login">{user ? <Redirect to="/" /> : <Login />}</Route>
-        <Route path="/register">
+        <Route path="/login" exact>
+          {user ? <Redirect to="/" /> : <Login />}
+        </Route>
+        <Route path="/register" exact>
           {user ? <Redirect to="/" /> : <Register />}
         </Route>
+        <Route path="/success" component={Success} exact />
       </Switch>
     </Router>
   )

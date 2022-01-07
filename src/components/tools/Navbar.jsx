@@ -3,7 +3,9 @@ import SearchIcon from "@mui/icons-material/Search"
 import { Badge } from "@mui/material"
 import React from "react"
 import { useTranslation } from "react-i18next"
+import { useSelector } from "react-redux"
 import Styled from "styled-components"
+import { Link } from "react-router-dom"
 import { mobile, tablet } from "../../responsive"
 
 const Container = Styled.div`
@@ -85,6 +87,8 @@ const MenuItem = Styled.div`
 
 const Navbar = () => {
   const { t } = useTranslation()
+  // @ts-ignore
+  const { quantity } = useSelector((state) => state.cart)
 
   return (
     <Container>
@@ -106,9 +110,14 @@ const Navbar = () => {
             // @ts-ignore
             last
           >
-            <Badge badgeContent={4} color="primary">
-              <ShoppingCartOutlined />
-            </Badge>
+            <Link
+              to="/cart"
+              style={{ color: "inherit", textDecoration: "inherit" }}
+            >
+              <Badge badgeContent={quantity} color="primary">
+                <ShoppingCartOutlined />
+              </Badge>
+            </Link>
           </MenuItem>
         </Right>
       </Wrapper>

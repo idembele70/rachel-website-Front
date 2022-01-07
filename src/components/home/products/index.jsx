@@ -4,6 +4,15 @@ import PropTypes from "prop-types"
 import axios from "axios"
 import Product from "./Product"
 
+const Container = styled.div`
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 20px;
+  max-width: 1440px;
+  margin: auto;
+`
+
 const Products = ({ category, filters, sort }) => {
   const [products, setProducts] = useState([])
   const [filteredProducts, setFilteredProducts] = useState([])
@@ -26,12 +35,12 @@ const Products = ({ category, filters, sort }) => {
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const res = await axios.get(
+        const { data } = await axios.get(
           category
             ? `http://localhost:5000/api/products?category=${category}`
             : "http://localhost:5000/api/products"
         )
-        setProducts(sortProducts({ arr: res.data }))
+        setProducts(sortProducts({ arr: data }))
       } catch (error) {
         console.error(error)
       }
@@ -40,7 +49,7 @@ const Products = ({ category, filters, sort }) => {
   }, [category])
 
   useEffect(() => {
-    if ((category && filters.color !== "none") || filters.size !== "size") {
+    if ((category && filters.colors !== "none") || filters.sizes !== "size") {
       const filtered = products.filter((item) =>
         Object.entries(filters).find(([key, value]) =>
           item[key].includes(value)
@@ -50,12 +59,6 @@ const Products = ({ category, filters, sort }) => {
     } else setFilteredProducts(sortProducts({ value: sort, arr: products }))
   }, [category, products, filters, sort])
 
-  const Container = styled.div`
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    padding: 20px;
-  `
   return (
     <Container>
       {category
@@ -81,3 +84,4 @@ Products.defaultProps = {
   sort: String()
 }
 export default Products
+

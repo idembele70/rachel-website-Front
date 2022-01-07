@@ -1,7 +1,10 @@
 import axios from "axios"
 
 const BASE_URL = "http://localhost:5000/api/"
-const TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxYTRkYzk1MDc5NzIzZjAzOGExNmY1YSIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY0MDUxODcxOCwiZXhwIjoxNjQwNzc3OTE4fQ.-PPViyZ4pUzYQjjHCeFqi6J0SzGlIYn5EXBm12EF44Q"
+const persistRoot = JSON.parse(localStorage.getItem("persist:root"))
+const TOKEN = persistRoot
+  ? JSON.parse(persistRoot.user).currentUser.accessToken
+  : ""
 
 export const publicRequest = axios.create({
   baseURL: BASE_URL
@@ -11,5 +14,4 @@ export const userRequest = axios.create({
   headers: {
     token: `e ${TOKEN}`
   }
-
 })

@@ -10,76 +10,78 @@ import { useTranslation } from "react-i18next"
 import { mobile } from "responsive"
 import styled from "styled-components"
 
+const Container = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 1440px;
+  margin: 0 auto;
+  & > div {
+    min-width: 300px;
+    padding: 20px;
+    flex: 1;
+    ${mobile({ padding: 10 })};
+  }
+`
+const Left = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+`
+const Logo = styled.h1``
+const Description = styled.p`
+  margin: 20px 0;
+`
+const SocialContainer = styled.div`
+  display: flex;
+`
+
+const SocialIcon = styled.div`
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: white;
+  background-color: #${(props) =>
+    // eslint-disable-next-line react/prop-types
+    props.color};
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 20px;
+`
+
+const Center = styled.div`
+  ${mobile({ display: "none" })};
+`
+const Title = styled.h3`
+  margin-bottom: 30px;
+`
+const List = styled.ul`
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+`
+const ListItem = styled.li`
+  width: 50%;
+  margin-bottom: 10px;
+`
+const Right = styled.div`
+  ${mobile({ backgroundColor: "#fff8f8" })};
+`
+const ContactItem = styled.div`
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+`
+const Payment = styled.img`
+  width: 50%;
+`
+
 const Footer = () => {
   const { t } = useTranslation()
-  const Container = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    max-width: 1440px;
-    margin: 0 auto;
-    & > div {
-      min-width: 300px;
-      padding: 20px;
-      flex: 1;
-      ${mobile({ padding: 10 })};
-    }
-  `
-  const Left = styled.div`
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-  `
-  const Logo = styled.h1``
-  const Description = styled.p`
-    margin: 20px 0;
-  `
-  const SocialContainer = styled.div`
-    display: flex;
-  `
 
-  const SocialIcon = styled.div`
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    color: white;
-    background-color: #${(props) =>
-      // eslint-disable-next-line react/prop-types
-      props.color};
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 20px;
-  `
-
-  const Center = styled.div`
-    ${mobile({ display: "none" })};
-  `
-  const Title = styled.h3`
-    margin-bottom: 30px;
-  `
-  const List = styled.ul`
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-  `
-  const ListItem = styled.li`
-    width: 50%;
-    margin-bottom: 10px;
-  `
-  const Right = styled.div`
-    ${mobile({ backgroundColor: "#fff8f8" })};
-  `
-  const ContactItem = styled.div`
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-  `
-  const Payment = styled.img`
-    width: 50%;
-  `
   return (
     <Container>
       <Left>
