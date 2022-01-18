@@ -5,9 +5,9 @@ import Navbar from "components/tools/Navbar"
 import Newsletter from "components/tools/Newsletter"
 import React, { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { useLocation } from "react-router-dom"
-import { addProduct } from "redux/cartRedux"
+import { addProduct, updateProduct } from "redux/cartRedux"
 import { publicRequest } from "requestMethods"
 import { mobile } from "responsive"
 import styled from "styled-components"
@@ -133,7 +133,7 @@ export default function ProductPage() {
   })
   const [loading, setLoading] = useState(true)
   const id = useLocation().pathname.split("/")[2]
-  const [quantity, setQuantity] = useState(1)
+  const [qte, setQte] = useState(1)
   const [color, setColor] = useState(null)
   const [size, setSize] = useState(null)
   const dispatch = useDispatch()
@@ -143,7 +143,9 @@ export default function ProductPage() {
       .get(`/products/find/${id}`)
       .then((res) => {
         setProduct(res.data)
+        setColor(res.data.colors[0])
         setSize(res.data.sizes[0])
+        setLoading(false)
       })
       .finally(() => setLoading(false))
       .catch(console.error)
@@ -151,20 +153,24 @@ export default function ProductPage() {
   const { price, title, description, img, sizes, colors } = product
   const handleQuantity = (direction = String()) => {
     if (direction === "dec") {
-      if (quantity > 1) setQuantity((qte) => qte - 1)
-    } else setQuantity((qte) => qte + 1)
+      if (qte > 1) setQte(qte > 1 && qte - 1)
+    } else setQte(qte + 1)
   }
-
+  // @ts-ignore
+  const { products } = useSelector((state) => state.cart)
   const handleAddToCart = () => {
-    dispatch(
-      addProduct({
-        ...product,
-        price,
-        quantity,
-        color,
-        size
-      })
-    )
+    const exist = products.find(({ _id }) => _id === id)
+    if (exist) dispatch(updateProduct({ id, qte, price: price * qte }))
+    else
+      dispatch(
+        addProduct({
+          ...product,
+          price,
+          qte,
+          color,
+          size
+        })
+      )
   }
 
   return (
@@ -176,13 +182,11 @@ export default function ProductPage() {
       ) : (
         <Wrapper>
           <ImageContainer>
-            <Image src={`https://lh3.google.com/u/0/d/${img}`} alt={title} />
+            <Image src={img} alt={title} />
           </ImageContainer>
           <InfoContainer>
-            <Title>{t(`products.name.${title}`)}</Title>
-            <Description>
-              {t(`products.description.${description}`)}
-            </Description>
+            <Title>{title}</Title>
+            <Description>{description}</Description>
             <Price>
               {price}
               {t(`products.currency`)}
@@ -194,26 +198,28 @@ export default function ProductPage() {
                   <FilterColor onClick={() => setColor(c)} color={c} key={c} />
                 ))}
               </Filter>
-              <Filter>
-                <FilterTitle>{t("products.filter.sizes.size")}</FilterTitle>
-                <FilterSize
-                  value={size}
-                  onChange={(e) => setSize(e.target.value)}
-                >
-                  {sizes?.map((s) => (
-                    <FilterSizeOption key={s}>{s}</FilterSizeOption>
-                  ))}
-                </FilterSize>
-              </Filter>
+              {sizes.length && !sizes.includes("") && (
+                <Filter>
+                  <FilterTitle>{t("products.filter.sizes.size")}</FilterTitle>
+                  <FilterSize
+                    value={size}
+                    onChange={(e) => setSize(e.target.value)}
+                  >
+                    {sizes?.map((s) => (
+                      <FilterSizeOption key={s}>{s}</FilterSizeOption>
+                    ))}
+                  </FilterSize>
+                </Filter>
+              )}
             </FilterContainer>
             <AddContainer>
               <AmountContainer>
                 <Remove onClick={() => handleQuantity("dec")} />
-                <Amount>{quantity}</Amount>
+                <Amount>{qte}</Amount>
                 <Add onClick={() => handleQuantity("inc")} />
               </AmountContainer>
               <Button onClick={handleAddToCart}>
-                {t("products.addToCard")}{" "}
+                {t("products.addToCard")}
               </Button>
             </AddContainer>
           </InfoContainer>

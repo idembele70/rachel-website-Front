@@ -1,11 +1,15 @@
-import styled from "styled-components"
-import React from "react"
+import Navbar from "components/tools/Navbar"
+import React, { useState } from "react"
 import { useTranslation } from "react-i18next"
+import { useDispatch } from "react-redux"
+import { useHistory } from "react-router-dom"
 import { mobile } from "responsive"
+import styled from "styled-components"
+import { register } from "../redux/apiCalls"
 
 const Container = styled.div`
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh - 60px);
   background: linear-gradient(
       rgba(255, 255, 255, 0.5),
       rgba(255, 255, 255, 0.5)
@@ -16,6 +20,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  ${mobile("height: calc(100vh - 50px)")}
 `
 const Wrapper = styled.div`
   width: 40%;
@@ -42,6 +47,9 @@ const Agreement = styled.span`
   width: 100%;
   margin: 20px 0;
 `
+const InputRadio = styled.input`
+  margin-right: 5px;
+`
 const Button = styled.button`
   width: 115px;
   border: none;
@@ -51,27 +59,113 @@ const Button = styled.button`
   cursor: pointer;
 `
 
+const Error = styled.span`
+  color: red;
+`
+
 function Register() {
   const { t } = useTranslation()
+  const history = useHistory()
+  const [data, setData] = useState({
+    name: "",
+    lastname: "",
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: ""
+  })
+  const [consent, setConsent] = useState(false)
+  const [error, setError] = useState("")
+  const handleUpdate = (e) => {
+    const { name, value } = e.target
+    setData({ ...data, [name]: value })
+  }
+  const dispatch = useDispatch()
+  const handleRegister = (e) => {
+    e.preventDefault()
+    const { password, confirmPassword } = data
+    if (!consent || password !== confirmPassword) {
+      if (!consent) setError(t("signup.agreementError"))
+      else setError(t("signup.passwordError"))
+    } else {
+      setError("")
+      register(dispatch, data)
+      history.push("/login")
+    }
+  }
+
   return (
-    <Container>
-      <Wrapper>
-        <Title>{t("signup.title")}</Title>
-        <Form>
-          <Input placeholder={t("name")} />
-          <Input placeholder={t("lastname")} />
-          <Input placeholder={t("username")} />
-          <Input placeholder={t("email")} />
-          <Input placeholder={t("password")} />
-          <Input placeholder={t("confirmPassword")} />
-          <Agreement>
-            {t("signup.agreement")}
-            <b> {t("signup.privacyPolicy")}.</b>
-          </Agreement>
-          <Button>{t("signup.create")}</Button>
-        </Form>
-      </Wrapper>
-    </Container>
+    <>
+      <Navbar />
+      <Container>
+        <Wrapper>
+          <Title>{t("signup.title")}</Title>
+          <Form onSubmit={handleRegister}>
+            <Input
+              required
+              value={data.name}
+              onChange={handleUpdate}
+              name="name"
+              placeholder={t("name")}
+            />
+            <Input
+              required
+              value={data.lastname}
+              onChange={handleUpdate}
+              name="lastname"
+              placeholder={t("lastname")}
+            />
+            <Input
+              required
+              value={data.username}
+              onChange={handleUpdate}
+              name="username"
+              placeholder={t("username")}
+            />
+            <Input
+              required
+              type="email"
+              value={data.email}
+              onChange={handleUpdate}
+              name="email"
+              placeholder={t("email")}
+            />
+            <Input
+              required
+              type="password"
+              value={data.password}
+              onChange={handleUpdate}
+              name="password"
+              placeholder={t("password")}
+            />
+            <Input
+              required
+              type="password"
+              value={data.confirmPassword}
+              onChange={handleUpdate}
+              name="confirmPassword"
+              placeholder={t("confirmPassword")}
+            />
+            <Agreement>
+              {error && (
+                <>
+                  <Error>{error}</Error>
+                  <br />
+                </>
+              )}
+              <InputRadio
+                type="checkbox"
+                checked={consent}
+                onChange={() => setConsent(!consent)}
+              />
+              {t("signup.agreement")}
+              <b> {t("signup.privacyPolicy")}.</b>
+            </Agreement>
+            <Button type="submit">{t("signup.create")}</Button>
+          </Form>
+        </Wrapper>
+      </Container>
+    </>
   )
 }
 

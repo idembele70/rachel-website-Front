@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import { publicRequest } from "requestMethods"
 import { mobile } from "responsive"
 import styled from "styled-components"
 import CategoryItem from "./CategoryItem"
@@ -21,16 +22,22 @@ const Container = styled.div`
 function Categories() {
   const [categories, setCategories] = useState([])
   useEffect(() => {
-    fetch("./database/categories.json")
-      .then((res) => res.json())
-      .then(setCategories)
-      .catch((e) => console.error("Error while fetching categories", e))
+    publicRequest
+      .get("/category")
+      .then(({ data }) => setCategories(data))
+      .catch((e) =>
+        console.error(
+          "Error while fetching categories in index of categories page",
+          e
+        )
+      )
   }, [])
 
   return (
     <Container>
       {categories.map((category) => (
-        <CategoryItem itemInfo={category} key={category.id} />
+        // eslint-disable-next-line no-underscore-dangle
+        <CategoryItem itemInfo={category} key={category._id} />
       ))}
     </Container>
   )

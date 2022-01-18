@@ -7,7 +7,6 @@ import {
   ShoppingCartOutlined
 } from "@mui/icons-material"
 import { Link } from "react-router-dom"
-import { useTranslation } from "react-i18next"
 
 const Container = styled.div`
   align-items: center;
@@ -18,6 +17,7 @@ const Container = styled.div`
   justify-content: center;
   margin: 5px;
   min-width: 280px;
+  max-width: 400px;
   position: relative;
 `
 const Circle = styled.div`
@@ -68,17 +68,13 @@ const Icon = styled.div`
 `
 
 export default function Product(props) {
-  const { t } = useTranslation()
   const {
     product: { img, _id: id, title }
   } = props
   return (
     <Container>
       <Circle />
-      <Image
-        src={`https://lh3.google.com/u/0/d/${img}`}
-        alt={t(`products.name.${title}`)}
-      />
+      <Image src={img} alt={title} />
       <Info>
         <Icon>
           <ShoppingCartOutlined />

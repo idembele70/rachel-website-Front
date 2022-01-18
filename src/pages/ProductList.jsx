@@ -1,13 +1,15 @@
+/* eslint-disable no-restricted-syntax */
 import styled from "styled-components"
 import Newsletter from "components/tools/Newsletter"
 import Products from "components/home/products"
 import Footer from "components/tools/Footer"
 import Navbar from "components/tools/Navbar"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import Announcement from "components/tools/Announcement"
 import { mobile } from "responsive"
 import { useLocation } from "react-router-dom"
+import axios from "axios"
 
 const Container = styled.div`
   max-width: 1440px;
@@ -42,38 +44,74 @@ const ProductList = () => {
 
   const location = useLocation()
   const category = location.pathname.split("/")[2]
-  const [filters, setfilters] = useState({ colors: "none", sizes: "size" })
 
-  const handleFilters = (e) => {
+  /*   const [filters, setFilters] = useState({ colors: [], sizes: [] })
+    const [color, setColor] = useState("none")
+    const [size, setSize] = useState("size") */
+
+  /* const handleFilters = (e) => {
     const { name, value } = e.target
-    setfilters({ ...filters, [name]: value })
-  }
+    switch (name) {
+      case "color":
+        setColor(value)
+        break
+      case "size":
+        setColor(value)
+        break
+      case "sort":
+        setColor(value)
+        break
+      default:
+        console.error("Error in ProductList page line 64, name not found.")
+        break
+    }
+    setFilters({ ...filters, [name]: value })
+  } */
 
-  const [sort, setSort] = useState("newest")
+  /*   useEffect(() => {
+      // @ts-ignore
+      axios
+        .get(
+          `http://localhost:5000/api/products${category ? `?category=${category}` : ""
+          }`
+        )
+        .then((res) => {
+          const colors = res.data
+            .map((x) => x.colors)
+            .flat()
+            .filter((col, idx, thisArray) => thisArray.indexOf(col) === idx)
+          const sizes = res.data
+            .map((x) => x.sizes)
+            .flat()
+            .filter((sze, idx, thisArray) => thisArray.indexOf(sze) === idx)
+          // @ts-ignore
+          setFilters({ ...filters, colors, sizes })
+        })
+    }, []) */
+  /*  const [sort, setSort] = useState("newest") */
   return (
     <Container>
       <Navbar />
       <Announcement />
-      <Title>{t(`products.filter.category.${category}`)}</Title>
-      <FilterContainer>
+      <Title>{category}</Title>
+      {/*     <FilterContainer>
         <Filter>
           <FilterText>{t("products.filter.text.filterProducts")}</FilterText>
-          <Select name="color" value={filters.colors} onChange={handleFilters}>
+          <Select name="color" value={color} onChange={handleFilters}>
             <Option value="none">{t("products.filter.colors.color")}</Option>
-            <Option value="white">{t("products.filter.colors.white")}</Option>
-            <Option value="black">{t("products.filter.colors.black")}</Option>
-            <Option value="red">{t("products.filter.colors.red")}</Option>
-            <Option value="blue">{t("products.filter.colors.blue")}</Option>
-            <Option value="yellow">{t("products.filter.colors.yellow")}</Option>
-            <Option value="green">{t("products.filter.colors.green")}</Option>
+            {filters.colors?.map((col) => (
+              <Option key={col} value={col}>
+                {col}
+              </Option>
+            ))}
           </Select>
-          <Select name="size" value={filters.sizes} onChange={handleFilters}>
+          <Select name="sizes" value={size} onChange={handleFilters}>
             <Option value="size">{t("products.filter.sizes.size")}</Option>
-            <Option value="XS">{t("products.filter.sizes.xs")}</Option>
-            <Option value="S">{t("products.filter.sizes.s")}</Option>
-            <Option value="M">{t("products.filter.sizes.m")}</Option>
-            <Option value="L">{t("products.filter.sizes.l")}</Option>
-            <Option value="XL">{t("products.filter.sizes.xl")}</Option>
+            {filters.sizes?.map((sze) => (
+              <Option key={sze} value={sze}>
+                {sze}
+              </Option>
+            ))}
           </Select>
         </Filter>
         <Filter>
@@ -88,8 +126,8 @@ const ProductList = () => {
             <Option value="desc">{t("products.filter.sort.priceDesc")}</Option>
           </Select>
         </Filter>
-      </FilterContainer>
-      <Products category={category} filters={filters} sort={sort} />
+      </FilterContainer> */}
+      <Products category={category} />
       <Newsletter />
       <Footer />
     </Container>

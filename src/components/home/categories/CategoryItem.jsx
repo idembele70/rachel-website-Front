@@ -1,9 +1,9 @@
-import React from "react"
-import styled from "styled-components"
 import PropTypes from "prop-types"
+import React from "react"
 import { useTranslation } from "react-i18next"
-import { mobile } from "responsive"
 import { Link } from "react-router-dom"
+import { mobile } from "responsive"
+import styled from "styled-components"
 
 const Container = styled.div`
   flex: 1;
@@ -15,7 +15,7 @@ const Image = styled.img`
   height: 100%;
   object-fit: cover;
   width: 100%;
-  ${mobile({ height: "20vh" })};
+  ${mobile({ maxHeight: "90vh" })};
 `
 const Info = styled.div`
   align-items: center;
@@ -44,14 +44,14 @@ const Button = styled.button`
 
 const CategoryItem = ({ itemInfo }) => {
   const { t } = useTranslation()
-  const { img, name, category } = itemInfo
+  const { img, name } = itemInfo
 
   return (
     <Container>
-      <Link to={`/products/${category}`}>
-        <Image src={img} alt={t(`products.categories.${name} `)} />
+      <Link to={`/products/${name}`}>
+        <Image src={img} alt={name} />
         <Info>
-          <Title>{t(`products.categories.${name}`).toUpperCase()}</Title>
+          <Title>{name.toUpperCase()}</Title>
           <Button>{t(`products.categories.button`)} </Button>
         </Info>
       </Link>
@@ -62,8 +62,7 @@ const CategoryItem = ({ itemInfo }) => {
 CategoryItem.propTypes = {
   itemInfo: PropTypes.shape({
     img: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    category: PropTypes.string.isRequired
+    name: PropTypes.string.isRequired
   }).isRequired
 }
 export default CategoryItem

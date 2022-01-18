@@ -1,11 +1,12 @@
 import { ShoppingCartOutlined } from "@mui/icons-material"
 import SearchIcon from "@mui/icons-material/Search"
 import { Badge } from "@mui/material"
-import React from "react"
+import React, { useState } from "react"
 import { useTranslation } from "react-i18next"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
+import { Link, useHistory } from "react-router-dom"
+import { logout } from "redux/apiCalls"
 import Styled from "styled-components"
-import { Link } from "react-router-dom"
 import { mobile, tablet } from "../../responsive"
 
 const Container = Styled.div`
@@ -62,6 +63,7 @@ const Logo = Styled.h1`
   font-weight: bold;
   font-size: 32px;
   margin: 0;
+  cursor: pointer;
   ${mobile({ fontSize: 24 })};
 
 `
@@ -87,8 +89,21 @@ const MenuItem = Styled.div`
 
 const Navbar = () => {
   const { t } = useTranslation()
-  // @ts-ignore
-  const { quantity } = useSelector((state) => state.cart)
+  const history = useHistory()
+  const states = useSelector((state) => state)
+  const dispatch = useDispatch()
+  const [search, setSearch] = useState("")
+  const {
+    // @ts-ignore
+    cart: { quantity },
+    // @ts-ignore
+    user: { currentUser }
+  } = states
+  const handleRedirect = (to = String()) => history.push(`${to}`)
+  const handleLogout = () => {
+    logout(dispatch)
+    history.push("/")
+  }
 
   return (
     <Container>
@@ -96,16 +111,36 @@ const Navbar = () => {
         <Left>
           <Language> {t("siteLanguage")}</Language>
           <SearchContainer>
-            <Input placeholder={t("navbar.search")} />
-            <SearchIcon sx={{ color: "gray", fontSize: 16 }} />
+            <Input
+              placeholder={t("navbar.search")}
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+            <SearchIcon
+              sx={{ color: "gray", fontSize: 16, cursor: "pointer" }}
+              onClick={() => {
+                history.push(`/products/${search}`)
+                setSearch("")
+              }}
+            />
           </SearchContainer>
         </Left>
         <Center>
-          <Logo>{t("siteName")} </Logo>
+          <Logo onClick={() => handleRedirect("/")}>{t("siteName")} </Logo>
         </Center>
         <Right>
-          <MenuItem>{t("sign.signup")}</MenuItem>
-          <MenuItem>{t("sign.login")}</MenuItem>
+          {currentUser ? (
+            <MenuItem onClick={handleLogout}>{t("sign.logout")}</MenuItem>
+          ) : (
+            <>
+              <MenuItem onClick={() => handleRedirect("/register")}>
+                {t("sign.signup")}
+              </MenuItem>
+              <MenuItem onClick={() => handleRedirect("/login")}>
+                {t("sign.login")}
+              </MenuItem>
+            </>
+          )}
           <MenuItem
             // @ts-ignore
             last

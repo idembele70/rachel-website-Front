@@ -6,18 +6,18 @@ import Product from "./Product"
 
 const Container = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   flex-wrap: wrap;
   padding: 20px;
   max-width: 1440px;
   margin: auto;
 `
 
-const Products = ({ category, filters, sort }) => {
+const Products = ({ category }) => {
   const [products, setProducts] = useState([])
-  const [filteredProducts, setFilteredProducts] = useState([])
+  /* const [filteredProducts, setFilteredProducts] = useState([]) */
 
-  function sortProducts({ value = "newest", arr = [] }) {
+  /* function sortProducts({ value = "newest", arr = [] }) {
     switch (value) {
       case "asc":
         return arr.sort((a, b) => a.price - b.price)
@@ -30,7 +30,7 @@ const Products = ({ category, filters, sort }) => {
             new Date(b.createdAt) - new Date(a.createdAt)
         )
     }
-  }
+  } */
 
   useEffect(() => {
     const getProducts = async () => {
@@ -40,7 +40,7 @@ const Products = ({ category, filters, sort }) => {
             ? `http://localhost:5000/api/products?category=${category}`
             : "http://localhost:5000/api/products"
         )
-        setProducts(sortProducts({ arr: data }))
+        setProducts(data)
       } catch (error) {
         console.error(error)
       }
@@ -48,7 +48,7 @@ const Products = ({ category, filters, sort }) => {
     getProducts()
   }, [category])
 
-  useEffect(() => {
+  /* useEffect(() => {
     if ((category && filters.colors !== "none") || filters.sizes !== "size") {
       const filtered = products.filter((item) =>
         Object.entries(filters).find(([key, value]) =>
@@ -57,13 +57,13 @@ const Products = ({ category, filters, sort }) => {
       )
       setFilteredProducts(sortProducts({ value: sort, arr: filtered }))
     } else setFilteredProducts(sortProducts({ value: sort, arr: products }))
-  }, [category, products, filters, sort])
+  }, [category, products, sort]) */
 
   return (
     <Container>
       {category
-        ? filteredProducts.map((filteredProduct) => (
-          <Product product={filteredProduct} key={filteredProduct.title} />
+        ? products.map((product) => (
+          <Product product={product} key={product.title} />
         ))
         : products
           .slice(0, 8)
@@ -74,14 +74,9 @@ const Products = ({ category, filters, sort }) => {
   )
 }
 Products.propTypes = {
-  category: PropTypes.string,
-  filters: PropTypes.instanceOf(Object),
-  sort: PropTypes.string
+  category: PropTypes.string
 }
 Products.defaultProps = {
-  category: null,
-  filters: {},
-  sort: String()
+  category: null
 }
 export default Products
-

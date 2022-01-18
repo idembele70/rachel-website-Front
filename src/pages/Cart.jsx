@@ -6,12 +6,13 @@ import Footer from "components/tools/Footer"
 import Navbar from "components/tools/Navbar"
 import React, { Fragment, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { mobile, tablet } from "responsive"
 import styled from "styled-components"
 import StripeCheckout from "react-stripe-checkout"
 import { userRequest } from "requestMethods"
 import { useHistory } from "react-router-dom"
+import { initializeCart, updateProduct } from "../redux/cartRedux"
 
 const KEY = process.env.REACT_APP_STRIPE
 
@@ -127,7 +128,7 @@ const Summary = styled.div`
   border: 0.5px solid lightgray;
   border-radius: 10px;
   padding: 20px;
-  height: 50vh;
+  height: 314px;
   min-width: 275px;
   max-width: 365px;
   ${tablet({ width: "100%" })};
@@ -165,7 +166,7 @@ export default function Cart() {
   const { t } = useTranslation()
   const onToken = (token) => setStripeToken(token)
   const history = useHistory()
-
+  const dispatch = useDispatch()
   useEffect(() => {
     const makeRequest = async () => {
       try {
@@ -189,7 +190,9 @@ export default function Cart() {
       <Wrapper>
         <Title>{t(`cart.title`)}</Title>
         <Top>
-          <TopButton>{t("cart.continueShop")}</TopButton>
+          <TopButton onClick={() => history.push("/")}>
+            {t("cart.continueShop")}
+          </TopButton>
           <TopTexts>
             <TopText>
               {t("cart.topTexts.bag")}({cartQte})
@@ -200,47 +203,57 @@ export default function Cart() {
         </Top>
         <Bottom>
           <Info>
-            {products?.map(
-              ({ img, title, _id: id, color, size, quantity, price }, idx) => (
+            {products?.map((product, idx) => {
+              const { img, title, _id: id, color, size, qte, price } = product
+              return (
                 <Fragment key={id}>
                   {idx !== 0 && <Hr />}
                   <Product>
                     <ProductDetail>
-                      <Image
-                        src={`https://lh3.google.com/u/0/d/${img}`}
-                        alt={`products.name.${title}`}
-                      />
+                      <Image src={img} alt={title} />
                       <Details>
                         <ProductName>
                           <b>{t("products.cart.product")}: </b>
-                          {`products.name.${title}`}
+                          {title}
                         </ProductName>
                         <ProductId>
                           <b>{t("products.cart.productId")}: </b>
                           {id}
                         </ProductId>
                         <ProductColor color={color} />
-                        <ProductSize>
-                          <b>{t("products.cart.productSize")}: </b>
-                          {size}
-                        </ProductSize>
+                        {(size.length && size.includes("") && (
+                          <ProductSize>
+                            <b>{t("products.cart.productSize")}: </b>
+                            {size}
+                          </ProductSize>
+                        )) ||
+                          ""}
                       </Details>
                     </ProductDetail>
                     <PriceDetail>
                       <ProductAmountContainer>
-                        <Add />
-                        <ProductAmount>{quantity}</ProductAmount>
-                        <Remove />
+                        <Add
+                          onClick={() => {
+                            dispatch(updateProduct({ id, qte: 1, price }))
+                          }}
+                        />
+                        <ProductAmount>{qte}</ProductAmount>
+                        <Remove
+                          onClick={() => {
+                            if (qte > 1)
+                              dispatch(updateProduct({ id, qte: -1, price }))
+                          }}
+                        />
                       </ProductAmountContainer>
                       <ProductPrice>
-                        {price * quantity}
+                        {price * qte}
                         {t("products.currency")}
                       </ProductPrice>
                     </PriceDetail>
                   </Product>
                 </Fragment>
               )
-            )}
+            })}
           </Info>
           <Summary>
             <SummaryTitle>{t("cart.title")}</SummaryTitle>
@@ -283,7 +296,13 @@ export default function Cart() {
               stripeKey={KEY}
               token={onToken}
             >
-              <Button>{t("cart.checkout")}</Button>
+              <Button
+                onClick={() => {
+                  dispatch(initializeCart())
+                }}
+              >
+                {t("cart.checkout")}
+              </Button>
             </StripeCheckout>
           </Summary>
         </Bottom>

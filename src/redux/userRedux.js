@@ -19,9 +19,43 @@ const userSlice = createSlice({
         isFetching: false,
         error: true
       })
+    },
+    logoutStart: (state) => {
+      Object.assign(state, { isFetching: true })
+    },
+    logoutSuccess: (state) => {
+      Object.assign(state, { isFetching: false, currentUser: "" })
+    },
+    logoutFailure: (state) => {
+      Object.assign(state, {
+        isFetching: false,
+        error: true
+      })
+    },
+    signUpStart: (state) => {
+      Object.assign(state, { isFetching: true })
+    },
+    signUpSuccess: (state) => {
+      Object.assign(state, { isFetching: false })
+    },
+    signUpFailure: (state) => {
+      Object.assign(state, {
+        isFetching: false,
+        error: true
+      })
     }
   }
 })
 
-export const { loginStart, loginSuccess, loginFailure } = userSlice.actions
+export const {
+  loginStart,
+  loginSuccess,
+  loginFailure,
+  logoutStart,
+  logoutSuccess,
+  logoutFailure,
+  signUpStart,
+  signUpSuccess,
+  signUpFailure
+} = userSlice.actions
 export default userSlice.reducer
