@@ -13,33 +13,37 @@ import {
   Route,
   Redirect
 } from "react-router-dom"
+import ScrollToTop from "./components/tools/ScrollTopTop"
 
 function App() {
   // @ts-ignore
   const { currentUser: user } = useSelector((state) => state.user)
   return (
     <Router>
-      <Switch>
-        <Route path="/" exact>
-          <Home />
-        </Route>
-        <Route path="/cart" exact>
-          <Cart />
-        </Route>
-        <Route path="/products/:category" exact>
-          <ProductList />
-        </Route>
-        <Route path="/product/:id" exact>
-          <ProductPage />
-        </Route>
-        <Route path="/login" exact>
-          {user ? <Redirect to="/" /> : <Login />}
-        </Route>
-        <Route path="/register" exact>
-          {user ? <Redirect to="/" /> : <Register />}
-        </Route>
-        <Route path="/success" component={Success} exact />
-      </Switch>
+      <>
+        <ScrollToTop />
+        <Switch>
+          <Route path="/" exact>
+            <Home />
+          </Route>
+          <Route path="/cart" exact>
+            <Cart />
+          </Route>
+          <Route path="/products/:category" exact>
+            <ProductList />
+          </Route>
+          <Route path="/product/:id" exact>
+            <ProductPage />
+          </Route>
+          <Route path="/login" exact>
+            {user ? <Redirect to="/" /> : <Login />}
+          </Route>
+          <Route path="/register" exact>
+            {user ? <Redirect to="/" /> : <Register />}
+          </Route>
+          <Route path="/success" component={Success} exact />
+        </Switch>
+      </>
     </Router>
   )
 }

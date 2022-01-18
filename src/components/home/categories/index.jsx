@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { publicRequest } from "requestMethods"
 import { mobile } from "responsive"
 import styled from "styled-components"
+import PropTypes from "prop-types"
 import CategoryItem from "./CategoryItem"
 
 const Container = styled.div`

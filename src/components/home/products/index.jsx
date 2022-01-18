@@ -47,7 +47,6 @@ const Products = ({ category }) => {
     }
     getProducts()
   }, [category])
-
   /* useEffect(() => {
     if ((category && filters.colors !== "none") || filters.sizes !== "size") {
       const filtered = products.filter((item) =>
