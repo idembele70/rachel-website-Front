@@ -7,6 +7,8 @@ import {
   ShoppingCartOutlined
 } from "@mui/icons-material"
 import { Link } from "react-router-dom"
+import { useSelector, useDispatch } from "react-redux"
+import { addProduct, updateProduct } from "../../../redux/cartRedux"
 
 const Container = styled.div`
   align-items: center;
@@ -71,22 +73,34 @@ export default function Product(props) {
   const {
     product: { img, _id: id, title }
   } = props
+  // @ts-ignore
+  const { products } = useSelector((state) => state.cart)
+  const dispatch = useDispatch()
+  const handleAddToCart = () => {
+    const exist = products?.find(({ _id }) => _id === id)
+    if (exist) dispatch(updateProduct({ price: exist.price, id, qte: 1 }))
+    else {
+      const { product } = props
+      dispatch(addProduct(product))
+    }
+  }
+
   return (
     <Container>
       <Circle />
       <Image src={img} alt={title} />
       <Info>
-        <Icon>
+        <Icon onClick={handleAddToCart}>
           <ShoppingCartOutlined />
         </Icon>
-        <Icon>
-          <Link
-            style={{ color: "inherit", textDecoration: "inherit" }}
-            to={`/product/${id}`}
-          >
+        <Link
+          style={{ color: "inherit", textDecoration: "inherit" }}
+          to={`/product/${id}`}
+        >
+          <Icon>
             <SearchOutlined />
-          </Link>
-        </Icon>
+          </Icon>
+        </Link>
         <Icon>
           <FavoriteBorderOutlined />
         </Icon>

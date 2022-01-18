@@ -104,6 +104,10 @@ const Navbar = () => {
     logout(dispatch)
     history.push("/")
   }
+  const handleSearch = (e) => {
+    history.push(`/products/${search}`)
+    setSearch("")
+  }
 
   return (
     <Container>
@@ -114,14 +118,12 @@ const Navbar = () => {
             <Input
               placeholder={t("navbar.search")}
               value={search}
+              onKeyPress={(e) => e.key === "Enter" && handleSearch()}
               onChange={(e) => setSearch(e.target.value)}
             />
             <SearchIcon
               sx={{ color: "gray", fontSize: 16, cursor: "pointer" }}
-              onClick={() => {
-                history.push(`/products/${search}`)
-                setSearch("")
-              }}
+              onClick={handleSearch}
             />
           </SearchContainer>
         </Left>

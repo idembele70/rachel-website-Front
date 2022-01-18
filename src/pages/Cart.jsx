@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 // @ts-nocheck
-import { Add, Remove } from "@mui/icons-material"
+import { Add, Remove, Delete } from "@mui/icons-material"
 import Announcement from "components/tools/Announcement"
 import Footer from "components/tools/Footer"
 import Navbar from "components/tools/Navbar"
@@ -12,7 +12,11 @@ import styled from "styled-components"
 import StripeCheckout from "react-stripe-checkout"
 import { userRequest } from "requestMethods"
 import { useHistory } from "react-router-dom"
-import { initializeCart, updateProduct } from "../redux/cartRedux"
+import {
+  initializeCart,
+  updateProduct,
+  deleteProduct
+} from "../redux/cartRedux"
 
 const KEY = process.env.REACT_APP_STRIPE
 
@@ -68,7 +72,13 @@ const Product = styled.div`
   justify-content: space-between;
   ${tablet({ width: "90vw" })};
   ${mobile({ flexDirection: "column" })};
+  position: relative;
 `
+const DeleteSx = {
+  position: "absolute",
+  right: 0,
+  top: 0
+}
 const ProductDetail = styled.div`
   flex: 2;
   display: flex;
@@ -182,6 +192,9 @@ export default function Cart() {
     // eslint-disable-next-line no-unused-expressions
     stripeToken && total >= 1 && makeRequest()
   }, [stripeToken, total, history])
+  const handleDelete = (data) => {
+    dispatch(deleteProduct(data))
+  }
 
   return (
     <Container>
@@ -209,6 +222,7 @@ export default function Cart() {
                 <Fragment key={id}>
                   {idx !== 0 && <Hr />}
                   <Product>
+                    <Delete sx={DeleteSx} onClick={() => handleDelete({ id, totalPrice: price * qte })} />
                     <ProductDetail>
                       <Image src={img} alt={title} />
                       <Details>
@@ -221,7 +235,7 @@ export default function Cart() {
                           {id}
                         </ProductId>
                         <ProductColor color={color} />
-                        {(size.length && size.includes("") && (
+                        {(size?.length && size?.includes("") && (
                           <ProductSize>
                             <b>{t("products.cart.productSize")}: </b>
                             {size}

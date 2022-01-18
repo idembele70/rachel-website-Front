@@ -23,6 +23,11 @@ const cartSlice = createSlice({
       )
       state.total += payload.qte < 1 ? -payload.price : payload.price
     },
+    deleteProduct: (state, { payload }) => {
+      state.quantity -= 1
+      state.products = state.products.filter(({ _id: id }) => id !== payload.id)
+      state.total -= payload.totalPrice
+    },
     initializeCart: (state) => {
       state.quantity = 0
       state.products = []
@@ -31,5 +36,6 @@ const cartSlice = createSlice({
   }
 })
 
-export const { addProduct, updateProduct, initializeCart } = cartSlice.actions
+export const { addProduct, updateProduct, deleteProduct, initializeCart } =
+  cartSlice.actions
 export default cartSlice.reducer

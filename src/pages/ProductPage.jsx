@@ -32,9 +32,8 @@ const ImageContainer = styled.div`
 
 const Image = styled.img`
   width: 100%;
-  height: 90vh;
-  object-fit: cover;
-  ${mobile({ height: "40vh" })};
+  object-fit: contain;
+  ${mobile({ maxHeight: "40vh" })};
 `
 
 const InfoContainer = styled.div`
@@ -198,7 +197,7 @@ export default function ProductPage() {
                   <FilterColor onClick={() => setColor(c)} color={c} key={c} />
                 ))}
               </Filter>
-              {sizes.length && !sizes.includes("") && (
+              {(sizes.length && !sizes.includes("") && (
                 <Filter>
                   <FilterTitle>{t("products.filter.sizes.size")}</FilterTitle>
                   <FilterSize
@@ -210,7 +209,8 @@ export default function ProductPage() {
                     ))}
                   </FilterSize>
                 </Filter>
-              )}
+              )) ||
+                null}
             </FilterContainer>
             <AddContainer>
               <AmountContainer>

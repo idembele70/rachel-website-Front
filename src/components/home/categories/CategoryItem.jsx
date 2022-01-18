@@ -10,10 +10,13 @@ const Container = styled.div`
   height: 70vh;
   margin: 3px;
   position: relative;
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+  }
 `
 const Image = styled.img`
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   width: 100%;
   ${mobile({ maxHeight: "90vh" })};
 `
