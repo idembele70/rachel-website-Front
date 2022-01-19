@@ -18,14 +18,21 @@ const cartSlice = createSlice({
       state.total += payload.price * payload.qte
     },
     updateProduct: (state, { payload }) => {
-      state.products = state.products.map((x) =>
-        x._id === payload.id ? { ...x, qte: x.qte + payload.qte } : x
+      state.products = state.products.map((product) =>
+        product._id === payload.id &&
+        product.size === payload.size &&
+        product.color === payload.color
+          ? { ...product, qte: product.qte + payload.qte }
+          : product
       )
       state.total += payload.qte < 1 ? -payload.price : payload.price
     },
     deleteProduct: (state, { payload }) => {
       state.quantity -= 1
-      state.products = state.products.filter(({ _id: id }) => id !== payload.id)
+      state.products = state.products.filter(
+        ({ _id: id, size, color }) =>
+          id !== payload.id || size !== payload.size || color !== payload.color
+      )
       state.total -= payload.totalPrice
     },
     initializeCart: (state) => {

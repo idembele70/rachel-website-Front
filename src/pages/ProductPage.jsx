@@ -74,7 +74,10 @@ const FilterColor = styled.div`
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  border: 1px solid rgba(59, 75, 147, 0.8);
+  border: ${(props) =>
+    // @ts-ignore
+    props.isSelected ? "3px" : "1px"}
+    solid rgba(59, 75, 147, 0.8);
   background-color: ${(props) =>
     // eslint-disable-next-line react/prop-types
     props.color};
@@ -158,9 +161,14 @@ export default function ProductPage() {
   // @ts-ignore
   const { products } = useSelector((state) => state.cart)
   const handleAddToCart = () => {
-    const exist = products.find(({ _id }) => _id === id)
-    if (exist) dispatch(updateProduct({ id, qte, price: price * qte }))
-    else
+    const exist = products.find(
+      ({ _id, size: sizeFound, color: colorFound }) =>
+        _id === id && sizeFound === size && colorFound === color
+    )
+    if (exist) {
+      dispatch(updateProduct({ id, qte, price: price * qte, size, color }))
+      setQte(1)
+    } else {
       dispatch(
         addProduct({
           ...product,
@@ -170,6 +178,8 @@ export default function ProductPage() {
           size
         })
       )
+      setQte(1)
+    }
   }
 
   return (
@@ -194,7 +204,13 @@ export default function ProductPage() {
               <Filter>
                 <FilterTitle>{t("products.filter.title.color")}</FilterTitle>
                 {colors?.map((c) => (
-                  <FilterColor onClick={() => setColor(c)} color={c} key={c} />
+                  <FilterColor
+                    // @ts-ignore
+                    isSelected={c === color}
+                    onClick={() => setColor(c)}
+                    color={c}
+                    key={c}
+                  />
                 ))}
               </Filter>
               {(sizes.length && !sizes.includes("") && (

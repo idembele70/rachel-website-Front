@@ -5,6 +5,7 @@ import ProductList from "pages/ProductList"
 import ProductPage from "pages/ProductPage"
 import Register from "pages/Register"
 import Success from "pages/Success"
+import User from "pages/User"
 import React from "react"
 import { useSelector } from "react-redux"
 import {
@@ -42,6 +43,7 @@ function App() {
             {user ? <Redirect to="/" /> : <Register />}
           </Route>
           <Route path="/success" component={Success} exact />
+          <Route path="/user/index" component={User} exact />
         </Switch>
       </>
     </Router>

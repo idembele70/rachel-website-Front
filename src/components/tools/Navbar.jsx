@@ -1,5 +1,8 @@
-import { ShoppingCartOutlined } from "@mui/icons-material"
-import SearchIcon from "@mui/icons-material/Search"
+import {
+  ShoppingCartOutlined,
+  Search,
+  PersonOutlined
+} from "@mui/icons-material"
 import { Badge } from "@mui/material"
 import React, { useState } from "react"
 import { useTranslation } from "react-i18next"
@@ -77,7 +80,6 @@ const Right = Styled.div`
   `
 
 const MenuItem = Styled.div`
-  font-size: 32px;
   cursor: pointer;
   margin-left: 25px;
   ${tablet({ fontSize: 24, marginLeft: 16 })};
@@ -85,6 +87,30 @@ const MenuItem = Styled.div`
     // @ts-ignore
     props.last && "14px"};
   ${mobile({ fontSize: 14, marginLeft: 6 })};
+  position:relative;
+  &:hover {
+    background-color:rgba(0,0,0,0.2);
+  }
+`
+const MenuInfo = Styled.div`
+position:absolute;
+bottom: -60px;
+right:0px;
+height:40px;
+width: 128px;
+background: teal;
+z-index:999;
+display: flex;
+flex-direction: column;
+padding:0 10px 20px;
+`
+const MenuInfoItem = Styled.div`
+margin: 5px 0;
+font-size: 16px;
+color: rgba(0,0,0,0.8);
+&:hover{
+  color: black;
+}
 `
 
 const Navbar = () => {
@@ -93,6 +119,7 @@ const Navbar = () => {
   const states = useSelector((state) => state)
   const dispatch = useDispatch()
   const [search, setSearch] = useState("")
+  const [accountInfo, setAccountInfo] = useState(false)
   const {
     // @ts-ignore
     cart: { quantity },
@@ -108,6 +135,10 @@ const Navbar = () => {
     history.push(`/products/${search}`)
     setSearch("")
   }
+  const PersonOutlinedSx = {
+    display: "inline-flex",
+    verticalAlign: "middle"
+  }
 
   return (
     <Container>
@@ -121,7 +152,7 @@ const Navbar = () => {
               onKeyPress={(e) => e.key === "Enter" && handleSearch()}
               onChange={(e) => setSearch(e.target.value)}
             />
-            <SearchIcon
+            <Search
               sx={{ color: "gray", fontSize: 16, cursor: "pointer" }}
               onClick={handleSearch}
             />
@@ -131,30 +162,41 @@ const Navbar = () => {
           <Logo onClick={() => handleRedirect("/")}>{t("siteName")} </Logo>
         </Center>
         <Right>
-          {currentUser ? (
-            <MenuItem onClick={handleLogout}>{t("sign.logout")}</MenuItem>
-          ) : (
-            <>
-              <MenuItem onClick={() => handleRedirect("/register")}>
-                {t("sign.signup")}
-              </MenuItem>
-              <MenuItem onClick={() => handleRedirect("/login")}>
-                {t("sign.login")}
-              </MenuItem>
-            </>
-          )}
+          <MenuItem
+            onMouseEnter={() => setAccountInfo(true)}
+            onMouseLeave={() => setAccountInfo(false)}
+          >
+            <PersonOutlined fontSize="medium" sx={PersonOutlinedSx} />
+            {currentUser
+              ? accountInfo && (
+                <MenuInfo onMouseEnter={() => setAccountInfo(true)}>
+                  <MenuInfoItem onClick={() => history.push("/user/index")}>
+                    {t("navbar.myAccount")}
+                  </MenuInfoItem>
+                  <MenuInfoItem onClick={handleLogout}>
+                    {t("sign.logout")}
+                  </MenuInfoItem>
+                </MenuInfo>
+              )
+              : accountInfo && (
+                <MenuInfo onMouseEnter={() => setAccountInfo(true)}>
+                  <MenuInfoItem onClick={() => handleRedirect("/register")}>
+                    {t("sign.signup")}
+                  </MenuInfoItem>
+                  <MenuInfoItem onClick={() => handleRedirect("/login")}>
+                    {t("sign.login")}
+                  </MenuInfoItem>
+                </MenuInfo>
+              )}
+          </MenuItem>
           <MenuItem
             // @ts-ignore
             last
+            onClick={() => history.push("/cart")}
           >
-            <Link
-              to="/cart"
-              style={{ color: "inherit", textDecoration: "inherit" }}
-            >
-              <Badge badgeContent={quantity} color="primary">
-                <ShoppingCartOutlined />
-              </Badge>
-            </Link>
+            <Badge badgeContent={quantity} color="primary">
+              <ShoppingCartOutlined />
+            </Badge>
           </MenuItem>
         </Right>
       </Wrapper>

@@ -66,6 +66,7 @@ const Bottom = styled.div`
 `
 const Info = styled.div`
   flex: 3;
+  margin: 0 5px;
 `
 const Product = styled.div`
   display: flex;
@@ -73,9 +74,13 @@ const Product = styled.div`
   ${tablet({ width: "90vw" })};
   ${mobile({ flexDirection: "column" })};
   position: relative;
+  border: 1px solid lightgray;
+  padding: 5px;
+  margin: 5px 0;
 `
 const DeleteSx = {
   position: "absolute",
+  cursor: "pointer",
   right: 0,
   top: 0
 }
@@ -99,11 +104,16 @@ const Details = styled.div`
 `
 const ProductName = styled.span``
 const ProductId = styled.span``
+const ProductColorContainer = styled.div`
+  display: flex;
+`
 const ProductColor = styled.div`
   width: 20px;
   height: 20px;
   border-radius: 50%;
   background-color: ${(props) => props.color};
+  border: 1px solid lightgray;
+  margin-left: 5px;
 `
 const ProductSize = styled.span``
 const PriceDetail = styled.div`
@@ -127,11 +137,6 @@ const ProductPrice = styled.div`
   ${mobile({ marginBottom: 20 })};
   font-size: 30px;
   font-weight: 200;
-`
-const Hr = styled.hr`
-  background-color: #eee;
-  border: none;
-  height: 1px;
 `
 const Summary = styled.div`
   flex: 1;
@@ -216,13 +221,22 @@ export default function Cart() {
         </Top>
         <Bottom>
           <Info>
-            {products?.map((product, idx) => {
+            {products?.map((product) => {
               const { img, title, _id: id, color, size, qte, price } = product
               return (
-                <Fragment key={id}>
-                  {idx !== 0 && <Hr />}
+                <Fragment key={id + size + color}>
                   <Product>
-                    <Delete sx={DeleteSx} onClick={() => handleDelete({ id, totalPrice: price * qte })} />
+                    <Delete
+                      sx={DeleteSx}
+                      onClick={() =>
+                        handleDelete({
+                          id,
+                          totalPrice: price * qte,
+                          size,
+                          color
+                        })
+                      }
+                    />
                     <ProductDetail>
                       <Image src={img} alt={title} />
                       <Details>
@@ -234,7 +248,10 @@ export default function Cart() {
                           <b>{t("products.cart.productId")}: </b>
                           {id}
                         </ProductId>
-                        <ProductColor color={color} />
+                        <ProductColorContainer>
+                          <b>{t("products.cart.color")}: </b>
+                          <ProductColor color={color} />
+                        </ProductColorContainer>
                         {(size?.length && size?.includes("") && (
                           <ProductSize>
                             <b>{t("products.cart.productSize")}: </b>
@@ -248,14 +265,24 @@ export default function Cart() {
                       <ProductAmountContainer>
                         <Add
                           onClick={() => {
-                            dispatch(updateProduct({ id, qte: 1, price }))
+                            dispatch(
+                              updateProduct({ id, qte: 1, price, size, color })
+                            )
                           }}
                         />
                         <ProductAmount>{qte}</ProductAmount>
                         <Remove
                           onClick={() => {
                             if (qte > 1)
-                              dispatch(updateProduct({ id, qte: -1, price }))
+                              dispatch(
+                                updateProduct({
+                                  id,
+                                  qte: -1,
+                                  price,
+                                  size,
+                                  color
+                                })
+                              )
                           }}
                         />
                       </ProductAmountContainer>

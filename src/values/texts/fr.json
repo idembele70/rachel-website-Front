@@ -47,7 +47,8 @@
     }
   },
   "navbar": {
-    "search": "recherche"
+    "search": "recherche",
+    "myAccount": "Mon compte"
   },
   "newsletter": {
     "title": "Newsletter",
@@ -59,7 +60,8 @@
     "cart": {
       "product": "produit",
       "productId": "ID",
-      "productSize": "Taille"
+      "productSize": "Taille",
+      "color": "Couleur"
     },
     "categories": {
       "tShirts": "T-shirts",

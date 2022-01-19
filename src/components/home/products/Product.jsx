@@ -6,7 +6,7 @@ import {
   SearchOutlined,
   ShoppingCartOutlined
 } from "@mui/icons-material"
-import { Link } from "react-router-dom"
+import { Link, useHistory } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import { addProduct, updateProduct } from "../../../redux/cartRedux"
 
@@ -71,17 +71,22 @@ const Icon = styled.div`
 
 export default function Product(props) {
   const {
-    product: { img, _id: id, title }
+    product: { img, _id: id, title, sizes, colors }
   } = props
   // @ts-ignore
   const { products } = useSelector((state) => state.cart)
   const dispatch = useDispatch()
+  const history = useHistory()
   const handleAddToCart = () => {
-    const exist = products?.find(({ _id }) => _id === id)
-    if (exist) dispatch(updateProduct({ price: exist.price, id, qte: 1 }))
-    else {
-      const { product } = props
-      dispatch(addProduct(product))
+    if (sizes.length > 1 || colors.length > 1) {
+      history.push(`/product/${id}`)
+    } else {
+      const exist = products?.find(({ _id }) => _id === id)
+      if (exist) dispatch(updateProduct({ price: exist.price, id, qte: 1 }))
+      else {
+        const { product } = props
+        dispatch(addProduct({ ...product, qte: 1 }))
+      }
     }
   }
 
