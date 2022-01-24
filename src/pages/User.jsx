@@ -1,22 +1,20 @@
-import { useSelector } from "react-redux"
 import React from "react"
-import Sidebar from "components/user/Sidebar"
 import styled from "styled-components"
 import Main from "components/user/Main"
+import { tablet } from "responsive"
+import Sidebar from "../components/tools/user/Sidebar"
 
 const Container = styled.div`
   min-height: 100vh;
   width: 100vw;
   display: flex;
+  ${tablet({ flexDirection: "column", })}
 `
-const User = () => {
-  const { currentUser } = useSelector((state) => state.user)
-  return (
-    <Container>
-      <Sidebar />
-      <Main />
-    </Container>
-  )
-}
+const User = () => (
+  <Container>
+    <Sidebar />
+    <Main />
+  </Container>
+)
 
 export default User

@@ -85,7 +85,7 @@ function Slider() {
     setSliderItems([
       {
         id: "9aa5d26d-e9a9-4e01-9278-6bb08fc142fd",
-        img: "img01.j peg",
+        img: "img01.jpeg",
         name: "dress",
         bg: "f6fafd"
       },

@@ -1,6 +1,7 @@
 import Cart from "pages/Cart"
 import Home from "pages/Home"
 import Login from "pages/Login"
+import Orders from "pages/Orders"
 import ProductList from "pages/ProductList"
 import ProductPage from "pages/ProductPage"
 import Register from "pages/Register"
@@ -43,7 +44,8 @@ function App() {
             {user ? <Redirect to="/" /> : <Register />}
           </Route>
           <Route path="/success" component={Success} exact />
-          <Route path="/user/index" component={User} exact />
+          <Route path="/user" component={User} exact />
+          <Route path="/user/orders" component={Orders} exact />
         </Switch>
       </>
     </Router>

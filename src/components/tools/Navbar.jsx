@@ -29,8 +29,7 @@ ${mobile({ padding: "10px 0" })};
 const Left = Styled.div`
   display: flex;
   align-items: center;
-  flex: 1;
-  ${tablet({ flex: 0.7 })};
+  max-width: 130px;
 `
 const Language = Styled.span`
 font-size:14px;
@@ -56,27 +55,24 @@ const Input = Styled.input`
 `
 
 const Center = Styled.div`
-  flex: 0.8;
   display: flex;
   justify-content: center;
   align-items: center;
+  min-width: 140px;
 `
 
 const Logo = Styled.h1`
-  font-weight: bold;
-  font-size: 32px;
+  font-weight: lighter;
+  font-size: 20px;
   margin: 0;
   cursor: pointer;
-  ${mobile({ fontSize: 24 })};
+  ${mobile({ fontSize: 18 })};
 
 `
 const Right = Styled.div`
-  flex: 1;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  ${tablet({ maxWidth: 310 })};
-  ${mobile({ flex: 1.5 })};
   `
 
 const MenuItem = Styled.div`
@@ -170,7 +166,7 @@ const Navbar = () => {
             {currentUser
               ? accountInfo && (
                 <MenuInfo onMouseEnter={() => setAccountInfo(true)}>
-                  <MenuInfoItem onClick={() => history.push("/user/index")}>
+                  <MenuInfoItem onClick={() => history.push("/user")}>
                     {t("navbar.myAccount")}
                   </MenuInfoItem>
                   <MenuInfoItem onClick={handleLogout}>
