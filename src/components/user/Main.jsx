@@ -4,10 +4,14 @@ import {
   LocationCity,
   MailOutline,
   MarkunreadMailboxOutlined,
-  PermIdentityOutlined
+  PermIdentityOutlined,
+  Close,
+  Password
 } from "@mui/icons-material"
-import React from "react"
-import { mobile, tablet } from "responsive"
+import React, { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { updateUser } from "redux/apiCalls"
+import { mobile } from "responsive"
 import Styled from "styled-components"
 
 const Container = Styled.div`
@@ -19,9 +23,8 @@ background: darkgray;
 padding: 20px;
 `
 const Card = Styled.div`
-max-width: 500px;
+max-width: 570px;
 width: 100vw;
-height: 711px;
 display:flex;
 align-items:center;
 justify-content:center;
@@ -48,16 +51,25 @@ const CardDate = Styled.h3`
 color: #ffffffbd;
 font-weight: 100;
 `
-const CardImg = Styled.img`
-border-radius: 50px;
+const CardButton = Styled.div`
+border-radius: 5px;
 top: 100px;
-height: 100px;
-width: 100px;
+padding: 10px 20px;
+border: 1px solid #222;
+color: #999;
+text-align: center;
+background-color: black;
+  &:hover {
+    background-color: white;
+    color: black;
+    cursor: pointer;
+  }
+}
 `
 const CardBottom = Styled.div`
 flex:1;
 width: 100%;
-height: 500px;
+height: 570px;
 `
 const CardBottomWrapper = Styled.div`
 margin: 15px;
@@ -90,55 +102,263 @@ font-size: 16px;
   outline: 2px solid #4f9ae7;
 }
 `
+
+const StyledPermIdentityOutlined = Styled(PermIdentityOutlined)`
+position: absolute;
+right: 4px;
+top: 50%;
+transform: translateY(-50%);`
+
+const StyledMailOutline = Styled(MailOutline)`
+position: absolute;
+right: 4px;
+top: 50%;
+transform: translateY(-50%);
+`
+const StyledCallOutlined = Styled(CallOutlined)`
+position: absolute;
+right: 4px;
+top: 50%;
+transform: translateY(-50%);
+`
+const StyledHomeOutlined = Styled(HomeOutlined)`
+position: absolute;
+right: 4px;
+top: 50%;
+transform: translateY(-50%);
+`
+const StyledLocationCity = Styled(LocationCity)`
+position: absolute;
+right: 4px;
+top: 50%;
+transform: translateY(-50%);
+`
+const StyledMarkunreadMailboxOutlined = Styled(MarkunreadMailboxOutlined)`
+position: absolute;
+right: 4px;
+top: 50%;
+transform: translateY(-50%);
+`
+
+const ModalContainer = Styled.div`
+position: fixed;
+top:0;
+left:0;
+right:0;
+bottom:0;
+background-color: rgba(0,0,0,0.5);
+display:flex;
+justify-content: center;
+align-items:center;
+z-index:2
+`
+
+const Modal = Styled.div`
+width: 90vw;
+max-width: 300px;
+height: 150px;
+position: relative;
+background-color:white;
+display:flex;
+flex-direction:column
+`
+const ModalHeader = Styled.div`
+flex: 0 40px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 0 5px;
+border-bottom: 1px solid darkgrey;
+`
+const ModalTitle = Styled.h3`
+
+`
+const CloseModal = Styled(Close)`
+&:hover {
+  color: red;
+  cursor: pointer;
+}
+`
+const ModalContent = Styled.div`
+display:flex;
+flex-direction: column;
+justify-content: space-evenly;
+align-items:center;
+flex:1
+`
+
+const ModalInput = Styled.input`
+max-width: 70%;
+`
+const ModalButton = Styled.button`
+padding: 5px;
+cursor: pointer;
+`
+
 export default function Main() {
-  const fieldIcon = {
-    position: "absolute",
-    right: 4,
-    top: "50%",
-    transform: "translateY(-50%)"
+  const [disabled, setDisabled] = useState(true)
+  const [modal, setModal] = useState(false)
+  const [info, setInfo] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    phone: "",
+    address: "",
+    city: "",
+    postalBox: "",
+    createdAt: ""
+  })
+  // @ts-ignore
+  const { currentUser } = useSelector((state) => state.user)
+  useEffect(() => {
+    setInfo(currentUser)
+  }, [currentUser])
+
+  const {
+    firstname,
+    lastname,
+    email,
+    phone,
+    address,
+    city,
+    postalBox,
+    createdAt
+  } = info
+  const handleUpdate = (e) => {
+    const { name: inputName, value } = e.target
+    setInfo({ ...info, [inputName]: value })
   }
+  const dispatch = useDispatch()
+  const [modalPassword, setModalPassword] = useState("")
+  const handleClick = () => {
+    if (!disabled) setModal(true)
+    setDisabled(!disabled)
+  }
+
+  const handleUpdateUser =  () => {
+    const user = Object.entries(currentUser)
+    const newInfo = Object.entries(info)
+    .filter((x,i)=>x[1] !== user[i][1])
+    // @ts-ignore
+    const { _id:id } = currentUser;
+    
+    if (newInfo)
+    updateUser(dispatch, id,{ ...Object.fromEntries(newInfo),password: modalPassword })
+    setModal(false)
+     setModalPassword("")
+  };
+  
+
   return (
     <Container>
+      {modal && (
+        <ModalContainer>
+          <Modal>
+            <ModalHeader>
+              <ModalTitle>Confirm Your password</ModalTitle>
+              <CloseModal onClick={() => setModal(false)} />
+            </ModalHeader>
+            <ModalContent>
+              <ModalInput
+                value={modalPassword}
+                onChange={(e) => setModalPassword(e.target.value.toLowerCase())}
+              />
+              <ModalButton
+                onClick={handleUpdateUser}
+              >
+                Valider
+              </ModalButton>
+            </ModalContent>
+          </Modal>
+        </ModalContainer>
+      )}
       <Card>
         <CardTop>
-          <CardImg
-            src={`${process.env.PUBLIC_URL}/assets/img/user/mockImg.png`}
-          />
-          <CardTitle>IKD Doe</CardTitle>
-          <CardDate>Registered: 17 Aout 2022</CardDate>
+          <CardButton onClick={handleClick}>
+            {disabled ? "EDIT" : "SAVE"}
+          </CardButton>
+          <CardTitle>{`${firstname} ${lastname}`}</CardTitle>
+          <CardDate>{new Date(createdAt).toLocaleDateString()}</CardDate>
         </CardTop>
         <CardBottom>
           <CardBottomWrapper>
             <BottomTitle>Contact details</BottomTitle>
             <BottomField>
-              <Label>Name</Label>
-              <Input disabled defaultValue="Jana Strassmann" />
-              <PermIdentityOutlined sx={fieldIcon} />
+              <Label>firstname</Label>
+              <Input
+                disabled={disabled}
+                type="text"
+                name="firstname"
+                value={firstname}
+                onChange={handleUpdate}
+              />
+              <StyledPermIdentityOutlined />
+            </BottomField>
+            <BottomField>
+              <Label>Lastname</Label>
+              <Input
+                disabled={disabled}
+                type="text"
+                name="lastname"
+                value={lastname}
+                onChange={handleUpdate}
+              />
+              <StyledPermIdentityOutlined />
             </BottomField>
             <BottomField>
               <Label>Email</Label>
-              <Input disabled defaultValue="jana_Strassmann@punk.au" />
-              <MailOutline sx={fieldIcon} />
+              <Input
+                disabled={disabled}
+                type="email"
+                name="email"
+                value={email}
+                onChange={handleUpdate}
+              />
+              <StyledMailOutline />
             </BottomField>
             <BottomField>
               <Label>Phone</Label>
-              <Input disabled defaultValue="+44 370 879 8794" />
-              <CallOutlined sx={fieldIcon} />
+              <Input
+                disabled={disabled}
+                type="tel"
+                name="phone"
+                value={phone}
+                onChange={handleUpdate}
+              />
+              <StyledCallOutlined />
             </BottomField>
             <BottomField>
               <Label>Address</Label>
-              <Input disabled defaultValue="36 Brown Drive" />
-              <HomeOutlined sx={fieldIcon} />
+              <Input
+                disabled={disabled}
+                type="text"
+                name="address"
+                value={address}
+                onChange={handleUpdate}
+              />
+              <StyledHomeOutlined />
             </BottomField>
             <BottomField>
               <Label>City</Label>
-              <Input disabled defaultValue="Lake Mary" />
-              <LocationCity sx={fieldIcon} />
+              <Input
+                disabled={disabled}
+                type="text"
+                name="city"
+                value={city}
+                onChange={handleUpdate}
+              />
+              <StyledLocationCity />
             </BottomField>
             <BottomField>
               <Label>Postal box</Label>
-              <Input disabled defaultValue="TN15 8JE" />
-              <MarkunreadMailboxOutlined sx={fieldIcon} />
+              <Input
+                disabled={disabled}
+                type="number"
+                name="postalBox"
+                value={postalBox}
+                onChange={handleUpdate}
+              />
+              <StyledMarkunreadMailboxOutlined />
             </BottomField>
           </CardBottomWrapper>
         </CardBottom>

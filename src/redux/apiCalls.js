@@ -1,4 +1,4 @@
-import { publicRequest } from "requestMethods"
+import { publicRequest, userRequest } from "requestMethods"
 import {
   loginFailure,
   loginStart,
@@ -8,9 +8,12 @@ import {
   logoutSuccess,
   signUpFailure,
   signUpStart,
-  signUpSuccess
+  signUpSuccess,
+  updateUserFailure,
+  updateUserStart,
+  updateUserSuccess
 } from "./userRedux"
-
+// LOGIN START
 export const login = async (dispatch, user) => {
   dispatch(loginStart())
   try {
@@ -20,6 +23,8 @@ export const login = async (dispatch, user) => {
     dispatch(loginFailure())
   }
 }
+// LOGIN ENDPOINT
+// LOGOUT START
 export const logout = async (dispatch) => {
   dispatch(logoutStart())
   try {
@@ -28,12 +33,30 @@ export const logout = async (dispatch) => {
     dispatch(logoutFailure())
   }
 }
+// LOGOUT ENDPOINT
+// REGISTER START
 export const register = async (dispatch, user) => {
   dispatch(signUpStart())
   try {
     await publicRequest.post("/auth/register", user)
     dispatch(signUpSuccess())
   } catch (error) {
-    dispatch(signUpFailure)
+    dispatch(signUpFailure())
   }
 }
+// REGISTER ENDPOINT
+// UPDATE USER START
+export const updateUser = async (dispatch,id ,user) => {
+  dispatch(updateUserStart())
+  console.log(id)
+  console.log(user)
+  try {
+    const { data } = await userRequest.put(`/users/${id}`, user)
+     console.log(data)
+    dispatch(updateUserSuccess(data))
+  } catch (error) {
+    dispatch(updateUserFailure())
+  }
+}
+
+// UPDATE USER ENDPOINT

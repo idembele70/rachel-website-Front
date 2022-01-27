@@ -17,3 +17,12 @@ export const tablet = (props) => css`
 tablet.propTypes = {
   props: PropTypes.instanceOf(Object).isRequired
 }
+
+export const smallMobile = (props) => css`
+@media only screen and (max-width: 360px) {
+  ${props}
+}
+`
+smallMobile.propTypes = {
+  props: PropTypes.instanceOf(Object).isRequired
+}

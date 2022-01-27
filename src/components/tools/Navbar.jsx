@@ -94,7 +94,7 @@ bottom: -60px;
 right:0px;
 height:40px;
 width: 128px;
-background: teal;
+background-color: rgba(0,128,128,1);
 z-index:999;
 display: flex;
 flex-direction: column;
@@ -105,7 +105,8 @@ margin: 5px 0;
 font-size: 16px;
 color: rgba(0,0,0,0.8);
 &:hover{
-  color: black;
+  background: rgba(0,0,0,0.2);;
+  color: white;
 }
 `
 
@@ -135,7 +136,7 @@ const Navbar = () => {
     display: "inline-flex",
     verticalAlign: "middle"
   }
-
+  // eslint-disable-next-line no-unneeded-ternary
   return (
     <Container>
       <Wrapper>
@@ -163,7 +164,7 @@ const Navbar = () => {
             onMouseLeave={() => setAccountInfo(false)}
           >
             <PersonOutlined fontSize="medium" sx={PersonOutlinedSx} />
-            {currentUser
+            {Object.keys(currentUser).length
               ? accountInfo && (
                 <MenuInfo onMouseEnter={() => setAccountInfo(true)}>
                   <MenuInfoItem onClick={() => history.push("/user")}>

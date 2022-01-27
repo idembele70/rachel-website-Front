@@ -20,7 +20,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  ${mobile("height: calc(100vh - 50px)")}
+  ${mobile({ height: "calc(100vh - 50px)" })}
 `
 const Wrapper = styled.div`
   width: 75%;
@@ -70,7 +70,7 @@ const LinkStyle = {
 
 const Login = () => {
   const { t } = useTranslation()
-  const [username, setUsername] = useState("")
+  const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
   const dispatch = useDispatch()
@@ -79,7 +79,7 @@ const Login = () => {
   const handleLogin = (e) => {
     e.preventDefault()
     if (stateError) setError(t("signin.errorMessage"))
-    login(dispatch, { username, password })
+    login(dispatch, { email, password })
   }
 
   return (
@@ -91,20 +91,18 @@ const Login = () => {
           <Form onSubmit={handleLogin}>
             <Input
               required
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder={t("username")}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder={t("sign.email")}
             />
             <Input
               required
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder={t("password")}
+              placeholder={t("sign.password")}
             />
-            <Button type="submit" disabled={isFetching}>
-              {t("signin.login")}
-            </Button>
+            <Button type="submit">{t("signin.login")}</Button>
             {error && <Error>{error} </Error>}
             {/*  <Link href="/">{t("signin.forgotPassword")}</Link> */}
             <Link to="/register" style={LinkStyle}>

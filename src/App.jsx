@@ -38,10 +38,10 @@ function App() {
             <ProductPage />
           </Route>
           <Route path="/login" exact>
-            {user ? <Redirect to="/" /> : <Login />}
+            {Object.keys(user).length ? <Redirect to="/" /> : <Login />}
           </Route>
           <Route path="/register" exact>
-            {user ? <Redirect to="/" /> : <Register />}
+            {Object.keys(user).length ? <Redirect to="/" /> : <Register />}
           </Route>
           <Route path="/success" component={Success} exact />
           <Route path="/user" component={User} exact />

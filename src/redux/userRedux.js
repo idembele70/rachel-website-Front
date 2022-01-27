@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit"
 const userSlice = createSlice({
   name: "user",
   initialState: {
-    currentUser: String(),
+    currentUser: {},
     isFetching: Boolean(),
     error: Boolean()
   },
@@ -12,7 +12,7 @@ const userSlice = createSlice({
       Object.assign(state, { isFetching: true })
     },
     loginSuccess: (state, action) => {
-      Object.assign(state, { isFetching: false, currentUser: action.payload })
+      Object.assign(state, { isFetching: false, currentUser: action.payload, error: false })
     },
     loginFailure: (state) => {
       Object.assign(state, {
@@ -24,7 +24,7 @@ const userSlice = createSlice({
       Object.assign(state, { isFetching: true })
     },
     logoutSuccess: (state) => {
-      Object.assign(state, { isFetching: false, currentUser: "" })
+      Object.assign(state, { isFetching: false, currentUser: {}, error: false })
     },
     logoutFailure: (state) => {
       Object.assign(state, {
@@ -43,6 +43,22 @@ const userSlice = createSlice({
         isFetching: false,
         error: true
       })
+    },
+    updateUserStart: (state) => {
+      Object.assign(state, { isFetching: true })
+    },
+    updateUserSuccess: (state, { payload }) => {
+      Object.assign(state, {
+        isFetching: false,
+        currentUser: { ...state.currentUser, ...payload },
+        error: false
+      })
+    },
+    updateUserFailure: (state) => {
+      Object.assign(state, {
+        isFetching: false,
+        error: true
+      })
     }
   }
 })
@@ -56,6 +72,9 @@ export const {
   logoutFailure,
   signUpStart,
   signUpSuccess,
-  signUpFailure
+  signUpFailure,
+  updateUserStart,
+  updateUserSuccess,
+  updateUserFailure
 } = userSlice.actions
 export default userSlice.reducer

@@ -1,8 +1,8 @@
-import { HomeSharp, LocalGroceryStore } from "@mui/icons-material"
+import { ExitToAppSharp, HomeSharp, LocalGroceryStore } from "@mui/icons-material"
 import React from "react"
 import { useTranslation } from "react-i18next"
 import { useHistory } from "react-router-dom"
-import { mobile, tablet } from "responsive"
+import { mobile, smallMobile, tablet } from "responsive"
 import styled from "styled-components"
 
 const Container = styled.div`
@@ -55,26 +55,24 @@ const MainItem = styled.div`
     background: #4f9ae726;
     & > * {
       color: #4f9ae7;
+      }
     }
     cursor: pointer;
   }
+  & > svg {
+    ${mobile({ fontSize: 18 })};
+  }
   ${tablet({ padding: 0, flex: 1, justifyContent: "center" })};
+  &:not(:last-of-type){
+   ${tablet({borderRight: "2px solid #e5e5e5"})}
+  }
 `
 const MainItemTitle = styled.h1`
   margin-left: 10px;
   font-size: 22px;
   font-weight: 500;
-  ${mobile({ fontSize: 14, lineHeight: "24px" })}
-`
-const StyledHomeSharp = styled(HomeSharp)`
-  & > path {
-    ${mobile({ fontSize: 14 })}
-  }
-`
-const StyledLocalGroceryStore = styled(LocalGroceryStore)`
-  & > path {
-    ${mobile({ fontSize: 14 })}
-  }
+  ${mobile({fontSize: 16,lineHeight: "16px" })}
+  ${smallMobile({ display: "none" })};
 `
 
 export default function Sidebar() {
@@ -88,15 +86,18 @@ export default function Sidebar() {
       </LogoContainer>
       <MainContainer>
         <MainItem onClick={() => history.push("/user")}>
-          <StyledHomeSharp />
+          <HomeSharp />
           <MainItemTitle>Home</MainItemTitle>
         </MainItem>
         <MainItem onClick={() => history.push("/user/orders")}>
-          <StyledLocalGroceryStore />
+          <LocalGroceryStore />
           <MainItemTitle>Orders</MainItemTitle>
+        </MainItem>
+        <MainItem onClick={() => history.push("/user/orders")}>
+          <ExitToAppSharp />
+          <MainItemTitle>Logout</MainItemTitle>
         </MainItem>
       </MainContainer>
     </Container>
   )
 }
-

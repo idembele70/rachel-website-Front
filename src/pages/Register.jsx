@@ -69,8 +69,8 @@ function Register() {
   const [data, setData] = useState({
     name: "",
     lastname: "",
-    username: "",
     email: "",
+    confirmEmail: "",
     password: "",
     confirmPassword: ""
   })
@@ -78,7 +78,7 @@ function Register() {
   const [error, setError] = useState("")
   const handleUpdate = (e) => {
     const { name, value } = e.target
-    setData({ ...data, [name]: value })
+    setData({ ...data, [name]: value.toLowerCase() })
   }
   const dispatch = useDispatch()
   const handleRegister = (e) => {
@@ -106,21 +106,14 @@ function Register() {
               value={data.name}
               onChange={handleUpdate}
               name="name"
-              placeholder={t("name")}
+              placeholder={t("signup.firstname")}
             />
             <Input
               required
               value={data.lastname}
               onChange={handleUpdate}
               name="lastname"
-              placeholder={t("lastname")}
-            />
-            <Input
-              required
-              value={data.username}
-              onChange={handleUpdate}
-              name="username"
-              placeholder={t("username")}
+              placeholder={t("signup.lastname")}
             />
             <Input
               required
@@ -128,7 +121,15 @@ function Register() {
               value={data.email}
               onChange={handleUpdate}
               name="email"
-              placeholder={t("email")}
+              placeholder={t("sign.email")}
+            />
+            <Input
+              required
+              type="email"
+              value={data.confirmEmail}
+              onChange={handleUpdate}
+              name="confirmEmail"
+              placeholder={t("signup.confirmEmail")}
             />
             <Input
               required
@@ -136,7 +137,7 @@ function Register() {
               value={data.password}
               onChange={handleUpdate}
               name="password"
-              placeholder={t("password")}
+              placeholder={t("sign.password")}
             />
             <Input
               required
@@ -144,7 +145,7 @@ function Register() {
               value={data.confirmPassword}
               onChange={handleUpdate}
               name="confirmPassword"
-              placeholder={t("confirmPassword")}
+              placeholder={t("signup.confirmPassword")}
             />
             <Agreement>
               {error && (
