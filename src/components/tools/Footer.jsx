@@ -7,7 +7,7 @@ import {
 } from "@mui/icons-material"
 import React from "react"
 import { useTranslation } from "react-i18next"
-import { mobile } from "responsive"
+import { mobile, smallMobile, tablet } from "responsive"
 import styled from "styled-components"
 
 const Container = styled.div`
@@ -16,11 +16,13 @@ const Container = styled.div`
   justify-content: center;
   max-width: 1440px;
   margin: 0 auto;
+  flex: unset;
   & > div {
     min-width: 300px;
     padding: 20px;
     flex: 1;
     ${mobile({ padding: 10 })};
+    ${smallMobile({minWidth: "calc(95vw - 10px)" ,padding:5 })};
   }
 `
 const Left = styled.div`

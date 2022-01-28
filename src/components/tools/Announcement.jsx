@@ -3,7 +3,8 @@ import React from "react"
 import { useTranslation } from "react-i18next"
 
 const Container = styled.div`
-  height: 30px;
+  width: 100%;
+  flex: 0 0 30px;
   background-color: teal;
   color: white;
   display: flex;

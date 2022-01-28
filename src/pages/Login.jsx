@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { login } from "redux/apiCalls"
 import { mobile } from "responsive"
 import styled from "styled-components"
-import { Link } from "react-router-dom"
+import { Link, useHistory } from "react-router-dom"
 
 const Container = styled.div`
   width: 100vw;
@@ -74,12 +74,16 @@ const Login = () => {
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
   const dispatch = useDispatch()
+  const history = useHistory()
   // @ts-ignore
   const { isFetching, error: stateError } = useSelector((state) => state.user)
   const handleLogin = (e) => {
     e.preventDefault()
     if (stateError) setError(t("signin.errorMessage"))
-    login(dispatch, { email, password })
+    else login(dispatch, { email, password })
+    // @ts-ignore
+    if (history.location.state?.redirect) 
+      history.push("/cart")
   }
 
   return (

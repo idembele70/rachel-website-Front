@@ -21,12 +21,19 @@ import {
 const KEY = process.env.REACT_APP_STRIPE
 
 const Container = styled.div`
+  width: 100%;
   max-width: 1440px;
   margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 `
 const Wrapper = styled.div`
+  flex: 1;
+  min-height: 320px;
   padding: 20px;
   ${mobile({ padding: 10 })};
+  position: relative;
 `
 const Title = styled.h1`
   font-weight: 300;
@@ -78,12 +85,26 @@ const Product = styled.div`
   padding: 5px;
   margin: 5px 0;
 `
-const DeleteSx = {
-  position: "absolute",
-  cursor: "pointer",
-  right: 0,
-  top: 0
-}
+const EmptyCartContainer = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  ${tablet({ margin: "20px 0" })}
+`
+const EmptyCartTitle = styled.h2`
+  ${mobile({ fontSize: 20 })}
+`
+
+const StyledDelete = styled(Delete)`
+  position: absolute;
+  cursor: pointer;
+  right: 0;
+  top: 0;
+`
 const ProductDetail = styled.div`
   flex: 2;
   display: flex;
@@ -169,14 +190,14 @@ const Button = styled.button`
   background-color: black;
   color: white;
   font-weight: 600;
+  cursor: pointer;
 `
 
 export default function Cart() {
   const {
-    products,
-    quantity: cartQte,
-    total
-  } = useSelector((state) => state.cart)
+    cart: { products, quantity: cartQte, total },
+    user: { currentUser }
+  } = useSelector((state) => state)
   const [stripeToken, setStripeToken] = useState(null)
   const { t } = useTranslation()
   const onToken = (token) => setStripeToken(token)
@@ -194,8 +215,7 @@ export default function Cart() {
         console.error("error while posting", error)
       }
     }
-    // eslint-disable-next-line no-unused-expressions
-    stripeToken && total >= 1 && makeRequest()
+    if (stripeToken && total) makeRequest()
   }, [stripeToken, total, history])
   const handleDelete = (data) => {
     dispatch(deleteProduct(data))
@@ -207,146 +227,181 @@ export default function Cart() {
       <Announcement />
       <Wrapper>
         <Title>{t(`cart.title`)}</Title>
-        <Top>
-          <TopButton onClick={() => history.push("/")}>
-            {t("cart.continueShop")}
-          </TopButton>
-          <TopTexts>
-            <TopText>
-              {t("cart.topTexts.bag")}({cartQte})
-            </TopText>
-            <TopText>{t("cart.topTexts.whislist")}(0)</TopText>
-          </TopTexts>
-          <TopButton type="filled">{t("cart.checkout")}</TopButton>
-        </Top>
-        <Bottom>
-          <Info>
-            {products?.map((product) => {
-              const { img, title, _id: id, color, size, qte, price } = product
-              return (
-                <Fragment key={id + size + color}>
-                  <Product>
-                    <Delete
-                      sx={DeleteSx}
-                      onClick={() =>
-                        handleDelete({
-                          id,
-                          totalPrice: price * qte,
-                          size,
-                          color
-                        })
-                      }
-                    />
-                    <ProductDetail>
-                      <Image src={img} alt={title} />
-                      <Details>
-                        <ProductName>
-                          <b>{t("products.cart.product")}: </b>
-                          {title}
-                        </ProductName>
-                        <ProductId>
-                          <b>{t("products.cart.productId")}: </b>
-                          {id}
-                        </ProductId>
-                        <ProductColorContainer>
-                          <b>{t("products.cart.color")}: </b>
-                          <ProductColor color={color} />
-                        </ProductColorContainer>
-                        {(size?.length && size?.includes("") && (
-                          <ProductSize>
-                            <b>{t("products.cart.productSize")}: </b>
-                            {size}
-                          </ProductSize>
-                        )) ||
-                          ""}
-                      </Details>
-                    </ProductDetail>
-                    <PriceDetail>
-                      <ProductAmountContainer>
-                        <Add
-                          onClick={() => {
-                            dispatch(
-                              updateProduct({ id, qte: 1, price, size, color })
-                            )
-                          }}
+        {products?.length ? (
+          <>
+            <Top>
+              <TopButton onClick={() => history.push("/")}>
+                {t("cart.continueShop")}
+              </TopButton>
+              <TopTexts>
+                <TopText>
+                  {t("cart.topTexts.bag")}({cartQte})
+                </TopText>
+                {/* <TopText>{t("cart.topTexts.whislist")}(0)</TopText> */}
+              </TopTexts>
+              <TopButton type="filled">{t("cart.checkout")}</TopButton>
+            </Top>
+            <Bottom>
+              <Info>
+                {products?.map((product) => {
+                  const {
+                    img,
+                    title,
+                    _id: id,
+                    color,
+                    size,
+                    qte,
+                    price
+                  } = product
+                  return (
+                    <Fragment key={id + size + color}>
+                      <Product>
+                        <StyledDelete
+                          onClick={() =>
+                            handleDelete({
+                              id,
+                              totalPrice: price * qte,
+                              size,
+                              color
+                            })
+                          }
                         />
-                        <ProductAmount>{qte}</ProductAmount>
-                        <Remove
-                          onClick={() => {
-                            if (qte > 1)
-                              dispatch(
-                                updateProduct({
-                                  id,
-                                  qte: -1,
-                                  price,
-                                  size,
-                                  color
-                                })
-                              )
-                          }}
-                        />
-                      </ProductAmountContainer>
-                      <ProductPrice>
-                        {price * qte}
-                        {t("products.currency")}
-                      </ProductPrice>
-                    </PriceDetail>
-                  </Product>
-                </Fragment>
-              )
-            })}
-          </Info>
-          <Summary>
-            <SummaryTitle>{t("cart.title")}</SummaryTitle>
-            <SummaryItem>
-              <SummaryItemText>
-                {t("cart.orderSummary.subtotal")}
-              </SummaryItemText>
-              <SummaryItemPrice>
-                {total}
-                {t("products.currency")}
-              </SummaryItemPrice>
-            </SummaryItem>
-            <SummaryItem>
-              <SummaryItemText>
-                {t("cart.orderSummary.shippingPrice")}
-              </SummaryItemText>
-              <SummaryItemPrice>5.90{t("products.currency")}</SummaryItemPrice>
-            </SummaryItem>
-            <SummaryItem>
-              <SummaryItemText>
-                {t("cart.orderSummary.shippingDiscount")}
-              </SummaryItemText>
-              <SummaryItemPrice>-5.90{t("products.currency")}</SummaryItemPrice>
-            </SummaryItem>
-            <SummaryItem type="total">
-              <SummaryItemText>{t("cart.orderSummary.total")}</SummaryItemText>
-              <SummaryItemPrice>
-                {total}
-                {t("products.currency")}
-              </SummaryItemPrice>
-            </SummaryItem>
-            <StripeCheckout
-              name="rachelDembeleCouture"
-              billingAddress
-              shippingAddress
-              description={`${t("cart.description")} ${total}${t(
-                "products.currency"
-              )}`}
-              amount={total * 100}
-              stripeKey={KEY}
-              token={onToken}
-            >
-              <Button
-                onClick={() => {
-                  dispatch(initializeCart())
-                }}
-              >
-                {t("cart.checkout")}
-              </Button>
-            </StripeCheckout>
-          </Summary>
-        </Bottom>
+                        <ProductDetail>
+                          <Image src={img} alt={title} />
+                          <Details>
+                            <ProductName>
+                              <b>{t("products.cart.product")}: </b>
+                              {title}
+                            </ProductName>
+                            <ProductId>
+                              <b>{t("products.cart.productId")}: </b>
+                              {id}
+                            </ProductId>
+                            <ProductColorContainer>
+                              <b>{t("products.cart.color")}: </b>
+                              <ProductColor color={color} />
+                            </ProductColorContainer>
+                            {(size?.length && size?.includes("") && (
+                              <ProductSize>
+                                <b>{t("products.cart.productSize")}: </b>
+                                {size}
+                              </ProductSize>
+                            )) ||
+                              ""}
+                          </Details>
+                        </ProductDetail>
+                        <PriceDetail>
+                          <ProductAmountContainer>
+                            <Add
+                              onClick={() => {
+                                dispatch(
+                                  updateProduct({
+                                    id,
+                                    qte: 1,
+                                    price,
+                                    size,
+                                    color
+                                  })
+                                )
+                              }}
+                            />
+                            <ProductAmount>{qte}</ProductAmount>
+                            <Remove
+                              onClick={() => {
+                                if (qte > 1)
+                                  dispatch(
+                                    updateProduct({
+                                      id,
+                                      qte: -1,
+                                      price,
+                                      size,
+                                      color
+                                    })
+                                  )
+                              }}
+                            />
+                          </ProductAmountContainer>
+                          <ProductPrice>
+                            {price * qte}
+                            {t("products.currency")}
+                          </ProductPrice>
+                        </PriceDetail>
+                      </Product>
+                    </Fragment>
+                  )
+                })}
+              </Info>
+              <Summary>
+                <SummaryTitle>{t("cart.title")}</SummaryTitle>
+                <SummaryItem>
+                  <SummaryItemText>
+                    {t("cart.orderSummary.subtotal")}
+                  </SummaryItemText>
+                  <SummaryItemPrice>
+                    {total}
+                    {t("products.currency")}
+                  </SummaryItemPrice>
+                </SummaryItem>
+                <SummaryItem>
+                  <SummaryItemText>
+                    {t("cart.orderSummary.shippingPrice")}
+                  </SummaryItemText>
+                  <SummaryItemPrice>
+                    5.90{t("products.currency")}
+                  </SummaryItemPrice>
+                </SummaryItem>
+                <SummaryItem>
+                  <SummaryItemText>
+                    {t("cart.orderSummary.shippingDiscount")}
+                  </SummaryItemText>
+                  <SummaryItemPrice>
+                    -5.90{t("products.currency")}
+                  </SummaryItemPrice>
+                </SummaryItem>
+                <SummaryItem type="total">
+                  <SummaryItemText>
+                    {t("cart.orderSummary.total")}
+                  </SummaryItemText>
+                  <SummaryItemPrice>
+                    {total}
+                    {t("products.currency")}
+                  </SummaryItemPrice>
+                </SummaryItem>
+                {Object.keys(currentUser).length ? (
+                  <StripeCheckout
+                  email={currentUser.email}
+                    name="DembeleCouture"
+                    billingAddress
+                    shippingAddress
+                    description={`${t("cart.description")} ${total}${t(
+                      "products.currency"
+                    )}`}
+                    amount={total * 100}
+                    stripeKey={KEY}
+                    token={onToken}
+                  >
+                    <Button>{t("cart.checkout")}</Button>
+                  </StripeCheckout>
+                ) : (
+                  <Button
+                    onClick={() => {
+                      history.push({
+                        pathname: "/register",
+                        state: { redirect: true }
+                      })
+                    }}
+                  >
+                    {t("cart.checkout")}
+                  </Button>
+                )}
+              </Summary>
+            </Bottom>
+          </>
+        ) : (
+          <EmptyCartContainer>
+            <EmptyCartTitle>{t("cart.empty")}</EmptyCartTitle>
+          </EmptyCartContainer>
+        )}
       </Wrapper>
       <Footer />
     </Container>

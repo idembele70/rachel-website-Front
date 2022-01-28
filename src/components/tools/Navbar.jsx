@@ -10,13 +10,14 @@ import { useDispatch, useSelector } from "react-redux"
 import { Link, useHistory } from "react-router-dom"
 import { logout } from "redux/apiCalls"
 import Styled from "styled-components"
-import { mobile, tablet } from "../../responsive"
+import { mobile, smallMobile, tablet } from "../../responsive"
 
 const Container = Styled.div`
-height: 60px;
+flex: 0 0 60px;
+width: 100%;
 max-width: 1440px;
 margin: 0 auto;
-${mobile({ height: 50 })};
+${mobile({ flex: "0 0 50px" })};
 `
 const Wrapper = Styled.div`
 padding: 10px 20px;
@@ -30,6 +31,7 @@ const Left = Styled.div`
   display: flex;
   align-items: center;
   max-width: 130px;
+  ${smallMobile({display:"none"})}
 `
 const Language = Styled.span`
 font-size:14px;
@@ -41,8 +43,8 @@ const SearchContainer = Styled.div`
   display: flex;
   align-items: center;
   margin-left: 25px;
-  ${mobile({ marginLeft: 5 })}
-  padding: 5px
+  ${mobile({ marginLeft: 5 })};
+  padding: 5px;
 `
 
 const Input = Styled.input`

@@ -3,9 +3,10 @@
   "siteLanguage": "FR",
   "announcement": "Super Deal! Free Shipping on Orders Over $50",
   "cart": {
-    "continueShop": "Continuez vos achats",
     "checkout": "PAYER MAINTENANT",
+    "continueShop": "Continuez vos achats",
     "description": "Le prix total est",
+    "empty": "Votre panier est vide !" ,
     "title": "VOTRE PANIER",
     "topTexts": {
       "bag": "Votre panier",
@@ -149,6 +150,7 @@
     "lastname": "Nom",
     "passwordError": "Les mots de passes saisies sont différentes",
     "privacyPolicy": "POLITIQUE DE CONFIDENTIALITÉ",
+    "signin": "Déja un compte ? connectez vous !",
     "title": "CRÉEZ\u00A0UN\u00A0COMPTE"
   },
   "slider": {

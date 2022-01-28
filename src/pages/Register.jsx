@@ -1,8 +1,8 @@
 import Navbar from "components/tools/Navbar"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useDispatch } from "react-redux"
-import { useHistory } from "react-router-dom"
+import { Link, useHistory } from "react-router-dom"
 import { mobile } from "responsive"
 import styled from "styled-components"
 import { register } from "../redux/apiCalls"
@@ -50,6 +50,14 @@ const Agreement = styled.span`
 const InputRadio = styled.input`
   margin-right: 5px;
 `
+const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  & > * {
+    margin: 10px 0;
+  }
+`
+
 const Button = styled.button`
   width: 115px;
   border: none;
@@ -61,6 +69,15 @@ const Button = styled.button`
 
 const Error = styled.span`
   color: red;
+`
+
+const LoginButton = styled.span`
+  cursor: pointer;
+  padding: 5px;
+  &:hover {
+    background: black;
+    color: white;
+  }
 `
 
 function Register() {
@@ -80,6 +97,11 @@ function Register() {
     const { name, value } = e.target
     setData({ ...data, [name]: value.toLowerCase() })
   }
+
+  const handleRedirect = () => {
+    console.log("Register:", history.location.state)
+    history.push({ pathname: "/login", state: { redirect: true } })
+  }
   const dispatch = useDispatch()
   const handleRegister = (e) => {
     e.preventDefault()
@@ -90,7 +112,9 @@ function Register() {
     } else {
       setError("")
       register(dispatch, data)
-      history.push("/login")
+      // @ts-ignore
+      if (history.location.state?.redirect) handleRedirect()
+      else history.push("/login")
     }
   }
 
@@ -162,7 +186,17 @@ function Register() {
               {t("signup.agreement")}
               <b> {t("signup.privacyPolicy")}.</b>
             </Agreement>
-            <Button type="submit">{t("signup.create")}</Button>
+            <ButtonContainer>
+              <Button type="submit">{t("signup.create")}</Button>
+              {
+                // @ts-ignore
+                history.location.state?.redirect && (
+                  <LoginButton onClick={handleRedirect}>
+                    {t("signup.signin")}
+                  </LoginButton>
+                )
+              }
+            </ButtonContainer>
           </Form>
         </Wrapper>
       </Container>
