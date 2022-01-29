@@ -1,12 +1,11 @@
 import {
   CallOutlined,
+  Close,
   HomeOutlined,
   LocationCity,
   MailOutline,
   MarkunreadMailboxOutlined,
-  PermIdentityOutlined,
-  Close,
-  Password
+  PermIdentityOutlined
 } from "@mui/icons-material"
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
@@ -150,7 +149,7 @@ background-color: rgba(0,0,0,0.5);
 display:flex;
 justify-content: center;
 align-items:center;
-z-index:2
+z-index:2;
 `
 
 const Modal = Styled.div`
@@ -160,7 +159,7 @@ height: 150px;
 position: relative;
 background-color:white;
 display:flex;
-flex-direction:column
+flex-direction:column;
 `
 const ModalHeader = Styled.div`
 flex: 0 40px;
@@ -171,7 +170,6 @@ padding: 0 5px;
 border-bottom: 1px solid darkgrey;
 `
 const ModalTitle = Styled.h3`
-
 `
 const CloseModal = Styled(Close)`
 &:hover {
@@ -184,7 +182,7 @@ display:flex;
 flex-direction: column;
 justify-content: space-evenly;
 align-items:center;
-flex:1
+flex:1;
 `
 
 const ModalInput = Styled.input`
@@ -209,7 +207,7 @@ export default function Main() {
     createdAt: ""
   })
   // @ts-ignore
-  const { currentUser } = useSelector((state) => state.user)
+  const { currentUser, isFetching, error } = useSelector((state) => state.user)
   useEffect(() => {
     setInfo(currentUser)
   }, [currentUser])
@@ -235,19 +233,22 @@ export default function Main() {
     setDisabled(!disabled)
   }
 
-  const handleUpdateUser =  () => {
+  const handleUpdateUser = () => {
     const user = Object.entries(currentUser)
-    const newInfo = Object.entries(info)
-    .filter((x,i)=>x[1] !== user[i][1])
+    const newInfo = Object.entries(info).filter((x, i) => x[1] !== user[i][1])
     // @ts-ignore
-    const { _id:id } = currentUser;
-    
-    if (newInfo)
-    updateUser(dispatch, id,{ ...Object.fromEntries(newInfo),password: modalPassword })
-    setModal(false)
-     setModalPassword("")
-  };
-  
+    const { _id: id } = currentUser
+    if (newInfo) {
+      updateUser(dispatch, id, {
+        ...Object.fromEntries(newInfo),
+        password: modalPassword
+      })
+      if (!isFetching && !error) {
+        setModal(false)
+        setModalPassword("")
+      }
+    }
+  }
 
   return (
     <Container>
@@ -263,11 +264,7 @@ export default function Main() {
                 value={modalPassword}
                 onChange={(e) => setModalPassword(e.target.value.toLowerCase())}
               />
-              <ModalButton
-                onClick={handleUpdateUser}
-              >
-                Valider
-              </ModalButton>
+              <ModalButton onClick={handleUpdateUser}>Valider</ModalButton>
             </ModalContent>
           </Modal>
         </ModalContainer>

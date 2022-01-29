@@ -1,13 +1,18 @@
 import Categories from "components/home/categories"
-import Newsletter from "components/tools/Newsletter"
 import Products from "components/home/products"
-import Slider from "components/home/Slider"
+import Announcement from "components/tools/Announcement"
 import Footer from "components/tools/Footer"
 import Navbar from "components/tools/Navbar"
-import React from "react"
-import Announcement from "components/tools/Announcement"
+import Newsletter from "components/tools/Newsletter"
+import React, { useEffect } from "react"
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min"
 
 function Home() {
+  const history = useHistory()
+  useEffect(() => {
+    if (history.location.state?.redirect) history.push("/cart")
+  }, [history])
+
   return (
     <div>
       <Announcement />

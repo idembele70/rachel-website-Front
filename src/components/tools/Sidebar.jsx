@@ -1,7 +1,13 @@
-import { ExitToAppSharp, HomeSharp, LocalGroceryStore } from "@mui/icons-material"
+import {
+  ExitToAppSharp,
+  HomeSharp,
+  LocalGroceryStore
+} from "@mui/icons-material"
 import React from "react"
 import { useTranslation } from "react-i18next"
+import { useDispatch } from "react-redux"
 import { useHistory } from "react-router-dom"
+import { logout } from "redux/apiCalls"
 import { mobile, smallMobile, tablet } from "responsive"
 import styled from "styled-components"
 
@@ -12,11 +18,11 @@ const Container = styled.div`
   min-width: 311px;
   border-right: 2px solid #e5e5e5;
   ${tablet({
-  height: "auto",
-  maxHeight: 74,
-  flexDirection: "row",
-  borderBottom: "2px solid #e5e5e5"
-})};
+    height: "auto",
+    maxHeight: 74,
+    flexDirection: "row",
+    borderBottom: "2px solid #e5e5e5"
+  })};
   ${mobile({ minWidth: "initial" })}
 `
 const LogoContainer = styled.div`
@@ -27,10 +33,10 @@ const LogoContainer = styled.div`
   align-items: center;
   justify-content: center;
   ${tablet({
-  borderBottom: "none",
-  borderRight: "2px solid #e5e5e5",
-  padding: 10
-})}
+    borderBottom: "none",
+    borderRight: "2px solid #e5e5e5",
+    padding: 10
+  })}
   ${mobile({ padding: "0 5px" })}
 `
 const Logo = styled.h1`
@@ -64,21 +70,21 @@ const MainItem = styled.div`
   }
   ${tablet({ padding: 0, flex: 1, justifyContent: "center" })};
   &:not(:last-of-type){
-   ${tablet({borderRight: "2px solid #e5e5e5"})}
+   ${tablet({ borderRight: "2px solid #e5e5e5" })}
   }
 `
 const MainItemTitle = styled.h1`
   margin-left: 10px;
   font-size: 22px;
   font-weight: 500;
-  ${mobile({fontSize: 16,lineHeight: "16px" })}
+  ${mobile({ fontSize: 16, lineHeight: "16px" })}
   ${smallMobile({ display: "none" })};
 `
 
 export default function Sidebar() {
   const { t } = useTranslation()
   const history = useHistory()
-
+  const dispatch = useDispatch()
   return (
     <Container>
       <LogoContainer>
@@ -93,7 +99,7 @@ export default function Sidebar() {
           <LocalGroceryStore />
           <MainItemTitle>Orders</MainItemTitle>
         </MainItem>
-        <MainItem onClick={() => history.push("/user/orders")}>
+        <MainItem onClick={() => logout(dispatch)}>
           <ExitToAppSharp />
           <MainItemTitle>Logout</MainItemTitle>
         </MainItem>

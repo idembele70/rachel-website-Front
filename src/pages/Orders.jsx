@@ -1,4 +1,4 @@
-import Sidebar from "components/tools/user/Sidebar"
+import Sidebar from "components/tools/Sidebar"
 import React from "react"
 import { mobile, tablet } from "responsive"
 import styled from "styled-components"

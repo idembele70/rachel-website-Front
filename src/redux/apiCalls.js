@@ -16,6 +16,7 @@ import {
 // LOGIN START
 export const login = async (dispatch, user) => {
   dispatch(loginStart())
+  console.log(user)
   try {
     const res = await publicRequest.post("/auth/login", user)
     dispatch(loginSuccess(res.data))
@@ -46,13 +47,10 @@ export const register = async (dispatch, user) => {
 }
 // REGISTER ENDPOINT
 // UPDATE USER START
-export const updateUser = async (dispatch,id ,user) => {
+export const updateUser = async (dispatch, id, user) => {
   dispatch(updateUserStart())
-  console.log(id)
-  console.log(user)
   try {
     const { data } = await userRequest.put(`/users/${id}`, user)
-     console.log(data)
     dispatch(updateUserSuccess(data))
   } catch (error) {
     dispatch(updateUserFailure())

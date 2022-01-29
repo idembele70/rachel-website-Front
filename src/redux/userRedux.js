@@ -12,7 +12,11 @@ const userSlice = createSlice({
       Object.assign(state, { isFetching: true })
     },
     loginSuccess: (state, action) => {
-      Object.assign(state, { isFetching: false, currentUser: action.payload, error: false })
+      Object.assign(state, {
+        isFetching: false,
+        currentUser: action.payload,
+        error: false
+      })
     },
     loginFailure: (state) => {
       Object.assign(state, {
@@ -36,7 +40,7 @@ const userSlice = createSlice({
       Object.assign(state, { isFetching: true })
     },
     signUpSuccess: (state) => {
-      Object.assign(state, { isFetching: false })
+      Object.assign(state, { isFetching: false, error: false })
     },
     signUpFailure: (state) => {
       Object.assign(state, {
@@ -45,12 +49,12 @@ const userSlice = createSlice({
       })
     },
     updateUserStart: (state) => {
-      Object.assign(state, { isFetching: true })
+      Object.assign(state, { isFetching: true, error: false })
     },
-    updateUserSuccess: (state, { payload }) => {
+    updateUserSuccess: (state, { payload: { password, ...others } }) => {
       Object.assign(state, {
         isFetching: false,
-        currentUser: { ...state.currentUser, ...payload },
+        currentUser: { ...state.currentUser, ...others },
         error: false
       })
     },

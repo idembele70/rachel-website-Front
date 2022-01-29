@@ -1,7 +1,7 @@
 import Navbar from "components/tools/Navbar"
 import React, { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { Link, useHistory } from "react-router-dom"
 import { mobile } from "responsive"
 import styled from "styled-components"
@@ -84,7 +84,7 @@ function Register() {
   const { t } = useTranslation()
   const history = useHistory()
   const [data, setData] = useState({
-    name: "",
+    firstname: "",
     lastname: "",
     email: "",
     confirmEmail: "",
@@ -93,13 +93,14 @@ function Register() {
   })
   const [consent, setConsent] = useState(false)
   const [error, setError] = useState("")
+  const user = useSelector((state) => state.user)
+
   const handleUpdate = (e) => {
     const { name, value } = e.target
     setData({ ...data, [name]: value.toLowerCase() })
   }
 
   const handleRedirect = () => {
-    console.log("Register:", history.location.state)
     history.push({ pathname: "/login", state: { redirect: true } })
   }
   const dispatch = useDispatch()
@@ -110,11 +111,14 @@ function Register() {
       if (!consent) setError(t("signup.agreementError"))
       else setError(t("signup.passwordError"))
     } else {
+      const { confirmEmail, confirmPassword: ignoredPassword, ...others } = data
       setError("")
-      register(dispatch, data)
+      register(dispatch, others)
       // @ts-ignore
-      if (history.location.state?.redirect) handleRedirect()
-      else history.push("/login")
+      if (!user.isFetching && !user.error) {
+        if (history.location.state?.redirect) handleRedirect()
+        else history.push("/login")
+      }
     }
   }
 
@@ -127,9 +131,9 @@ function Register() {
           <Form onSubmit={handleRegister}>
             <Input
               required
-              value={data.name}
+              value={data.firstname}
               onChange={handleUpdate}
-              name="name"
+              name="firstname"
               placeholder={t("signup.firstname")}
             />
             <Input

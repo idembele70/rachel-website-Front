@@ -1,3 +1,5 @@
+import PrivateRoute from "components/tools/PrivateRoute"
+import SignRoute from "components/tools/SignRoute"
 import Cart from "pages/Cart"
 import Home from "pages/Home"
 import Login from "pages/Login"
@@ -37,15 +39,11 @@ function App() {
           <Route path="/product/:id" exact>
             <ProductPage />
           </Route>
-          <Route path="/login" exact>
-            {Object.keys(user).length ? <Redirect to="/" /> : <Login />}
-          </Route>
-          <Route path="/register" exact>
-            {Object.keys(user).length ? <Redirect to="/" /> : <Register />}
-          </Route>
-          <Route path="/success" component={Success} exact />
-          <Route path="/user" component={User} exact />
-          <Route path="/user/orders" component={Orders} exact />
+          <SignRoute path="/login" component={Login} exact />
+          <SignRoute path="/register" component={Register} exact />
+          <PrivateRoute path="/success" component={Success} exact />
+          <PrivateRoute path="/user" component={User} exact />
+          <PrivateRoute path="/user/orders" component={Orders} exact />
         </Switch>
       </>
     </Router>

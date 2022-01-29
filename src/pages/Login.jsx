@@ -77,13 +77,13 @@ const Login = () => {
   const history = useHistory()
   // @ts-ignore
   const { isFetching, error: stateError } = useSelector((state) => state.user)
-  const handleLogin = (e) => {
+  const handleLog = (e) => {
     e.preventDefault()
     if (stateError) setError(t("signin.errorMessage"))
-    else login(dispatch, { email, password })
-    // @ts-ignore
-    if (history.location.state?.redirect) 
-      history.push("/cart")
+    else {
+      setError("")
+      login(dispatch, { email, password })
+    }
   }
 
   return (
@@ -92,21 +92,24 @@ const Login = () => {
       <Container>
         <Wrapper>
           <Title>{t("signin.title")}</Title>
-          <Form onSubmit={handleLogin}>
+          <Form onSubmit={handleLog}>
             <Input
               required
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(event) => setEmail(event.target.value)}
               placeholder={t("sign.email")}
             />
             <Input
               required
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              // eslint-disable-next-line no-shadow
+              onChange={(event) => setPassword(event.target.value)}
               placeholder={t("sign.password")}
             />
-            <Button type="submit">{t("signin.login")}</Button>
+            <Button disabled={isFetching} type="submit">
+              {t("signin.login")}
+            </Button>
             {error && <Error>{error} </Error>}
             {/*  <Link href="/">{t("signin.forgotPassword")}</Link> */}
             <Link to="/register" style={LinkStyle}>
@@ -118,5 +121,4 @@ const Login = () => {
     </>
   )
 }
-
 export default Login
