@@ -100,10 +100,10 @@ function Register() {
     setData({ ...data, [name]: value.toLowerCase() })
   }
 
-  const handleRedirect = () => {
-    history.push({ pathname: "/login", state: { redirect: true } })
-  }
   const dispatch = useDispatch()
+  const state = {
+    redirectTo: history.location.state?.redirectTo === "cart" ? "cart" : "/"
+  }
   const handleRegister = (e) => {
     e.preventDefault()
     const { password, confirmPassword } = data
@@ -114,11 +114,10 @@ function Register() {
       const { confirmEmail, confirmPassword: ignoredPassword, ...others } = data
       setError("")
       register(dispatch, others)
-      // @ts-ignore
-      if (!user.isFetching && !user.error) {
-        if (history.location.state?.redirect) handleRedirect()
-        else history.push("/login")
-      }
+      history.push({
+        pathname: "/login",
+        state
+      })
     }
   }
 
@@ -192,14 +191,16 @@ function Register() {
             </Agreement>
             <ButtonContainer>
               <Button type="submit">{t("signup.create")}</Button>
-              {
-                // @ts-ignore
-                history.location.state?.redirect && (
-                  <LoginButton onClick={handleRedirect}>
-                    {t("signup.signin")}
-                  </LoginButton>
-                )
-              }
+              <LoginButton
+                onClick={() =>
+                  history.push({
+                    pathname: "/login",
+                    state
+                  })
+                }
+              >
+                {t("signup.signin")}
+              </LoginButton>
             </ButtonContainer>
           </Form>
         </Wrapper>

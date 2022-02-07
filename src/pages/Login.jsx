@@ -2,10 +2,10 @@ import Navbar from "components/tools/Navbar"
 import React, { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
+import { Link } from "react-router-dom"
 import { login } from "redux/apiCalls"
 import { mobile } from "responsive"
 import styled from "styled-components"
-import { Link, useHistory } from "react-router-dom"
 
 const Container = styled.div`
   width: 100vw;
@@ -70,11 +70,16 @@ const LinkStyle = {
 
 const Login = () => {
   const { t } = useTranslation()
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [data, setData] = useState({
+    email: "",
+    password: ""
+  })
   const [error, setError] = useState("")
   const dispatch = useDispatch()
-  const history = useHistory()
+
+  const handleUpdate = (event) =>
+    setData({ ...data, [event.target.name]: event.target.value })
+
   // @ts-ignore
   const { isFetching, error: stateError } = useSelector((state) => state.user)
   const handleLog = (e) => {
@@ -82,7 +87,7 @@ const Login = () => {
     if (stateError) setError(t("signin.errorMessage"))
     else {
       setError("")
-      login(dispatch, { email, password })
+      login(dispatch, data)
     }
   }
 
@@ -95,16 +100,18 @@ const Login = () => {
           <Form onSubmit={handleLog}>
             <Input
               required
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
+              name="email"
+              value={data.email}
+              onChange={handleUpdate}
               placeholder={t("sign.email")}
             />
             <Input
               required
               type="password"
-              value={password}
+              name="password"
+              value={data.password}
               // eslint-disable-next-line no-shadow
-              onChange={(event) => setPassword(event.target.value)}
+              onChange={handleUpdate}
               placeholder={t("sign.password")}
             />
             <Button disabled={isFetching} type="submit">
@@ -112,7 +119,10 @@ const Login = () => {
             </Button>
             {error && <Error>{error} </Error>}
             {/*  <Link href="/">{t("signin.forgotPassword")}</Link> */}
-            <Link to="/register" style={LinkStyle}>
+            <Link
+              to={{ pathname: "register", state: { redirectToCart: true } }}
+              style={LinkStyle}
+            >
               {t("signin.newUser")}
             </Link>
           </Form>

@@ -43,7 +43,7 @@ const InfoContainer = styled.div`
 `
 
 const Title = styled.h1`
-font- weight: 200;
+  font-weight: 200;
 `
 
 const Description = styled.p`
@@ -66,8 +66,8 @@ const Filter = styled.div`
   align-items: center;
 `
 const FilterTitle = styled.span`
-font-size: 20px
-font-weight:200;
+  font-size: 20px;
+  font-weight: 200;
 `
 
 const FilterColor = styled.div`
@@ -75,8 +75,8 @@ const FilterColor = styled.div`
   height: 20px;
   border-radius: 50%;
   border: ${(props) =>
-    // @ts-ignore
-    props.isSelected ? "3px" : "1px"}
+      // @ts-ignore
+      props.isSelected ? "3px" : "1px"}
     solid rgba(59, 75, 147, 0.8);
   background-color: ${(props) =>
     // eslint-disable-next-line react/prop-types
@@ -117,7 +117,7 @@ const Button = styled.button`
   background-color: white;
   cursor: pointer;
   font-weight: 500;
-  &:hover: {
+  &:hover {
     background-color: #f8f4f4;
   }
 `

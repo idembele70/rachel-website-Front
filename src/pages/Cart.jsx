@@ -1,22 +1,18 @@
 /* eslint-disable react/prop-types */
 // @ts-nocheck
-import { Add, Remove, Delete } from "@mui/icons-material"
+import { Add, Delete, Remove } from "@mui/icons-material"
 import Announcement from "components/tools/Announcement"
 import Footer from "components/tools/Footer"
 import Navbar from "components/tools/Navbar"
 import React, { Fragment, useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
-import { mobile, tablet } from "responsive"
-import styled from "styled-components"
+import { useHistory } from "react-router-dom"
 import StripeCheckout from "react-stripe-checkout"
 import { userRequest } from "requestMethods"
-import { useHistory } from "react-router-dom"
-import {
-  initializeCart,
-  updateProduct,
-  deleteProduct
-} from "../redux/cartRedux"
+import { mobile, tablet } from "responsive"
+import styled from "styled-components"
+import { deleteProduct, updateProduct } from "../redux/cartRedux"
 
 const KEY = process.env.REACT_APP_STRIPE
 
@@ -154,6 +150,15 @@ const ProductAmount = styled.div`
   margin: 5px;
   ${mobile({ margin: "5px 15px" })};
 `
+const QuantityButton = styled(({ component, ...props }) =>
+  React.cloneElement(component, props)
+)`
+  cursor: pointer;
+  &:hover {
+    background-color: black;
+    color: white;
+  }
+`
 const ProductPrice = styled.div`
   ${mobile({ marginBottom: 20 })};
   font-size: 30px;
@@ -175,12 +180,11 @@ const SummaryTitle = styled.h1`
   ${mobile({ textAlign: "center" })};
 `
 const SummaryItem = styled.div`
-margin: 30px 0;
-display: flex;
-justify-content: space-between;
-font-weight: ${(props) => props.type === "total" && 500};
-};
-font-size: ${(props) => props.type === "total" && "24px"};
+  margin: 30px 0;
+  display: flex;
+  justify-content: space-between;
+  font-weight: ${(props) => props.type === "total" && 500};
+  font-size: ${(props) => props.type === "total" && "24px"};
 `
 const SummaryItemText = styled.span``
 const SummaryItemPrice = styled.span``
@@ -206,17 +210,45 @@ export default function Cart() {
   useEffect(() => {
     const makeRequest = async () => {
       try {
-        const res = await userRequest.post("/checkout/payment", {
-          tokenId: stripeToken.id,
-          amount: total * 100
-        })
-        history.push("/success", { data: res.data })
+        const { data: stripeData, status } = await userRequest.post(
+          "/checkout/payment/",
+          {
+            tokenId: stripeToken.id,
+            amount: total * 100
+          }
+        )
+        if (status === 200) {
+          const ordersProducts = products.map(({ _id: productId, qte }) => ({
+            productId,
+            quantity: qte
+          }))
+          const cartProducts = products.map(({ title, price, qte }) => ({
+            title,
+            price,
+            qte
+          }))
+          const { _id: id } = currentUser
+          const ORDERSDATA = {
+            userId: id,
+            products: ordersProducts,
+            amount: total,
+            address: stripeData.billing_details.address
+          }
+          const { data: ordersData } = await userRequest.post(
+            `/orders/new/${id}`,
+            ORDERSDATA
+          )
+          history.push({
+            pathname: "/success",
+            state: { stripeData, ordersData, cartProducts }
+          })
+        }
       } catch (error) {
         console.error("error while posting", error)
       }
     }
     if (stripeToken && total) makeRequest()
-  }, [stripeToken, total, history])
+  }, [stripeToken, total, history, currentUser, products])
   const handleDelete = (data) => {
     dispatch(deleteProduct(data))
   }
@@ -292,7 +324,8 @@ export default function Cart() {
                         </ProductDetail>
                         <PriceDetail>
                           <ProductAmountContainer>
-                            <Add
+                            <QuantityButton
+                              component={<Add />}
                               onClick={() => {
                                 dispatch(
                                   updateProduct({
@@ -306,7 +339,8 @@ export default function Cart() {
                               }}
                             />
                             <ProductAmount>{qte}</ProductAmount>
-                            <Remove
+                            <QuantityButton
+                              component={<Remove />}
                               onClick={() => {
                                 if (qte > 1)
                                   dispatch(
@@ -369,8 +403,9 @@ export default function Cart() {
                 </SummaryItem>
                 {Object.keys(currentUser).length ? (
                   <StripeCheckout
-                  email={currentUser.email}
                     name="DembeleCouture"
+                    email
+                    zipCode
                     billingAddress
                     shippingAddress
                     description={`${t("cart.description")} ${total}${t(
@@ -379,6 +414,7 @@ export default function Cart() {
                     amount={total * 100}
                     stripeKey={KEY}
                     token={onToken}
+                    opened={() => console.log("opened")}
                   >
                     <Button>{t("cart.checkout")}</Button>
                   </StripeCheckout>
@@ -387,7 +423,7 @@ export default function Cart() {
                     onClick={() => {
                       history.push({
                         pathname: "/register",
-                        state: { redirect: true }
+                        state: { redirectTo: "cart" }
                       })
                     }}
                   >

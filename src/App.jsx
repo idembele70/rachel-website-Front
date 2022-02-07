@@ -1,3 +1,6 @@
+import { Elements } from "@stripe/react-stripe-js"
+import { loadStripe } from "@stripe/stripe-js"
+import Checkout from "components/tools/Checkout"
 import PrivateRoute from "components/tools/PrivateRoute"
 import SignRoute from "components/tools/SignRoute"
 import Cart from "pages/Cart"
@@ -10,18 +13,13 @@ import Register from "pages/Register"
 import Success from "pages/Success"
 import User from "pages/User"
 import React from "react"
-import { useSelector } from "react-redux"
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect
-} from "react-router-dom"
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import ScrollToTop from "./components/tools/ScrollTopTop"
 
 function App() {
-  // @ts-ignore
-  const { currentUser: user } = useSelector((state) => state.user)
+  const stripePromise = loadStripe(
+    "pk_test_51K5XhZJe4CiZtN4x3NFzwMlSVDYwJ3IzCcoEAoheQYXRzZI02tW3i4bkT3vgHW1f6UvLLiQQYW402Wnw6RZPDJJV00ca5ztRhe"
+  )
   return (
     <Router>
       <>
@@ -39,11 +37,16 @@ function App() {
           <Route path="/product/:id" exact>
             <ProductPage />
           </Route>
-          <SignRoute path="/login" component={Login} exact />
-          <SignRoute path="/register" component={Register} exact />
+          <SignRoute component={Login} path="/login" />
+          <SignRoute component={Register} path="/register" exact />
           <PrivateRoute path="/success" component={Success} exact />
           <PrivateRoute path="/user" component={User} exact />
           <PrivateRoute path="/user/orders" component={Orders} exact />
+          <Route path="/pay" exact>
+            <Elements stripe={stripePromise}>
+              <Checkout />
+            </Elements>
+          </Route>
         </Switch>
       </>
     </Router>

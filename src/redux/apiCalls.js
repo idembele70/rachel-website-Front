@@ -16,7 +16,6 @@ import {
 // LOGIN START
 export const login = async (dispatch, user) => {
   dispatch(loginStart())
-  console.log(user)
   try {
     const res = await publicRequest.post("/auth/login", user)
     dispatch(loginSuccess(res.data))
@@ -29,7 +28,7 @@ export const login = async (dispatch, user) => {
 export const logout = async (dispatch) => {
   dispatch(logoutStart())
   try {
-    dispatch(logoutSuccess())
+    await dispatch(logoutSuccess())
   } catch (error) {
     dispatch(logoutFailure())
   }

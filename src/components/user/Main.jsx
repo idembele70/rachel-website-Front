@@ -9,7 +9,9 @@ import {
 } from "@mui/icons-material"
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import { useHistory } from "react-router-dom"
 import { updateUser } from "redux/apiCalls"
+import { publicRequest, userRequest } from "requestMethods"
 import { mobile } from "responsive"
 import Styled from "styled-components"
 
@@ -208,9 +210,6 @@ export default function Main() {
   })
   // @ts-ignore
   const { currentUser, isFetching, error } = useSelector((state) => state.user)
-  useEffect(() => {
-    setInfo(currentUser)
-  }, [currentUser])
 
   const {
     firstname,
@@ -226,14 +225,19 @@ export default function Main() {
     const { name: inputName, value } = e.target
     setInfo({ ...info, [inputName]: value })
   }
+  useEffect(() => {
+    setInfo(currentUser)
+  }, [currentUser])
+
   const dispatch = useDispatch()
   const [modalPassword, setModalPassword] = useState("")
+  const history = useHistory()
   const handleClick = () => {
     if (!disabled) setModal(true)
     setDisabled(!disabled)
   }
 
-  const handleUpdateUser = () => {
+  const handleUpdateUser = async () => {
     const user = Object.entries(currentUser)
     const newInfo = Object.entries(info).filter((x, i) => x[1] !== user[i][1])
     // @ts-ignore
@@ -257,7 +261,12 @@ export default function Main() {
           <Modal>
             <ModalHeader>
               <ModalTitle>Confirm Your password</ModalTitle>
-              <CloseModal onClick={() => setModal(false)} />
+              <CloseModal
+                onClick={() => {
+                  setModal(false)
+                  setModalPassword("")
+                }}
+              />
             </ModalHeader>
             <ModalContent>
               <ModalInput

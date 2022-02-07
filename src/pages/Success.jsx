@@ -1,9 +1,11 @@
+// @ts-nocheck
 import Announcement from "components/tools/Announcement"
 import Footer from "components/tools/Footer"
 import Navbar from "components/tools/Navbar"
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
-import { mobile, smallMobile, tablet } from "responsive"
+import { useHistory } from "react-router-dom"
+import { smallMobile } from "responsive"
 import styled from "styled-components"
 import { initializeCart } from "../redux/cartRedux"
 
@@ -79,11 +81,36 @@ const ItemTitle = styled.h3`
   word-break: break-word;
 `
 
-const Success = () => {
+export default function Success() {
+  const history = useHistory()
   const dispatch = useDispatch()
+  const [data, setData] = useState({
+    cartProducts : [],
+    ordersData: { id: "" },
+    stripeData: {
+      billing_details: { address: "", name: "", email: "" },
+      payment_method_details: { card: "" },
+      shipping: "",
+      amount: 0
+    },
+    
+  })
   useEffect(() => {
-    dispatch(initializeCart)
-  }, [dispatch])
+    dispatch(initializeCart())
+    // @ts-ignore
+    setData({ ...history.location.state })
+  }, [dispatch, history])
+  console.log(history.location.state)
+  const {
+    stripeData: {
+      billing_details: { address, name, email },
+      payment_method_details: { card },
+      shipping,
+      amount
+    },
+    ordersData: { _id:id },
+    cartProducts
+  } = data
   return (
     <Container>
       <Navbar />
@@ -96,37 +123,35 @@ const Success = () => {
               <RowItem>PRODUCT</RowItem>
               <RowItem>TOTAL</RowItem>
             </ProductRow>
-            <ProductRow>
-              <RowItem isName>e-phonez x5</RowItem>
-              <RowItem>2000€</RowItem>
-            </ProductRow>
-            <ProductRow>
-              <RowItem isName>2021 Watch x1</RowItem>
-              <RowItem>200€</RowItem>
-            </ProductRow>
+            {cartProducts.map((product) => (
+              <ProductRow>
+                <RowItem isName>{product.title}</RowItem>
+                <RowItem>{product.qte * product.price}€</RowItem>
+              </ProductRow>
+            ))}
             <ProductRow>
               <RowItem>Subtotal</RowItem>
-              <RowItem>2200€</RowItem>
+              <RowItem>{amount / 100}€</RowItem>
             </ProductRow>
             <ProductRow>
               <RowItem>Payment Method</RowItem>
-              <RowItem>Credit Card</RowItem>
+              <RowItem>{card.brand}</RowItem>
             </ProductRow>
             <ProductRow>
               <RowItem>Shipping Fee</RowItem>
-              <RowItem>100€</RowItem>
+              <RowItem>{shipping || 0}€</RowItem>
             </ProductRow>
             <ProductRow>
               <RowItem>Total</RowItem>
-              <RowItem>2300€</RowItem>
+              <RowItem>{amount / 100 + +shipping}€</RowItem>
             </ProductRow>
           </ProductContainer>
           <AddressContainer>
             <LeftTitle>Billing Address</LeftTitle>
-            <AddressRow>darrel wilson</AddressRow>
-            <AddressRow>27367 avalon</AddressRow>
-            <AddressRow>chatsworth, CA 91311</AddressRow>
-            <AddressRow>tassadar03x@gmail.com</AddressRow>
+            <AddressRow>{name}</AddressRow>
+            <AddressRow>{address.line1}</AddressRow>
+            <AddressRow>{`${address.postal_code}, ${address.city}, ${address.country}`}</AddressRow>
+            <AddressRow>{email}</AddressRow>
           </AddressContainer>
         </Left>
         <Right>
@@ -155,5 +180,3 @@ const Success = () => {
     </Container>
   )
 }
-
-export default Success

@@ -4,19 +4,13 @@ import { useSelector } from "react-redux"
 import { Redirect, Route } from "react-router-dom"
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
+  // @ts-ignore
   const { currentUser } = useSelector((state) => state.user)
-
-  return (
-    <Route
-      {...rest}
-      render={(props) =>
-        Object.keys(currentUser).length ? (
-          <Component {...props} />
-        ) : (
-          <Redirect to={{ pathname: "/login" }} />
-        )
-      }
-    />
+  const isConnected = Object.keys(currentUser).length
+  return isConnected ? (
+    <Route {...rest} render={(props) => <Component {...props} />} />
+  ) : (
+    <Redirect to={{ pathname: "/login" }} />
   )
 }
 PrivateRoute.propTypes = {

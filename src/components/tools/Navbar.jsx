@@ -1,13 +1,13 @@
 import {
-  ShoppingCartOutlined,
+  PersonOutlined,
   Search,
-  PersonOutlined
+  ShoppingCartOutlined
 } from "@mui/icons-material"
 import { Badge } from "@mui/material"
 import React, { useState } from "react"
 import { useTranslation } from "react-i18next"
 import { useDispatch, useSelector } from "react-redux"
-import { Link, useHistory } from "react-router-dom"
+import { useHistory } from "react-router-dom"
 import { logout } from "redux/apiCalls"
 import Styled from "styled-components"
 import { mobile, smallMobile, tablet } from "../../responsive"
@@ -31,7 +31,7 @@ const Left = Styled.div`
   display: flex;
   align-items: center;
   max-width: 130px;
-  ${smallMobile({display:"none"})}
+  ${smallMobile({ display: "none" })}
 `
 const Language = Styled.span`
 font-size:14px;
@@ -128,7 +128,6 @@ const Navbar = () => {
   const handleRedirect = (to = String()) => history.push(`${to}`)
   const handleLogout = () => {
     logout(dispatch)
-    history.push("/")
   }
   const handleSearch = (e) => {
     history.push(`/products/${search}`)
@@ -138,7 +137,6 @@ const Navbar = () => {
     display: "inline-flex",
     verticalAlign: "middle"
   }
-  // eslint-disable-next-line no-unneeded-ternary
   return (
     <Container>
       <Wrapper>
@@ -168,25 +166,29 @@ const Navbar = () => {
             <PersonOutlined fontSize="medium" sx={PersonOutlinedSx} />
             {Object.keys(currentUser).length
               ? accountInfo && (
-                <MenuInfo onMouseEnter={() => setAccountInfo(true)}>
-                  <MenuInfoItem onClick={() => history.push("/user")}>
-                    {t("navbar.myAccount")}
-                  </MenuInfoItem>
-                  <MenuInfoItem onClick={handleLogout}>
-                    {t("sign.logout")}
-                  </MenuInfoItem>
-                </MenuInfo>
-              )
+                  <MenuInfo onMouseEnter={() => setAccountInfo(true)}>
+                    <MenuInfoItem
+                      onClick={() => {
+                        history.push("/user")
+                      }}
+                    >
+                      {t("navbar.myAccount")}
+                    </MenuInfoItem>
+                    <MenuInfoItem onClick={handleLogout}>
+                      {t("sign.logout")}
+                    </MenuInfoItem>
+                  </MenuInfo>
+                )
               : accountInfo && (
-                <MenuInfo onMouseEnter={() => setAccountInfo(true)}>
-                  <MenuInfoItem onClick={() => handleRedirect("/register")}>
-                    {t("sign.signup")}
-                  </MenuInfoItem>
-                  <MenuInfoItem onClick={() => handleRedirect("/login")}>
-                    {t("sign.login")}
-                  </MenuInfoItem>
-                </MenuInfo>
-              )}
+                  <MenuInfo onMouseEnter={() => setAccountInfo(true)}>
+                    <MenuInfoItem onClick={() => handleRedirect("/register")}>
+                      {t("sign.signup")}
+                    </MenuInfoItem>
+                    <MenuInfoItem onClick={() => handleRedirect("/login")}>
+                      {t("sign.login")}
+                    </MenuInfoItem>
+                  </MenuInfo>
+                )}
           </MenuItem>
           <MenuItem
             // @ts-ignore
